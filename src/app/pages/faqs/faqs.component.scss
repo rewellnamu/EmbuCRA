@@ -1,0 +1,19 @@
+.faqs {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+
+  .faq {
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-size: 1.2rem;
+      color: #004d00;
+    }
+
+    p {
+      margin-top: 0.5rem;
+      color: #333;
+    }
+  }
+}

@@ -1,0 +1,226 @@
+<div class="services-container">
+  <!-- Hero Section -->
+  <section class="services-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Embu County Revenue Services</h1>
+        <p>Comprehensive digital and in-person services for businesses, residents, and visitors. Experience efficient, transparent, and citizen-centered service delivery.</p>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">{{ getTotalServices() }}</span>
+            <span class="stat-label">Total Services</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ getDigitalServices() }}</span>
+            <span class="stat-label">Digital Services</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Online Access</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ getAverageProcessingTime() }}</span>
+            <span class="stat-label">Avg. Processing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Services -->
+  <section class="featured-services" *ngIf="selectedCategory === 'all'">
+    <div class="container">
+      <h2 class="section-title">Featured Services</h2>
+      <div class="featured-grid">
+        <div 
+          class="featured-card" 
+          *ngFor="let service of getFeaturedServices()"
+          (click)="selectService(service)">
+          <div class="card-badge">Popular</div>
+          <div class="service-icon">{{ service.icon }}</div>
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.description }}</p>
+          <div class="service-features">
+            <span class="feature digital" *ngIf="service.digitalAvailable">📱 Digital</span>
+            <span class="feature processing-time">⏱️ {{ service.processingTime }}</span>
+          </div>
+          <div class="service-price">
+            <span *ngIf="service.fees.length > 0">From {{ formatCurrency(service.fees[0].amount) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Categories -->
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Service Categories</h2>
+      <div class="categories-grid">
+        <button 
+          class="category-btn"
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === category.id"
+          (click)="selectCategory(category.id)">
+          <span class="category-icon">{{ category.icon }}</span>
+          <span class="category-name">{{ category.name }}</span>
+          <span class="service-count" *ngIf="category.id !== 'all'">
+            {{ getServicesByCategory(category.id).length }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">
+          {{ selectedCategory === 'all' ? 'All Services' : getCategoryName(selectedCategory) }}
+        </h2>
+        <p class="services-count">{{ getFilteredServices().length }} services available</p>
+      </div>
+
+      <div class="services-grid">
+        <div 
+          class="service-card"
+          *ngFor="let service of getFilteredServices(); trackBy: trackByServiceId"
+          [class.expanded]="selectedService?.id === service.id"
+          (click)="selectService(service)">
+          
+          <div class="card-header">
+            <div class="service-icon">{{ service.icon }}</div>
+            <div class="service-info">
+              <h3>{{ service.name }}</h3>
+              <p class="service-description">{{ service.description }}</p>
+            </div>
+            <div class="service-indicators">
+              <span class="digital-badge" *ngIf="service.digitalAvailable">Digital</span>
+              <span class="expand-arrow" [class.rotated]="selectedService?.id === service.id">▼</span>
+            </div>
+          </div>
+
+          <!-- Expanded Details -->
+          <div class="card-details" *ngIf="selectedService?.id === service.id">
+            <div class="details-grid">
+              <!-- Fees Section -->
+              <div class="detail-section">
+                <h4>Service Fees</h4>
+                <div class="fees-list">
+                  <div class="fee-item" *ngFor="let fee of service.fees">
+                    <span class="fee-description">{{ fee.description }}</span>
+                    <span class="fee-amount">
+                      {{ formatCurrency(fee.amount) }}
+                      <small *ngIf="fee.period">{{ fee.period }}</small>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Requirements Section -->
+              <div class="detail-section">
+                <h4>Required Documents</h4>
+                <div class="requirements-list">
+                  <div 
+                    class="requirement-item" 
+                    *ngFor="let req of service.requirements"
+                    [class.required]="req.required"
+                    [class.optional]="!req.required">
+                    <span class="requirement-icon">{{ req.required ? '✓' : '○' }}</span>
+                    <span class="requirement-text">{{ req.document }}</span>
+                    <span class="requirement-status">{{ req.required ? 'Required' : 'Optional' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Processing Info Section -->
+              <div class="detail-section">
+                <h4>Service Information</h4>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <span class="info-label">Processing Time:</span>
+                    <span class="info-value">{{ service.processingTime }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Digital Available:</span>
+                    <span class="info-value" [class.available]="service.digitalAvailable" [class.unavailable]="!service.digitalAvailable">
+                      {{ service.digitalAvailable ? 'Yes' : 'No' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Locations Section -->
+              <div class="detail-section">
+                <h4>Service Locations</h4>
+                <div class="locations-list">
+                  <div class="location-item" *ngFor="let location of service.location">
+                    <span class="location-icon">📍</span>
+                    <span class="location-name">{{ location }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button class="btn btn-primary" *ngIf="service.digitalAvailable">
+                Apply Online
+              </button>
+              <button class="btn btn-secondary">
+                Download Forms
+              </button>
+              <button class="btn btn-info">
+                Contact Office
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Services CTA -->
+  <section class="digital-cta" *ngIf="selectedCategory === 'all'">
+    <div class="container">
+      <div class="cta-content">
+        <div class="cta-text">
+          <h3>Experience Digital Government Services</h3>
+          <p>Access services 24/7, track your applications, and make payments online through our secure digital platform.</p>
+        </div>
+        <div class="cta-actions">
+          <button class="btn btn-primary btn-large">Access Digital Portal</button>
+          <button class="btn btn-outline btn-large">Download Mobile App</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Help Section -->
+  <section class="help-section">
+    <div class="container">
+      <div class="help-grid">
+        <div class="help-card">
+          <div class="help-icon">📞</div>
+          <h4>Need Assistance?</h4>
+          <p>Contact our customer service team for help with any service.</p>
+          <button class="btn btn-outline">Call Support</button>
+        </div>
+        <div class="help-card">
+          <div class="help-icon">📍</div>
+          <h4>Visit Our Offices</h4>
+          <p>Find the nearest ECRA office for in-person service delivery.</p>
+          <button class="btn btn-outline">Find Location</button>
+        </div>
+        <div class="help-card">
+          <div class="help-icon">💬</div>
+          <h4>Live Chat</h4>
+          <p>Get instant help through our online chat support system.</p>
+          <button class="btn btn-outline">Start Chat</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,18 @@
+<section class="search">
+  <input
+    type="text"
+    [(ngModel)]="query"
+    (input)="onSearch()"
+    placeholder="Search ECRA..."
+  />
+
+  <button (click)="onSearch()">Search</button>
+
+  <ul *ngIf="results.length > 0">
+    <li *ngFor="let result of results" (click)="goToPage(result.path)">
+      {{ result.name }}
+    </li>
+  </ul>
+
+  <p *ngIf="query && results.length === 0">No results found.</p>
+</section>

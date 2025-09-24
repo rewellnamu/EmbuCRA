@@ -1,0 +1,146 @@
+<!-- Hero Section with Background Slideshow -->
+<section class="hero" [ngStyle]="{'background-image': currentBackground}">
+  <div class="hero-content">
+    <h1>Embu County Revenue Authority</h1>
+    <p>Driving development through efficient revenue collection and service delivery.</p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ revenuePerformance.overallPerformance }}%</span>
+        <span class="stat-label">Revenue Performance</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ formatCurrency(revenuePerformance.totalCollected) }}</span>
+        <span class="stat-label">Total Collected ({{ revenuePerformance.previousFY }})</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Highlights Section -->
+<section class="highlights">
+  <div class="container">
+    <h2 class="section-title">Our Key Strengths</h2>
+    <div class="highlights-grid">
+      <div class="card" *ngFor="let item of highlights">
+        <div class="card-icon">{{ item.icon }}</div>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Board of Directors Section -->
+<section class="board-section">
+  <div class="container">
+    <h2 class="section-title">ECRA Board of Directors</h2>
+    <div class="board-grid">
+      <div class="member-card" *ngFor="let member of boardOfDirectors">
+        <div class="member-image">
+          <img [src]="member.image" [alt]="member.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+        </div>
+        <div class="member-info">
+          <h4>{{ member.name }}</h4>
+          <p>{{ member.position }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Management Section -->
+<section class="management-section">
+  <div class="container">
+    <h2 class="section-title">ECRA Management</h2>
+    
+    <!-- Directors -->
+    <div class="management-category">
+      <h3 class="category-title">Directors</h3>
+      <div class="management-grid">
+        <div class="staff-card" *ngFor="let director of management.directors">
+          <div class="staff-image">
+            <img [src]="director.image" [alt]="director.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+          </div>
+          <div class="staff-info">
+            <h4>{{ director.name }}</h4>
+            <p class="position">{{ director.position }}</p>
+            <p class="department">{{ director.department }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deputy Directors -->
+    <div class="management-category">
+      <h3 class="category-title">Deputy Directors</h3>
+      <div class="management-grid">
+        <div class="staff-card" *ngFor="let deputy of management.deputyDirectors">
+          <div class="staff-image">
+            <img [src]="deputy.image" [alt]="deputy.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+          </div>
+          <div class="staff-info">
+            <h4>{{ deputy.name }}</h4>
+            <p class="position">{{ deputy.position }}</p>
+            <p class="department">{{ deputy.department }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue Officers -->
+    <div class="management-category">
+      <h3 class="category-title">Revenue Officers</h3>
+      <div class="management-grid">
+        <div class="staff-card" *ngFor="let officer of management.revenueOfficers">
+          <div class="staff-image">
+            <img [src]="officer.image" [alt]="officer.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+          </div>
+          <div class="staff-info">
+            <h4>{{ officer.name }}</h4>
+            <p class="position">{{ officer.position }}</p>
+            <p class="department">{{ officer.station }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Revenue Performance Section -->
+<section class="performance-section">
+  <div class="container">
+    <h2 class="section-title">Revenue Performance Overview ({{ revenuePerformance.previousFY }})</h2>
+    
+    <div class="performance-summary">
+      <div class="summary-card total">
+        <h3>Overall Performance</h3>
+        <div class="performance-circle">
+          <span class="percentage">{{ revenuePerformance.overallPerformance }}%</span>
+        </div>
+        <p>Target: {{ formatCurrency(revenuePerformance.totalTarget) }}</p>
+        <p>Collected: {{ formatCurrency(revenuePerformance.totalCollected) }}</p>
+      </div>
+    </div>
+
+    <div class="performance-details">
+      <div class="performance-item" *ngFor="let item of revenuePerformance.data">
+        <div class="item-header">
+          <h4>{{ item.category }}</h4>
+          <span class="percentage-badge" [class.high]="item.percentage >= 90" 
+                [class.medium]="item.percentage >= 80 && item.percentage < 90"
+                [class.low]="item.percentage < 80">
+            {{ item.percentage }}%
+          </span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="item.percentage"></div>
+        </div>
+        <div class="item-details">
+          <span>Target: {{ formatCurrency(item.target) }}</span>
+          <span>Collected: {{ formatCurrency(item.collected) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

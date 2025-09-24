@@ -1,0 +1,21 @@
+.streams {
+  padding: 2rem;
+  max-width: 700px;
+  margin: auto;
+
+  h1 {
+    text-align: center;
+    color: #004d00;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+
+    li {
+      padding: 0.8rem;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}

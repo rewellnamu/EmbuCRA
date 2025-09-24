@@ -1,0 +1,8 @@
+<section class="downloads">
+  <h1>Downloads</h1>
+  <ul>
+    <li *ngFor="let f of files">
+      <a [href]="f.link" download>{{ f.name }}</a>
+    </li>
+  </ul>
+</section>

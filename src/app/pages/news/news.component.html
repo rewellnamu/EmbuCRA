@@ -1,0 +1,8 @@
+<section class="news">
+  <h1>Latest News</h1>
+  <div class="card" *ngFor="let n of news">
+    <h2>{{ n.title }}</h2>
+    <p class="date">{{ n.date }}</p>
+    <p>{{ n.desc }}</p>
+  </div>
+</section>

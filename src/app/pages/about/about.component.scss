@@ -1,0 +1,209 @@
+.about {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    
+    h1 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .overview {
+      font-size: 1.2rem;
+      color: #5a6c7d;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .overview-section {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      p {
+        font-size: 1.1rem;
+        color: #495057;
+        line-height: 1.7;
+      }
+    }
+
+    .vision-section {
+      background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      .vision-text {
+        font-size: 1.1rem;
+        color: #2e7d32;
+        line-height: 1.7;
+        font-weight: 500;
+      }
+    }
+
+    .mission-section {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      .mission-text {
+        font-size: 1.1rem;
+        color: #1565c0;
+        line-height: 1.7;
+        font-weight: 500;
+      }
+    }
+
+    .mandate-section {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      .mandate-list {
+        .mandate-item {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 1.5rem;
+          
+          .mandate-number {
+            background: #ff9800;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+          }
+
+          p {
+            font-size: 1rem;
+            color: #e65100;
+            line-height: 1.6;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .values-section {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      .values-intro {
+        font-size: 1.1rem;
+        color: #6a1b9a;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+
+        .value-item {
+          background: rgba(255, 255, 255, 0.8);
+          padding: 1.5rem;
+          border-radius: 8px;
+          text-align: center;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+          }
+
+          .value-icon {
+            background: #8e24aa;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-weight: bold;
+            font-size: 1.2rem;
+          }
+
+          h3 {
+            color: #4a148c;
+            font-size: 1.1rem;
+            margin: 0;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 1rem;
+
+    .header h1 {
+      font-size: 2rem;
+    }
+
+    .content-grid {
+      gap: 1.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .overview-section,
+      .vision-section,
+      .mission-section,
+      .mandate-section,
+      .values-section {
+        padding: 1.5rem;
+      }
+
+      .values-section .values-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+  }
+}

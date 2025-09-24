@@ -1,0 +1,13 @@
+<section class="tenders">
+  <h1>Open Tenders</h1>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Closing Date</th>
+    </tr>
+    <tr *ngFor="let t of tenders">
+      <td>{{ t.title }}</td>
+      <td>{{ t.closing }}</td>
+    </tr>
+  </table>
+</section>

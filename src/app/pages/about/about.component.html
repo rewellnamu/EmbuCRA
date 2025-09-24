@@ -1,0 +1,49 @@
+<section class="about">
+  <div class="header">
+    <h1>About Us</h1>
+    <p class="overview">The Embu County Revenue Authority (ECRA) is mandated to collect and manage revenue to fund essential county services and infrastructure, fostering sustainable development in Embu County.</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- ECRA Overview -->
+    <div class="overview-section">
+      <h2>ECRA Overview</h2>
+      <p>The Embu County Revenue Authority serves as the primary institution responsible for revenue collection and management within Embu County, ensuring compliance with both county and national laws while optimizing financial growth for the county.</p>
+    </div>
+
+    <!-- Vision -->
+    <div class="vision-section">
+      <h2>Our Vision</h2>
+      <p class="vision-text">{{ vision }}</p>
+    </div>
+
+    <!-- Mission -->
+    <div class="mission-section">
+      <h2>Our Mission</h2>
+      <p class="mission-text">{{ mission }}</p>
+    </div>
+
+    <!-- Mandate -->
+    <div class="mandate-section">
+      <h2>Our Mandate</h2>
+      <div class="mandate-list">
+        <div class="mandate-item" *ngFor="let item of mandate; let i = index">
+          <span class="mandate-number">{{ i + 1 }}.</span>
+          <p>{{ item }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Values -->
+    <div class="values-section">
+      <h2>Core Values</h2>
+      <p class="values-intro">To achieve its mission and vision, the authority is committed to the following:</p>
+      <div class="values-grid">
+        <div class="value-item" *ngFor="let value of coreValues">
+          <div class="value-icon">✓</div>
+          <h3>{{ value }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
