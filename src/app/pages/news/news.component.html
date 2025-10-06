@@ -1,8 +1,22 @@
 <section class="news">
-  <h1>Latest News</h1>
-  <div class="card" *ngFor="let n of news">
-    <h2>{{ n.title }}</h2>
-    <p class="date">{{ n.date }}</p>
-    <p>{{ n.desc }}</p>
+  <div class="news-header">
+    <h1>Latest News & Updates</h1>
+    <p class="subtitle">
+      Stay informed with the latest developments and announcements from Embu
+      County Revenue Authority.
+    </p>
+  </div>
+  <div class="news-grid">
+    <div class="news-card" *ngFor="let n of news">
+      <div class="news-date">
+        <span class="day">{{ n.date | date : "dd" }}</span>
+        <span class="month">{{ n.date | date : "MMM" }}</span>
+        <span class="year">{{ n.date | date : "yyyy" }}</span>
+      </div>
+      <div class="news-content">
+        <h2>{{ n.title }}</h2>
+        <p class="desc">{{ n.desc }}</p>
+      </div>
+    </div>
   </div>
 </section>

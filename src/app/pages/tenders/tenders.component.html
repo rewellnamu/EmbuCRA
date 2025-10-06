@@ -1,13 +1,65 @@
 <section class="tenders">
-  <h1>Open Tenders</h1>
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Closing Date</th>
-    </tr>
-    <tr *ngFor="let t of tenders">
-      <td>{{ t.title }}</td>
-      <td>{{ t.closing }}</td>
-    </tr>
-  </table>
+  <div class="tenders-header">
+    <h1>Open Tenders</h1>
+    <p class="subtitle">
+      Browse current procurement opportunities from Embu County Revenue
+      Authority.
+    </p>
+  </div>
+  <div class="tenders-grid">
+    <div class="tender-card" *ngFor="let t of tenders">
+      <div class="tender-info">
+        <h2>{{ t.title }}</h2>
+        <div class="tender-meta">
+          <span class="closing-label">Closing:</span>
+          <span class="closing-date">{{
+            t.closing | date : "dd MMM yyyy"
+          }}</span>
+        </div>
+      </div>
+      <div class="tender-actions">
+        <button class="btn btn-primary" (click)="openTenderDetails(t)">
+          View Details
+        </button>
+        <button class="btn btn-outline" (click)="downloadTenderDocs(t)">
+          Download Docs
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tender Details Modal -->
+  <div
+    class="popup-overlay"
+    *ngIf="selectedTender"
+    (click)="selectedTender = null"
+  >
+    <div class="popup-modal" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        {{ selectedTender.title }}
+        <button
+          class="popup-close"
+          (click)="selectedTender = null"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="popup-body">
+        <p>
+          <strong>Closing Date:</strong>
+          {{ selectedTender.closing | date : "fullDate" }}
+        </p>
+        <!-- Add more tender details here as needed -->
+        <div class="popup-actions">
+          <button
+            class="btn btn-outline"
+            (click)="downloadTenderDocs(selectedTender)"
+          >
+            Download Docs
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
