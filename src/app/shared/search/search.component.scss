@@ -1,15 +1,17 @@
 .search {
+  background-color: #cf9a09;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  margin: 1.5rem 0;
+  gap: 2.5rem;
+  // margin: 1.5rem 0;
+  height: 100px;
 
   input {
     padding: 0.7rem 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
-    width: 300px;
+    width: 200px;
     font-size: 1rem;
 
     &:focus {
@@ -57,3 +59,5 @@
     }
   }
 }
+
+/* Mobile menu */
