@@ -140,27 +140,45 @@
   }
 }
 .department-details {
-  padding: 2rem 0 4rem;
-  background: rgba(0,0,0,0.05);
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  background: rgba(44,62,80,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeInBg 0.3s;
+
   .details-card {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-    overflow: hidden;
-    animation: slideIn 0.5s ease;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 12px 48px rgba(44,62,80,0.25);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    animation: popupIn 0.4s cubic-bezier(.23,1.01,.32,1);
+
     .details-header {
       background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
       color: white;
-      padding: 2rem;
+      padding: 2rem 2.5rem 1.5rem 2.5rem;
       position: relative;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+
       .header-content {
         display: flex;
         align-items: flex-start;
         gap: 1.5rem;
         flex: 1;
+
         .department-icon-large {
           font-size: 4rem;
           background: rgba(255,255,255,0.2);
@@ -170,8 +188,18 @@
         }
         .department-title-section {
           flex: 1;
-          h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 700; }
-          .full-description { font-size: 1.1rem; opacity: 0.9; line-height: 1.6; margin: 0; }
+          h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+          }
+          .full-description {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin: 0;
+          }
         }
       }
       .close-btn {
@@ -182,36 +210,64 @@
         height: 40px;
         border-radius: 50%;
         cursor: pointer;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.3s ease;
-        &:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
+        transition: all 0.2s;
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+
+        &:hover {
+          background: rgba(255,255,255,0.35);
+          color: #764ba2;
+          transform: scale(1.1);
+        }
       }
     }
+
     .details-body {
-      padding: 2rem;
+      padding: 2rem 2.5rem 2.5rem 2.5rem;
+      background: #fff;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      overflow-y: auto;
+
       .revenue-summary {
         display: grid;
         grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
         gap: 1.5rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2.5rem;
         .summary-item {
           background: #f8f9fa;
           padding: 1.5rem;
           border-radius: 12px;
           text-align: center;
           border-left: 4px solid #667eea;
-          .summary-label { display: block; color: #6c757d; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
-          .summary-value { display: block; font-size: 1.5rem; font-weight: 700; color: #2c3e50; }
+          .summary-label {
+            display: block;
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+          }
+          .summary-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+          }
         }
       }
+
       .revenue-streams-section {
         h3 {
           color: #2c3e50;
-          font-size: 1.8rem;
-          margin-bottom: 2rem;
+          font-size: 1.5rem;
+          margin-bottom: 1.5rem;
           font-weight: 600;
           text-align: center;
           position: relative;
@@ -229,27 +285,46 @@
         }
         .streams-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+          gap: 1.2rem;
           .stream-card {
             background: #f8f9fa;
             border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
+            padding: 1.2rem;
+            transition: all 0.2s;
             border-left: 4px solid transparent;
             &:hover {
               background: white;
-              box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+              box-shadow: 0 8px 25px rgba(0,0,0,0.08);
               border-left-color: #667eea;
               transform: translateY(-2px);
             }
-            .stream-header h4 { color: #2c3e50; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-            .stream-body p { color: #6c757d; font-size: 0.9rem; line-height: 1.5; margin: 0; }
+            .stream-header h4 {
+              color: #2c3e50;
+              font-size: 1.1rem;
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+            }
+            .stream-body p {
+              color: #6c757d;
+              font-size: 0.95rem;
+              line-height: 1.5;
+              margin: 0;
+            }
           }
         }
       }
     }
   }
+}
+
+@keyframes popupIn {
+  from { opacity: 0; transform: scale(0.95);}
+  to { opacity: 1; transform: scale(1);}
+}
+@keyframes fadeInBg {
+  from { opacity: 0;}
+  to { opacity: 1;}
 }
 .statistics-section {
   padding: 4rem 0;
@@ -294,10 +369,6 @@
       .stat-label { color: #6c757d; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
     }
   }
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 768px) {
   .container { padding: 0 1rem; }

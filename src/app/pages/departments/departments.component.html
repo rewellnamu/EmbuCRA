@@ -4,12 +4,15 @@
     <div class="container">
       <h1>County Departments & Revenue Streams</h1>
       <p class="header-description">
-        Explore Embu County's departmental structure and their respective revenue collection streams 
-        that fund essential services and development projects.
+        Explore Embu County's departmental structure and their respective
+        revenue collection streams that fund essential services and development
+        projects.
       </p>
       <div class="total-revenue-card">
         <h3>Total County Revenue</h3>
-        <div class="total-amount">{{ formatCurrency(getTotalCountyRevenue()) }}</div>
+        <div class="total-amount">
+          {{ formatCurrency(getTotalCountyRevenue()) }}
+        </div>
         <p>Across {{ departments.length }} departments</p>
       </div>
     </div>
@@ -19,19 +22,24 @@
   <section class="departments-section">
     <div class="container">
       <div class="departments-grid">
-        <div 
-          class="department-card" 
+        <div
+          class="department-card"
           *ngFor="let department of departments; trackBy: trackByDepartmentId"
           [class.active]="selectedDepartment?.id === department.id"
-          (click)="selectDepartment(department)">
-          
+          (click)="selectDepartment(department)"
+        >
           <div class="card-header">
             <div class="department-icon">{{ department.icon }}</div>
             <div class="department-info">
               <h3>{{ department.shortName || department.name }}</h3>
               <div class="revenue-info">
-                <span class="revenue-amount">{{ formatCurrency(department.totalRevenue!) }}</span>
-                <span class="revenue-percentage">{{ getPercentageOfTotal(department.totalRevenue!) }}% of total</span>
+                <span class="revenue-amount">{{
+                  formatCurrency(department.totalRevenue!)
+                }}</span>
+                <span class="revenue-percentage"
+                  >{{ getPercentageOfTotal(department.totalRevenue!) }}% of
+                  total</span
+                >
               </div>
             </div>
           </div>
@@ -39,15 +47,25 @@
           <div class="card-body">
             <p class="department-description">{{ department.description }}</p>
             <div class="revenue-streams-count">
-              <span class="streams-count">{{ department.revenueStreams.length }}</span>
+              <span class="streams-count">{{
+                department.revenueStreams.length
+              }}</span>
               <span class="streams-label">Revenue Streams</span>
             </div>
           </div>
 
           <div class="card-footer">
             <button class="view-details-btn">
-              <span>{{ selectedDepartment?.id === department.id ? 'Hide Details' : 'View Details' }}</span>
-              <i class="arrow" [class.rotate]="selectedDepartment?.id === department.id">▼</i>
+              <span>{{
+                selectedDepartment?.id === department.id
+                  ? "Hide Details"
+                  : "View Details"
+              }}</span>
+              <i
+                class="arrow"
+                [class.rotate]="selectedDepartment?.id === department.id"
+                >▼</i
+              >
             </button>
           </div>
         </div>
@@ -56,55 +74,69 @@
   </section>
 
   <!-- Department Details Modal/Expanded View -->
-  <section class="department-details" *ngIf="selectedDepartment">
-    <div class="container">
-      <div class="details-card">
-        <div class="details-header">
-          <div class="header-content">
-            <div class="department-icon-large">{{ selectedDepartment.icon }}</div>
-            <div class="department-title-section">
-              <h2>{{ selectedDepartment.name }}</h2>
-              <p class="full-description">{{ selectedDepartment.description }}</p>
-            </div>
+  <div
+    class="department-details"
+    *ngIf="selectedDepartment"
+    (click)="closeDetails()"
+  >
+    <div class="details-card" (click)="$event.stopPropagation()">
+      <div class="details-header">
+        <div class="header-content">
+          <div class="department-icon-large">{{ selectedDepartment.icon }}</div>
+          <div class="department-title-section">
+            <h2>{{ selectedDepartment.name }}</h2>
+            <p class="full-description">{{ selectedDepartment.description }}</p>
           </div>
-          <button class="close-btn" (click)="selectDepartment(selectedDepartment)">✕</button>
+        </div>
+        <button class="close-btn" (click)="closeDetails()">✕</button>
+      </div>
+
+      <div class="details-body">
+        <div class="revenue-summary">
+          <div class="summary-item">
+            <span class="summary-label">Total Revenue</span>
+            <span class="summary-value">{{
+              formatCurrency(selectedDepartment.totalRevenue!)
+            }}</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Percentage of County Revenue</span>
+            <span class="summary-value"
+              >{{
+                getPercentageOfTotal(selectedDepartment.totalRevenue!)
+              }}%</span
+            >
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Revenue Streams</span>
+            <span class="summary-value">{{
+              selectedDepartment.revenueStreams.length
+            }}</span>
+          </div>
         </div>
 
-        <div class="details-body">
-          <div class="revenue-summary">
-            <div class="summary-item">
-              <span class="summary-label">Total Revenue</span>
-              <span class="summary-value">{{ formatCurrency(selectedDepartment.totalRevenue!) }}</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Percentage of County Revenue</span>
-              <span class="summary-value">{{ getPercentageOfTotal(selectedDepartment.totalRevenue!) }}%</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Revenue Streams</span>
-              <span class="summary-value">{{ selectedDepartment.revenueStreams.length }}</span>
-            </div>
-          </div>
-
-          <div class="revenue-streams-section">
-            <h3>Revenue Streams</h3>
-            <div class="streams-grid">
-              <div 
-                class="stream-card" 
-                *ngFor="let stream of selectedDepartment.revenueStreams; trackBy: trackByStreamName">
-                <div class="stream-header">
-                  <h4>{{ stream.name }}</h4>
-                </div>
-                <div class="stream-body" *ngIf="stream.description">
-                  <p>{{ stream.description }}</p>
-                </div>
+        <div class="revenue-streams-section">
+          <h3>Revenue Streams</h3>
+          <div class="streams-grid">
+            <div
+              class="stream-card"
+              *ngFor="
+                let stream of selectedDepartment.revenueStreams;
+                trackBy: trackByStreamName
+              "
+            >
+              <div class="stream-header">
+                <h4>{{ stream.name }}</h4>
+              </div>
+              <div class="stream-body" *ngIf="stream.description">
+                <p>{{ stream.description }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Statistics Overview -->
   <section class="statistics-section" *ngIf="!selectedDepartment">
@@ -120,11 +152,15 @@
           <div class="stat-label">Revenue Streams</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">{{ formatCurrency(getAverageRevenue()) }}</div>
+          <div class="stat-number">
+            {{ formatCurrency(getAverageRevenue()) }}
+          </div>
           <div class="stat-label">Average Revenue</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">{{ getTopPerformingDepartment().percentage }}%</div>
+          <div class="stat-number">
+            {{ getTopPerformingDepartment().percentage }}%
+          </div>
           <div class="stat-label">Top Department Share</div>
         </div>
       </div>

@@ -56,29 +56,29 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   boardOfDirectors = [
-    { name: 'Dr. Jane Mwangi', position: 'Chairperson', image: 'assets/images/board-1.jpg' },
-    { name: 'Mr. Peter Kiprotich', position: 'Vice Chairperson', image: 'assets/images/board-2.jpg' },
-    { name: 'Ms. Grace Njeri', position: 'Board Member', image: 'assets/images/board-3.jpg' },
-    { name: 'Mr. David Mutua', position: 'Board Member', image: 'assets/images/board-4.jpg' },
-    { name: 'Mrs. Sarah Wanjiku', position: 'Board Member', image: 'assets/images/board-5.jpg' }
+    { name: 'Dr. Jane Mwangi', position: 'Chairperson', image: 'images/embu-county.webp' },
+    { name: 'Mr. Peter Kiprotich', position: 'Vice Chairperson', image: 'images/embu-county.webp' },
+    { name: 'Ms. Grace Njeri', position: 'Board Member', image: 'images/embu-county.webp' },
+    { name: 'Mr. David Mutua', position: 'Board Member', image: 'images/embu-county.webp' },
+    { name: 'Mrs. Sarah Wanjiku', position: 'Board Member', image: 'images/embu-county.webp' }
   ];
 
   management = {
     directors: [
-      { name: 'Mr. John Kamau', position: 'Director General', department: 'Administration', image: 'assets/images/dg.jpg' },
-      { name: 'Ms. Mary Waithera', position: 'Director', department: 'Revenue Collection', image: 'assets/images/dir-1.jpg' },
-      { name: 'Mr. Paul Mwangi', position: 'Director', department: 'Finance & Administration', image: 'assets/images/dir-2.jpg' }
+      { name: 'Mr. John Kamau', position: 'Director General', department: 'Administration', image: 'images/embu-county.webp' },
+      { name: 'Ms. Mary Waithera', position: 'Director', department: 'Revenue Collection', image: 'images/embu-county.webp' },
+      { name: 'Mr. Paul Mwangi', position: 'Director', department: 'Finance & Administration', image: 'images/embu-county.webp' }
     ],
     deputyDirectors: [
-      { name: 'Mr. James Kariuki', position: 'Deputy Director', department: 'Revenue Operations', image: 'assets/images/dd-1.jpg' },
-      { name: 'Ms. Elizabeth Ndung\'u', position: 'Deputy Director', department: 'ICT & Innovation', image: 'assets/images/dd-2.jpg' },
-      { name: 'Mr. Samuel Githinji', position: 'Deputy Director', department: 'Human Resources', image: 'assets/images/dd-3.jpg' }
+      { name: 'Mr. James Kariuki', position: 'Deputy Director', department: 'Revenue Operations', image: 'images/embu-county.webp' },
+      { name: 'Ms. Elizabeth Ndung\'u', position: 'Deputy Director', department: 'ICT & Innovation', image: 'images/embu-county.webp' },
+      { name: 'Mr. Samuel Githinji', position: 'Deputy Director', department: 'Human Resources', image: 'images/embu-county.webp' }
     ],
     revenueOfficers: [
-      { name: 'Mr. Francis Mburu', position: 'Senior Revenue Officer', station: 'Embu Town', image: 'assets/images/ro-1.jpg' },
-      { name: 'Ms. Lucy Wanjiru', position: 'Revenue Officer', station: 'Runyenjes', image: 'assets/images/ro-2.jpg' },
-      { name: 'Mr. Joseph Njue', position: 'Revenue Officer', station: 'Siakago', image: 'assets/images/ro-3.jpg' },
-      { name: 'Ms. Ann Muthoni', position: 'Revenue Officer', station: 'Mbeere South', image: 'assets/images/ro-4.jpg' }
+      { name: 'Mr. Francis Mburu', position: 'Senior Revenue Officer', station: 'Embu Town', image: 'images/embu-county.webp' },
+      { name: 'Ms. Lucy Wanjiru', position: 'Revenue Officer', station: 'Runyenjes', image: 'images/embu-county.webp' },
+      { name: 'Mr. Joseph Njue', position: 'Revenue Officer', station: 'Siakago', image: 'images/embu-county.webp' },
+      { name: 'Ms. Ann Muthoni', position: 'Revenue Officer', station: 'Mbeere South', image: 'images/embu-county.webp' }
     ]
   };
 

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
   query: string = '';
@@ -23,14 +23,14 @@ export class SearchComponent {
     { name: 'News', path: '/news' },
     { name: 'Tenders', path: '/tenders' },
     { name: 'Downloads', path: '/downloads' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact', path: '/contact' },
   ];
 
   constructor(private router: Router) {}
 
   onSearch() {
     if (this.query.trim()) {
-      this.results = this.pages.filter(page =>
+      this.results = this.pages.filter((page) =>
         page.name.toLowerCase().includes(this.query.toLowerCase())
       );
 
@@ -45,5 +45,7 @@ export class SearchComponent {
 
   goToPage(path: string) {
     this.router.navigate([path]);
+    this.results = [];
+    this.query = '';
   }
 }

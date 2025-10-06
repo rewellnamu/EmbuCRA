@@ -1,18 +1,27 @@
 <section class="search">
-  <input
-    type="text"
-    [(ngModel)]="query"
-    (input)="onSearch()"
-    placeholder="Search ECRA..."
-  />
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="query"
+      (input)="onSearch()"
+      placeholder="Search ECRA..."
+      aria-label="Search"
+    />
+    <button (click)="onSearch()" aria-label="Search">
+      <span class="search-icon">&#128269;</span>
+    </button>
+  </div>
 
-  <button (click)="onSearch()">Search</button>
+  <div class="search-results-card" *ngIf="results.length > 0">
+    <ul>
+      <li *ngFor="let result of results" (click)="goToPage(result.path)">
+        <span class="result-icon">&#10148;</span>
+        <span class="result-text">{{ result.name }}</span>
+      </li>
+    </ul>
+  </div>
 
-  <ul *ngIf="results.length > 0">
-    <li *ngFor="let result of results" (click)="goToPage(result.path)">
-      {{ result.name }}
-    </li>
-  </ul>
-
-  <p *ngIf="query && results.length === 0">No results found.</p>
+  <p class="no-results" *ngIf="query && results.length === 0">
+    No results found.
+  </p>
 </section>
