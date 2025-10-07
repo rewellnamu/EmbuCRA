@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NewsComponent {
   news = [
-    { title: 'New Digital Revenue System Launched', date: '2025-01-20', desc: 'The county introduces a new digital platform to improve revenue collection efficiency.' },
-    { title: 'Public Participation on New Rates', date: '2025-02-10', desc: 'Stakeholders are invited for consultations on revised county rates.' }
+    { title: 'New Digital Revenue System Launched', date: '2025-12-20', desc: 'The county introduces a new digital platform to improve revenue collection efficiency.' },
+    { title: 'Public Participation on New Rates', date: '2025-12-10', desc: 'Stakeholders are invited for consultations on revised county rates.' }
   ];
 }

@@ -3,21 +3,103 @@
   max-width: 700px;
   margin: auto;
 
-  ul {
-    list-style: none;
-    padding: 0;
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
 
-    li {
-      margin: 0.8rem 0;
+  .downloads-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 
-      a {
-        color: #004d00;
-        text-decoration: none;
+  .download-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(44, 62, 80, 0.07);
+    padding: 1.1rem 1.5rem;
+    transition: box-shadow 0.18s, transform 0.18s;
+    border: 1px solid #e9ecef;
 
-        &:hover {
-          text-decoration: underline;
-        }
+    &:hover {
+      box-shadow: 0 8px 32px rgba(44, 62, 80, 0.13);
+      transform: translateY(-2px) scale(1.01);
+      border-color: #667eea;
+    }
+
+    .file-icon {
+      font-size: 2.2rem;
+      color: #667eea;
+      margin-right: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.2rem;
+    }
+
+    .file-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      .file-name {
+        font-size: 1.08rem;
+        font-weight: 600;
+        color: #2c3e50;
       }
+
+      .file-meta {
+        font-size: 0.95rem;
+        color: #6c757d;
+      }
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.18s, box-shadow 0.18s;
+
+      .material-icons {
+        font-size: 1.3rem;
+      }
+
+      &:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        box-shadow: 0 2px 12px rgba(102, 126, 234, 0.13);
+        color: #fff;
+      }
+    }
+  }
+}
+
+/* Material Icons CDN (for demo, add to index.html if not present) */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@media (max-width: 600px) {
+  .downloads {
+    padding: 1rem;
+
+    .download-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 1rem;
     }
   }
 }

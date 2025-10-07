@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <!-- Tender Details Modal -->
+  <!-- Professional Tender Details Modal -->
   <div
     class="popup-overlay"
     *ngIf="selectedTender"
@@ -36,7 +36,7 @@
   >
     <div class="popup-modal" (click)="$event.stopPropagation()">
       <div class="popup-header">
-        {{ selectedTender.title }}
+        <span class="popup-title">{{ selectedTender.title }}</span>
         <button
           class="popup-close"
           (click)="selectedTender = null"

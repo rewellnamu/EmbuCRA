@@ -35,13 +35,37 @@
         }
       }
     }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 1.1rem;
+      font-size: 1.08rem;
+
+      .info-icon {
+        color: #2563eb;
+        font-size: 1.7rem;
+        margin-top: 0.1rem;
+        flex-shrink: 0;
+      }
+
+      a {
+        color: #2563eb;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   .contact-form {
     background: #ffffff;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 
     h2 {
       margin-bottom: 1.5rem;
@@ -82,5 +106,22 @@
         background: #1e40af;
       }
     }
+
+    .form-success {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      color: #22c55e;
+      font-weight: 600;
+      font-size: 1.05rem;
+
+      .material-icons {
+        font-size: 1.5rem;
+      }
+    }
   }
 }
+
+/* Material Icons CDN (for demo, add to index.html if not present) */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');

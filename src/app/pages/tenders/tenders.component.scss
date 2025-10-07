@@ -135,6 +135,89 @@
   }
 }
 
+/* Popup Modal Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(44, 62, 80, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup-modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 48px rgba(44, 62, 80, 0.18);
+  max-width: 420px;
+  width: 90vw;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  animation: popupIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes popupIn {
+  from { transform: translateY(40px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 0.7rem;
+}
+
+.popup-title {
+  flex: 1;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.popup-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #667eea;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.2rem;
+  transition: color 0.18s;
+  margin-left: 0.5rem;
+
+  &:hover {
+    color: #764ba2;
+  }
+}
+
+.popup-body {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-top: 0.5rem;
+}
+
+.popup-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
 @media (max-width: 600px) {
   .tenders {
     padding: 1.2rem 0 2rem 0;

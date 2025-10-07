@@ -3,32 +3,68 @@
     <!-- Left side: contact info -->
     <div class="contact-info">
       <h1>Contact Us</h1>
-      <p>
-        <strong>Phone:</strong>
-        <a href="tel:0718500767">{{ contacts.phone }}</a>
-      </p>
-      <p>
-        <strong>Email:</strong>
-        <a href="mailto:ecra@embu.go.ke">{{ contacts.email }}</a>
-      </p>
-      <p>
-        <strong>Address:</strong> {{ contacts.address }}
-      </p>
+      <div class="info-item">
+        <span class="material-icons info-icon">phone</span>
+        <span>
+          <strong>Phone:</strong>
+          <a href="tel:0718500767">{{ contacts.phone }}</a>
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="material-icons info-icon">email</span>
+        <span>
+          <strong>Email:</strong>
+          <a href="mailto:ecra@embu.go.ke">{{ contacts.email }}</a>
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="material-icons info-icon">location_on</span>
+        <span> <strong>Address:</strong> {{ contacts.address }} </span>
+      </div>
     </div>
 
     <!-- Right side: contact form -->
-    <form class="contact-form">
+    <form
+      class="contact-form"
+      (ngSubmit)="onSubmit()"
+      #contactForm="ngForm"
+      autocomplete="off"
+    >
       <h2>Send Us a Message</h2>
       <div class="form-group">
-        <input type="text" placeholder="Your Name" required />
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+          [(ngModel)]="form.name"
+        />
       </div>
       <div class="form-group">
-        <input type="email" placeholder="Your Email" required />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+          [(ngModel)]="form.email"
+        />
       </div>
       <div class="form-group">
-        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          rows="5"
+          required
+          [(ngModel)]="form.message"
+        ></textarea>
       </div>
-      <button type="submit">Send Message</button>
+      <button type="submit" [disabled]="contactForm.invalid">
+        Send Message
+      </button>
+      <div class="form-success" *ngIf="successMessage">
+        <span class="material-icons">check_circle</span>
+        {{ successMessage }}
+      </div>
     </form>
   </div>
 </section>
