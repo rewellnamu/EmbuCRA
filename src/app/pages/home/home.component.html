@@ -1,17 +1,31 @@
 <!-- Hero Section with Background Slideshow -->
-<section class="hero" [ngStyle]="{'background-image': currentBackground}">
+<section class="hero">
+  <div
+    class="hero-bg-transition"
+    [ngStyle]="{ 'background-image': currentBackground }"
+    [class.fade]="bgFading"
+  ></div>
   <div class="hero-content">
     <h1>Embu County Revenue Authority</h1>
-    <p>Driving development through efficient revenue collection and service delivery.</p>
+    <p>
+      Driving development through efficient revenue collection and service
+      delivery.
+    </p>
 
     <div class="hero-stats">
       <div class="stat-item">
-        <span class="stat-number">{{ revenuePerformance.overallPerformance }}%</span>
+        <span class="stat-number"
+          >{{ revenuePerformance.overallPerformance }}%</span
+        >
         <span class="stat-label">Revenue Performance</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">{{ formatCurrency(revenuePerformance.totalCollected) }}</span>
-        <span class="stat-label">Total Collected ({{ revenuePerformance.previousFY }})</span>
+        <span class="stat-number">{{
+          formatCurrency(revenuePerformance.totalCollected)
+        }}</span>
+        <span class="stat-label"
+          >Total Collected ({{ revenuePerformance.previousFY }})</span
+        >
       </div>
     </div>
   </div>
@@ -38,7 +52,12 @@
     <div class="board-grid">
       <div class="member-card" *ngFor="let member of boardOfDirectors">
         <div class="member-image">
-          <img [src]="member.image" [alt]="member.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+          <img
+            class="profile-img"
+            [src]="member.image"
+            [alt]="member.name"
+            onerror="this.src='assets/images/placeholder-avatar.png'"
+          />
         </div>
         <div class="member-info">
           <h4>{{ member.name }}</h4>
@@ -53,14 +72,19 @@
 <section class="management-section">
   <div class="container">
     <h2 class="section-title">ECRA Management</h2>
-    
+
     <!-- Directors -->
     <div class="management-category">
       <h3 class="category-title">Directors</h3>
       <div class="management-grid">
         <div class="staff-card" *ngFor="let director of management.directors">
           <div class="staff-image">
-            <img [src]="director.image" [alt]="director.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+            <img
+              class="profile-img"
+              [src]="director.image"
+              [alt]="director.name"
+              onerror="this.src='assets/images/placeholder-avatar.png'"
+            />
           </div>
           <div class="staff-info">
             <h4>{{ director.name }}</h4>
@@ -75,9 +99,17 @@
     <div class="management-category">
       <h3 class="category-title">Deputy Directors</h3>
       <div class="management-grid">
-        <div class="staff-card" *ngFor="let deputy of management.deputyDirectors">
+        <div
+          class="staff-card"
+          *ngFor="let deputy of management.deputyDirectors"
+        >
           <div class="staff-image">
-            <img [src]="deputy.image" [alt]="deputy.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+            <img
+              class="profile-img"
+              [src]="deputy.image"
+              [alt]="deputy.name"
+              onerror="this.src='assets/images/placeholder-avatar.png'"
+            />
           </div>
           <div class="staff-info">
             <h4>{{ deputy.name }}</h4>
@@ -92,9 +124,17 @@
     <div class="management-category">
       <h3 class="category-title">Revenue Officers</h3>
       <div class="management-grid">
-        <div class="staff-card" *ngFor="let officer of management.revenueOfficers">
+        <div
+          class="staff-card"
+          *ngFor="let officer of management.revenueOfficers"
+        >
           <div class="staff-image">
-            <img [src]="officer.image" [alt]="officer.name" onerror="this.src='assets/images/placeholder-avatar.png'">
+            <img
+              class="profile-img"
+              [src]="officer.image"
+              [alt]="officer.name"
+              onerror="this.src='assets/images/placeholder-avatar.png'"
+            />
           </div>
           <div class="staff-info">
             <h4>{{ officer.name }}</h4>
@@ -110,26 +150,38 @@
 <!-- Revenue Performance Section -->
 <section class="performance-section">
   <div class="container">
-    <h2 class="section-title">Revenue Performance Overview ({{ revenuePerformance.previousFY }})</h2>
-    
+    <h2 class="section-title">
+      Revenue Performance Overview ({{ revenuePerformance.previousFY }})
+    </h2>
+
     <div class="performance-summary">
       <div class="summary-card total">
         <h3>Overall Performance</h3>
         <div class="performance-circle">
-          <span class="percentage">{{ revenuePerformance.overallPerformance }}%</span>
+          <span class="percentage"
+            >{{ revenuePerformance.overallPerformance }}%</span
+          >
         </div>
         <p>Target: {{ formatCurrency(revenuePerformance.totalTarget) }}</p>
-        <p>Collected: {{ formatCurrency(revenuePerformance.totalCollected) }}</p>
+        <p>
+          Collected: {{ formatCurrency(revenuePerformance.totalCollected) }}
+        </p>
       </div>
     </div>
 
     <div class="performance-details">
-      <div class="performance-item" *ngFor="let item of revenuePerformance.data">
+      <div
+        class="performance-item"
+        *ngFor="let item of revenuePerformance.data"
+      >
         <div class="item-header">
           <h4>{{ item.category }}</h4>
-          <span class="percentage-badge" [class.high]="item.percentage >= 90" 
-                [class.medium]="item.percentage >= 80 && item.percentage < 90"
-                [class.low]="item.percentage < 80">
+          <span
+            class="percentage-badge"
+            [class.high]="item.percentage >= 90"
+            [class.medium]="item.percentage >= 80 && item.percentage < 90"
+            [class.low]="item.percentage < 80"
+          >
             {{ item.percentage }}%
           </span>
         </div>

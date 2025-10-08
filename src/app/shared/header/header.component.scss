@@ -37,16 +37,26 @@
   .nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.1rem;
 
     a {
       color: white;
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.3s;
+      padding: 0.22rem 0.7rem;
+      border-radius: 4px;
+      font-size: 0.97rem;
+      background: rgba(255, 255, 255, 0.08); // subtle background
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: 
+        color 0.3s,
+        background 0.3s,
+        box-shadow 0.2s;
 
       &:hover {
-        color: #ffdd57;
+        color: #004d00;
+        background: #ffdd57;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
       }
     }
   }
