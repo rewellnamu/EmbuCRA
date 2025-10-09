@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       name: 'Dr. Jane Mwangi',
       position: 'Chairperson',
-      image: 'images/embu-county.webp',
+      image: 'images/99 - Copy.gif',
     },
     {
       name: 'Mr. Peter Kiprotich',
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       name: 'Ms. Grace Njeri',
       position: 'Board Member',
-      image: 'images/embu-county.webp',
+      image: 'images/flag.jpg',
     },
     {
       name: 'Mr. David Mutua',
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       name: 'Mrs. Sarah Wanjiku',
       position: 'Board Member',
-      image: 'images/embu-county.webp',
+      image: 'images/99 - Copy.gif',
     },
   ];
 
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Mr. John Kamau',
         position: 'Director General',
         department: 'Administration',
-        image: 'images/embu-county.webp',
+        image: 'images/99 - Copy.gif',
       },
       {
         name: 'Ms. Mary Waithera',
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Mr. Paul Mwangi',
         position: 'Director',
         department: 'Finance & Administration',
-        image: 'images/embu-county.webp',
+        image: 'images/flag.jpg',
       },
     ],
     deputyDirectors: [
@@ -119,13 +119,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Mr. James Kariuki',
         position: 'Deputy Director',
         department: 'Revenue Operations',
-        image: 'images/embu-county.webp',
+        image: 'images/99 - Copy.gif',
       },
       {
         name: "Ms. Elizabeth Ndung'u",
         position: 'Deputy Director',
         department: 'ICT & Innovation',
-        image: 'images/embu-county.webp',
+        image: 'images/flag.jpg',
       },
       {
         name: 'Mr. Samuel Githinji',
@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Ms. Lucy Wanjiru',
         position: 'Revenue Officer',
         station: 'Runyenjes',
-        image: 'images/embu-county.webp',
+        image: 'images/flag.jpg',
       },
       {
         name: 'Mr. Joseph Njue',
@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Ms. Ann Muthoni',
         position: 'Revenue Officer',
         station: 'Mbeere South',
-        image: 'images/embu-county.webp',
+        image: 'images/flag.jpg',
       },
     ],
   };
