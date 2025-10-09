@@ -166,13 +166,13 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-              <button class="btn btn-primary" *ngIf="service.digitalAvailable">
+              <button class="btn btn-primary" *ngIf="service.digitalAvailable" routerLink="/contact">
                 Apply Online
               </button>
-              <button class="btn btn-secondary">
+              <button class="btn btn-secondary" routerLink="/contact">
                 Download Forms
               </button>
-              <button class="btn btn-info">
+              <button class="btn btn-info" routerLink="/contact">
                 Contact Office
               </button>
             </div>
