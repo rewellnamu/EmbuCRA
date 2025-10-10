@@ -1,0 +1,139 @@
+<div class="chatbot-wrapper">
+  <!-- Floating Chat Button -->
+  <button 
+    class="chat-toggle-btn"
+    [class.active]="isOpen"
+    (click)="toggleChat()"
+    aria-label="Toggle chat">
+    
+    <!-- Chat Icon -->
+    <svg *ngIf="!isOpen" 
+         class="icon" 
+         xmlns="http://www.w3.org/2000/svg" 
+         viewBox="0 0 24 24" 
+         fill="none" 
+         stroke="currentColor" 
+         stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      <line x1="9" y1="10" x2="15" y2="10"/>
+      <line x1="9" y1="14" x2="13" y2="14"/>
+    </svg>
+
+    <!-- Close Icon -->
+    <svg *ngIf="isOpen" 
+         class="icon" 
+         xmlns="http://www.w3.org/2000/svg" 
+         viewBox="0 0 24 24" 
+         fill="none" 
+         stroke="currentColor" 
+         stroke-width="2">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+
+    <!-- Notification Badge -->
+    <span *ngIf="unreadCount > 0 && !isOpen" class="notification-badge">
+      {{ unreadCount }}
+    </span>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="chat-window" [class.open]="isOpen">
+    
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="header-info">
+          <h3 class="title">Embu Revenue Authority</h3>
+          <div class="status">
+            <span class="status-indicator"></span>
+            <span class="status-text">Online</span>
+          </div>
+        </div>
+      </div>
+      <button class="minimize-btn" (click)="toggleChat()" aria-label="Minimize chat">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="18 15 12 9 6 15"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="chat-body" #messagesContainer>
+      <div class="messages-list">
+        
+        <!-- Individual Messages -->
+        <div *ngFor="let message of messages" 
+             class="message-wrapper"
+             [class.user-message]="!message.isBot"
+             [class.bot-message]="message.isBot">
+          
+          <div class="message-bubble">
+            <div class="message-content" [innerHTML]="message.text | textToHtml"></div>
+            <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+          </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div *ngIf="isTyping" class="message-wrapper bot-message typing-wrapper">
+          <div class="message-bubble typing-bubble">
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div *ngIf="showQuickActions && currentQuickActions.length > 0 && !isTyping" 
+             class="quick-actions-container">
+          <button *ngFor="let action of currentQuickActions"
+                  class="quick-action-btn"
+                  (click)="selectQuickAction(action)">
+            <span class="action-icon">{{ action.icon }}</span>
+            <span class="action-label">{{ action.label }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-footer">
+      <div class="input-container">
+        <input 
+          type="text"
+          class="chat-input"
+          [(ngModel)]="userInput"
+          (keydown)="handleKeyPress($event)"
+          [disabled]="isTyping"
+          placeholder="Type your message..."
+          autocomplete="off">
+        
+        <button 
+          class="send-btn"
+          (click)="sendMessage()"
+          [disabled]="!userInput.trim() || isTyping"
+          aria-label="Send message">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="footer-note">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>Your data is secure and confidential</span>
+      </div>
+    </div>
+
+  </div>
+</div>
