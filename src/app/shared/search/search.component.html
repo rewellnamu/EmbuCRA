@@ -1,4 +1,16 @@
 <section class="search">
+  <!-- Scrolling Text Animation -->
+  <div class="scrolling-text-container">
+    <div class="scrolling-text">
+      <span>Kulipa Ushuru ni Kujitegemea</span>
+      <span>Kulipa Ushuru ni Kujitegemea</span>
+      <span>Kulipa Ushuru ni Kujitegemea</span>
+      <span>Kulipa Ushuru ni Kujitegemea</span>
+      <span>Kulipa Ushuru ni Kujitegemea</span>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
   <div class="search-bar">
     <input
       type="text"
@@ -11,7 +23,8 @@
       <span class="search-icon">&#128269;</span>
     </button>
   </div>
-
+  
+  <!-- Search Results -->
   <div class="search-results-card" *ngIf="results.length > 0">
     <ul>
       <li *ngFor="let result of results" (click)="goToPage(result.path)">
@@ -20,7 +33,8 @@
       </li>
     </ul>
   </div>
-
+  
+  <!-- No Results Message -->
   <p class="no-results" *ngIf="query && results.length === 0">
     No results found.
   </p>
