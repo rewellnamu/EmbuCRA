@@ -4,13 +4,57 @@
   background: #0acddb;
   color: white;
 
-  nav a {
-    color: #aaffaa;
-    margin: 0 0.5rem;
-    text-decoration: none;
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1rem; /* vertical and horizontal spacing */
+    
+    a {
+      color: #aaffaa;
+      text-decoration: none;
+      white-space: nowrap; /* prevents individual links from breaking */
+      font-size: 0.9rem;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* Mobile devices */
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    
+    nav {
+      flex-direction: column;
+      gap: 0.75rem;
+      
+      a {
+        font-size: 0.85rem;
+        padding: 0.25rem 0;
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  /* Tablet devices */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    nav {
+      gap: 0.4rem 0.8rem;
+      
+      a {
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  /* Small mobile devices */
+  @media (max-width: 480px) {
+    nav a {
+      font-size: 0.8rem;
     }
   }
 }

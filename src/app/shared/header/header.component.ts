@@ -10,17 +10,13 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  openDropdown: string | null = null;
+  isMenuOpen = false;
 
-  toggleDropdown(dropdownName: string): void {
-    this.openDropdown = this.openDropdown === dropdownName ? null : dropdownName;
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
-  closeDropdown(): void {
-    this.openDropdown = null;
-  }
-
-  isDropdownOpen(dropdownName: string): boolean {
-    return this.openDropdown === dropdownName;
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 }

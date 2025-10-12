@@ -31,7 +31,7 @@ export class DepartmentsComponent {
     {
       id: 'finance',
       name: 'Finance & Economic Planning (ECRA)',
-      shortName: 'Finance & Planning',
+      shortName: 'Finance & Economic Planning (ECRA)',
       icon: '💰',
       description:
         'Responsible for financial planning, budgeting, and various revenue collection activities including market operations and business permits.',
@@ -62,30 +62,11 @@ export class DepartmentsComponent {
           description: 'Technical services and consultations',
         },
         { name: 'Audit Fee', description: 'Audit and compliance services' },
+        { name: 'Public Health (Sub County)', description: 'Public health fees' },
       ],
     },
-    {
-      id: 'public-health',
-      name: 'Public Health (Sub County)',
-      shortName: 'Public Health',
-      icon: '🏥',
-      description:
-        'Manages public health services, inspections, and health-related revenue collection at sub-county level.',
-      revenueStreams: [
-        {
-          name: 'Health Inspections',
-          description: 'Food premises and public health inspections',
-        },
-        {
-          name: 'Health Certificates',
-          description: 'Health certificates and clearances',
-        },
-        {
-          name: 'Public Health Services',
-          description: 'Various public health service fees',
-        },
-      ],
-    },
+    
+      
     {
       id: 'trade-tourism',
       name: 'Trade, Tourism, Investment and Industrialization',
@@ -105,7 +86,7 @@ export class DepartmentsComponent {
     {
       id: 'lands-housing',
       name: 'Lands, Housing, Physical Planning and Urban Development',
-      shortName: 'Lands & Housing',
+      shortName: 'Lands, Housing, Physical Planning and Urban Development',
       icon: '🏘️',
       description:
         'Handles land administration, housing, physical planning and urban development revenue.',
@@ -121,7 +102,7 @@ export class DepartmentsComponent {
     {
       id: 'administration',
       name: 'Administration, Public Service & ICT',
-      shortName: 'Administration & ICT',
+      shortName: 'Administration, Public Service & ICT',
       icon: '⚙️',
       description:
         'Manages administrative services, public service delivery and ICT infrastructure.',
@@ -135,7 +116,7 @@ export class DepartmentsComponent {
     {
       id: 'roads-transport',
       name: 'Roads, Transport & Public Works',
-      shortName: 'Roads & Transport',
+      shortName: 'Roads, Transport & Public Works',
       icon: '🚧',
       description:
         'Responsible for road infrastructure, transport services and public works projects.',
@@ -146,7 +127,7 @@ export class DepartmentsComponent {
     {
       id: 'youth-gender',
       name: 'Youth, Gender, Sports, Culture & Social Services',
-      shortName: 'Youth & Sports',
+      shortName: 'Youth, Gender, Sports, Culture & Social Services',
       icon: '🏃',
       description:
         'Promotes youth development, gender equality, sports, culture and social services.',
@@ -178,7 +159,7 @@ export class DepartmentsComponent {
     {
       id: 'agriculture',
       name: 'Agriculture, Livestock & Co-operative Development',
-      shortName: 'Agriculture',
+      shortName: 'Agriculture, Livestock & Co- Operative Development',
       icon: '🌾',
       description:
         'Supports agricultural development, livestock management and cooperative societies.',
@@ -208,7 +189,7 @@ export class DepartmentsComponent {
     {
       id: 'water-environment',
       name: 'Water, Irrigation, Environment, Climate Change & Natural Resources',
-      shortName: 'Water & Environment',
+      shortName: 'Water, Irrigation, Environment, Climate Change & Natural Resources',
       icon: '💧',
       description:
         'Manages water resources, irrigation, environmental conservation and climate change initiatives.',
