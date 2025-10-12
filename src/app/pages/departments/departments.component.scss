@@ -1,6 +1,8 @@
 .departments-container {
   min-height: 100vh;
   background: linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);
+
+  @media (max-width: 768px) { padding: 2rem 0; }
 }
 .container {
   max-width: 1200px;
