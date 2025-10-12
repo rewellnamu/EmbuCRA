@@ -6,85 +6,135 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
 }
 
 .departments-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 4rem 0;
+  padding: 2rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
-
+  
+  @media (min-width: 768px) {
+    padding: 3rem 0;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 4rem 0;
+  }
+  
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
   }
-
+  
   .container {
     position: relative;
     z-index: 1;
   }
-
+  
   h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    margin-bottom: 0.75rem;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    line-height: 1.2;
+    padding: 0 1rem;
+    
+    @media (min-width: 768px) {
+      margin-bottom: 1rem;
+      padding: 0;
+    }
   }
-
+  
   .header-description {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    margin-bottom: 1.5rem;
     opacity: 0.9;
     line-height: 1.6;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 1rem;
+    
+    @media (min-width: 768px) {
+      margin-bottom: 2rem;
+      padding: 0;
+    }
   }
-
+  
   .total-revenue-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.25rem;
     display: inline-block;
     margin-top: 1rem;
-
+    width: calc(100% - 2rem);
+    max-width: 400px;
+    
+    @media (min-width: 768px) {
+      border-radius: 20px;
+      padding: 2rem;
+      width: auto;
+    }
+    
     h3 {
       margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 2vw, 1.2rem);
       opacity: 0.9;
     }
-
+    
     .total-amount {
-      font-size: 2.5rem;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
       font-weight: 800;
       color: #ffd700;
       margin-bottom: 0.5rem;
+      word-break: break-all;
     }
-
+    
     p {
       margin: 0;
       opacity: 0.8;
+      font-size: clamp(0.875rem, 2vw, 1rem);
     }
   }
 }
 
 .departments-section {
-  padding: 4rem 0;
-
+  padding: 2rem 0;
+  
+  @media (min-width: 768px) {
+    padding: 3rem 0;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 4rem 0;
+  }
+  
   .departments-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
   }
-
+  
   .department-card {
     background: white;
     border-radius: 16px;
@@ -93,105 +143,125 @@
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid transparent;
-
+    
     &:hover {
       transform: translateY(-8px);
       box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
     }
-
+    
     &.active {
       border-color: #667eea;
       box-shadow: 0 16px 48px rgba(102, 126, 234, 0.3);
       transform: translateY(-4px);
     }
-
+    
     .card-header {
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      padding: 1.5rem;
+      padding: 1.25rem;
       display: flex;
       align-items: center;
       gap: 1rem;
-
+      
+      @media (min-width: 768px) {
+        padding: 1.5rem;
+      }
+      
       .department-icon {
-        font-size: 3rem;
+        font-size: clamp(2rem, 5vw, 3rem);
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 1rem;
+        padding: 0.75rem;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 60px;
-        min-height: 60px;
+        min-width: 50px;
+        min-height: 50px;
         flex-shrink: 0;
+        
+        @media (min-width: 768px) {
+          padding: 1rem;
+          min-width: 60px;
+          min-height: 60px;
+        }
       }
-
+      
       .department-info {
         flex: 1;
         min-width: 0;
-
+        
         h3 {
           color: #2c3e50;
-          font-size: 1.3rem;
+          font-size: clamp(1.1rem, 3vw, 1.3rem);
           font-weight: 600;
           margin-bottom: 0.5rem;
           line-height: 1.3;
+          word-wrap: break-word;
         }
-
+        
         .revenue-info {
           display: flex;
           flex-direction: column;
           gap: 0.2rem;
-
+          
           .revenue-amount {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
             font-weight: 700;
             color: #27ae60;
+            word-break: break-all;
           }
-
+          
           .revenue-percentage {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
             color: #6c757d;
           }
         }
       }
     }
-
+    
     .card-body {
-      padding: 1.5rem;
-
+      padding: 1.25rem;
+      
+      @media (min-width: 768px) {
+        padding: 1.5rem;
+      }
+      
       .department-description {
         color: #495057;
         line-height: 1.6;
         margin-bottom: 1rem;
-        font-size: 0.95rem;
+        font-size: clamp(0.875rem, 2vw, 0.95rem);
       }
-
+      
       .revenue-streams-count {
         background: #f8f9fa;
         padding: 0.8rem;
         border-radius: 8px;
         text-align: center;
-
+        
         .streams-count {
           display: block;
-          font-size: 1.5rem;
+          font-size: clamp(1.25rem, 3vw, 1.5rem);
           font-weight: 700;
           color: #667eea;
         }
-
+        
         .streams-label {
-          font-size: 0.85rem;
+          font-size: clamp(0.75rem, 2vw, 0.85rem);
           color: #6c757d;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
       }
     }
-
+    
     .card-footer {
-      padding: 1rem 1.5rem;
+      padding: 1rem 1.25rem;
       border-top: 1px solid #e9ecef;
-
+      
+      @media (min-width: 768px) {
+        padding: 1rem 1.5rem;
+      }
+      
       .view-details-btn {
         width: 100%;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -205,20 +275,16 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 0.95rem;
-
+        font-size: clamp(0.875rem, 2vw, 1rem);
+        
         &:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
-
-        &:active {
-          transform: translateY(0);
-        }
-
+        
         .arrow {
           transition: transform 0.3s ease;
-
+          
           &.rotate {
             transform: rotate(180deg);
           }
@@ -236,159 +302,214 @@
   bottom: 0;
   z-index: 1000;
   background: rgba(44, 62, 80, 0.35);
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
   animation: fadeInBg 0.3s;
   overflow-y: auto;
-
+  
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
+  
   .details-card {
     max-width: 700px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 95vh;
     background: #fff;
-    border-radius: 24px;
+    border-radius: 16px;
     box-shadow: 0 12px 48px rgba(44, 62, 80, 0.25);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     animation: popupIn 0.4s cubic-bezier(0.23, 1.01, 0.32, 1);
     margin: auto;
-
+    
+    @media (min-width: 768px) {
+      border-radius: 24px;
+      max-height: 90vh;
+    }
+    
     .details-header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      padding: 2rem 2.5rem 1.5rem 2.5rem;
+      padding: 1.5rem 1rem 1.25rem 1rem;
       position: relative;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
-
+      flex-direction: column;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      
+      @media (min-width: 768px) {
+        padding: 2rem 2.5rem 1.5rem 2.5rem;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+      }
+      
       .header-content {
         display: flex;
-        align-items: flex-start;
-        gap: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
         flex: 1;
-        padding-right: 3rem;
-
+        text-align: center;
+        padding-right: 0;
+        
+        @media (min-width: 768px) {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 1.5rem;
+          text-align: left;
+          padding-right: 3rem;
+        }
+        
         .department-icon-large {
-          font-size: 4rem;
+          font-size: clamp(2.5rem, 8vw, 4rem);
           background: rgba(255, 255, 255, 0.2);
-          padding: 1.5rem;
-          border-radius: 16px;
+          padding: 1rem;
+          border-radius: 12px;
           backdrop-filter: blur(10px);
           flex-shrink: 0;
+          
+          @media (min-width: 768px) {
+            padding: 1.5rem;
+            border-radius: 16px;
+          }
         }
-
+        
         .department-title-section {
           flex: 1;
           min-width: 0;
-
+          
           h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 0.75rem;
             font-weight: 700;
             line-height: 1.2;
+            word-wrap: break-word;
+            
+            @media (min-width: 768px) {
+              margin-bottom: 1rem;
+            }
           }
-
+          
           .full-description {
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
             opacity: 0.95;
             line-height: 1.6;
             margin: 0;
           }
         }
       }
-
+      
       .close-btn {
         background: rgba(255, 255, 255, 0.2);
         color: white;
         border: none;
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         cursor: pointer;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.2s;
         position: absolute;
-        top: 1.2rem;
-        right: 1.2rem;
+        top: 0.75rem;
+        right: 0.75rem;
         box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
         flex-shrink: 0;
-
+        
+        @media (min-width: 768px) {
+          width: 40px;
+          height: 40px;
+          font-size: 1.5rem;
+          top: 1.2rem;
+          right: 1.2rem;
+        }
+        
         &:hover {
           background: rgba(255, 255, 255, 0.35);
+          color: #764ba2;
           transform: scale(1.1);
-        }
-
-        &:active {
-          transform: scale(0.95);
         }
       }
     }
-
+    
     .details-body {
-      padding: 2rem 2.5rem 2.5rem 2.5rem;
+      padding: 1.5rem 1rem;
       background: #fff;
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
       overflow-y: auto;
-
+      
+      @media (min-width: 768px) {
+        padding: 2rem 2.5rem 2.5rem 2.5rem;
+        border-bottom-left-radius: 24px;
+        border-bottom-right-radius: 24px;
+      }
+      
       .revenue-summary {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2.5rem;
-
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        
+        @media (min-width: 480px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @media (min-width: 768px) {
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 2.5rem;
+        }
+        
         .summary-item {
           background: #f8f9fa;
-          padding: 1.5rem;
+          padding: 1.25rem;
           border-radius: 12px;
           text-align: center;
           border-left: 4px solid #667eea;
-          transition: all 0.3s ease;
-
-          &:hover {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transform: translateY(-2px);
+          
+          @media (min-width: 768px) {
+            padding: 1.5rem;
           }
-
+          
           .summary-label {
             display: block;
             color: #6c757d;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 0.5rem;
           }
-
+          
           .summary-value {
             display: block;
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
             font-weight: 700;
             color: #2c3e50;
+            word-break: break-all;
           }
         }
       }
-
+      
       .revenue-streams-section {
         h3 {
           color: #2c3e50;
-          font-size: 1.5rem;
-          margin-bottom: 2rem;
+          font-size: clamp(1.25rem, 3vw, 1.5rem);
+          margin-bottom: 1.5rem;
           font-weight: 600;
           text-align: center;
           position: relative;
           padding-bottom: 1rem;
-
+          
           &::after {
             content: '';
             position: absolute;
@@ -401,36 +522,46 @@
             border-radius: 2px;
           }
         }
-
+        
         .streams-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 1.2rem;
-
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          
+          @media (min-width: 640px) {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+          }
+          
           .stream-card {
             background: #f8f9fa;
             border-radius: 12px;
-            padding: 1.2rem;
+            padding: 1rem;
             transition: all 0.2s;
             border-left: 4px solid transparent;
-
+            
+            @media (min-width: 768px) {
+              padding: 1.2rem;
+            }
+            
             &:hover {
               background: white;
               box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
               border-left-color: #667eea;
               transform: translateY(-2px);
             }
-
+            
             .stream-header h4 {
               color: #2c3e50;
-              font-size: 1.1rem;
+              font-size: clamp(1rem, 2.5vw, 1.1rem);
               font-weight: 600;
               margin-bottom: 0.5rem;
+              word-wrap: break-word;
             }
-
+            
             .stream-body p {
               color: #6c757d;
-              font-size: 0.95rem;
+              font-size: clamp(0.875rem, 2vw, 0.95rem);
               line-height: 1.5;
               margin: 0;
             }
@@ -462,18 +593,30 @@
 }
 
 .statistics-section {
-  padding: 4rem 0;
+  padding: 2rem 0;
   background: white;
-
+  
+  @media (min-width: 768px) {
+    padding: 3rem 0;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 4rem 0;
+  }
+  
   .section-title {
     text-align: center;
     color: #2c3e50;
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
     font-weight: 700;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     position: relative;
     padding-bottom: 1.5rem;
-
+    
+    @media (min-width: 768px) {
+      margin-bottom: 3rem;
+    }
+    
     &::after {
       content: '';
       position: absolute;
@@ -486,680 +629,59 @@
       border-radius: 2px;
     }
   }
-
+  
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    
+    @media (min-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      gap: 2rem;
+    }
+    
     .stat-card {
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 16px;
       text-align: center;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
       border: 2px solid transparent;
-
+      
+      @media (min-width: 768px) {
+        padding: 2rem;
+      }
+      
       &:hover {
         transform: translateY(-8px);
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
         border-color: #667eea;
       }
-
+      
       .stat-number {
-        font-size: 2.5rem;
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
         font-weight: 800;
         color: #667eea;
         margin-bottom: 0.5rem;
         display: block;
+        word-break: break-all;
       }
-
+      
       .stat-label {
         color: #6c757d;
-        font-size: 1rem;
+        font-size: clamp(0.875rem, 2vw, 1rem);
         text-transform: uppercase;
         letter-spacing: 0.5px;
         font-weight: 500;
-      }
-    }
-  }
-}
-
-// Large Desktop
-@media (min-width: 1441px) {
-  .departments-header {
-    h1 {
-      font-size: 3.5rem;
-    }
-
-    .header-description {
-      font-size: 1.4rem;
-    }
-
-    .total-revenue-card {
-      padding: 2.5rem;
-
-      .total-amount {
-        font-size: 3rem;
-      }
-    }
-  }
-
-  .departments-section .departments-grid {
-    gap: 2.5rem;
-  }
-}
-
-// Tablet Landscape
-@media (max-width: 1024px) {
-  .container {
-    padding: 0 1.5rem;
-  }
-
-  .departments-header {
-    padding: 3.5rem 0;
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    .header-description {
-      font-size: 1.2rem;
-    }
-
-    .total-revenue-card {
-      padding: 1.8rem;
-
-      .total-amount {
-        font-size: 2.2rem;
-      }
-    }
-  }
-
-  .departments-section {
-    padding: 3.5rem 0;
-
-    .departments-grid {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.8rem;
-    }
-  }
-
-  .statistics-section {
-    padding: 3.5rem 0;
-
-    .stats-grid {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-    }
-  }
-}
-
-// Tablet Portrait
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
-
-  .departments-header {
-    padding: 3rem 0;
-
-    h1 {
-      font-size: 2.2rem;
-    }
-
-    .header-description {
-      font-size: 1.1rem;
-      padding: 0 1rem;
-    }
-
-    .total-revenue-card {
-      padding: 1.5rem;
-
-      h3 {
-        font-size: 1.1rem;
-      }
-
-      .total-amount {
-        font-size: 2rem;
-      }
-    }
-  }
-
-  .departments-section {
-    padding: 3rem 0;
-
-    .departments-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .department-card {
-      .card-header {
-        padding: 1.3rem;
-
-        .department-icon {
-          font-size: 2.5rem;
-          min-width: 55px;
-          min-height: 55px;
-          padding: 0.9rem;
-        }
-
-        .department-info h3 {
-          font-size: 1.2rem;
-        }
-      }
-
-      .card-body {
-        padding: 1.3rem;
-      }
-
-      .card-footer {
-        padding: 1rem 1.3rem;
-      }
-    }
-  }
-
-  .department-details {
-    padding: 0.5rem;
-
-    .details-card {
-      max-height: 95vh;
-      border-radius: 20px;
-
-      .details-header {
-        padding: 1.5rem;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-
-        .header-content {
-          flex-direction: column;
-          text-align: center;
-          gap: 1rem;
-          padding-right: 0;
-
-          .department-icon-large {
-            font-size: 3rem;
-            padding: 1.2rem;
-          }
-
-          .department-title-section {
-            h2 {
-              font-size: 1.6rem;
-            }
-
-            .full-description {
-              font-size: 1rem;
-            }
-          }
-        }
-
-        .close-btn {
-          top: 1rem;
-          right: 1rem;
-          width: 36px;
-          height: 36px;
-          font-size: 1.3rem;
-        }
-      }
-
-      .details-body {
-        padding: 1.5rem;
-
-        .revenue-summary {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-
-          .summary-item {
-            padding: 1.2rem;
-
-            .summary-value {
-              font-size: 1.3rem;
-            }
-          }
-        }
-
-        .revenue-streams-section {
-          h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-          }
-
-          .streams-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-
-            .stream-card {
-              padding: 1rem;
-
-              .stream-header h4 {
-                font-size: 1rem;
-              }
-
-              .stream-body p {
-                font-size: 0.9rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .statistics-section {
-    padding: 3rem 0;
-
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .stats-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-
-      .stat-card {
-        padding: 1.5rem;
-
-        .stat-number {
-          font-size: 2rem;
-        }
-
-        .stat-label {
-          font-size: 0.9rem;
-        }
-      }
-    }
-  }
-}
-
-// Mobile Portrait
-@media (max-width: 480px) {
-  .container {
-    padding: 0 0.8rem;
-  }
-
-  .departments-header {
-    padding: 2.5rem 0;
-
-    h1 {
-      font-size: 1.8rem;
-    }
-
-    .header-description {
-      font-size: 1rem;
-      padding: 0 0.5rem;
-    }
-
-    .total-revenue-card {
-      padding: 1.2rem;
-      border-radius: 16px;
-
-      h3 {
-        font-size: 1rem;
-      }
-
-      .total-amount {
-        font-size: 1.8rem;
-      }
-
-      p {
-        font-size: 0.9rem;
-      }
-    }
-  }
-
-  .departments-section {
-    padding: 2.5rem 0;
-
-    .departments-grid {
-      gap: 1.2rem;
-    }
-
-    .department-card {
-      border-radius: 14px;
-
-      .card-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.2rem;
-        gap: 0.8rem;
-
-        .department-icon {
-          font-size: 2.2rem;
-          min-width: 50px;
-          min-height: 50px;
-          padding: 0.8rem;
-          border-radius: 10px;
-        }
-
-        .department-info {
-          h3 {
-            font-size: 1.1rem;
-          }
-
-          .revenue-info {
-            .revenue-amount {
-              font-size: 1rem;
-            }
-
-            .revenue-percentage {
-              font-size: 0.85rem;
-            }
-          }
-        }
-      }
-
-      .card-body {
-        padding: 1.2rem;
-
-        .department-description {
-          font-size: 0.9rem;
-        }
-
-        .revenue-streams-count {
-          padding: 0.7rem;
-
-          .streams-count {
-            font-size: 1.3rem;
-          }
-
-          .streams-label {
-            font-size: 0.8rem;
-          }
-        }
-      }
-
-      .card-footer {
-        padding: 0.9rem 1.2rem;
-
-        .view-details-btn {
-          padding: 0.7rem 0.9rem;
-          font-size: 0.9rem;
-        }
-      }
-    }
-  }
-
-  .department-details {
-    .details-card {
-      border-radius: 16px;
-
-      .details-header {
-        padding: 1.2rem;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-
-        .header-content {
-          gap: 0.8rem;
-
-          .department-icon-large {
-            font-size: 2.5rem;
-            padding: 1rem;
-            border-radius: 12px;
-          }
-
-          .department-title-section {
-            h2 {
-              font-size: 1.4rem;
-              margin-bottom: 0.8rem;
-            }
-
-            .full-description {
-              font-size: 0.95rem;
-            }
-          }
-        }
-
-        .close-btn {
-          width: 32px;
-          height: 32px;
-          font-size: 1.2rem;
-          top: 0.8rem;
-          right: 0.8rem;
-        }
-      }
-
-      .details-body {
-        padding: 1.2rem;
-
-        .revenue-summary {
-          gap: 0.8rem;
-          margin-bottom: 2rem;
-
-          .summary-item {
-            padding: 1rem;
-
-            .summary-label {
-              font-size: 0.85rem;
-            }
-
-            .summary-value {
-              font-size: 1.2rem;
-            }
-          }
-        }
-
-        .revenue-streams-section {
-          h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.3rem;
-          }
-
-          .streams-grid {
-            gap: 0.8rem;
-
-            .stream-card {
-              padding: 0.9rem;
-              border-radius: 10px;
-
-              .stream-header h4 {
-                font-size: 0.95rem;
-              }
-
-              .stream-body p {
-                font-size: 0.85rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .statistics-section {
-    padding: 2.5rem 0;
-
-    .section-title {
-      font-size: 1.7rem;
-      margin-bottom: 2rem;
-    }
-
-    .stats-grid {
-      grid-template-columns: 1fr;
-      gap: 0.8rem;
-
-      .stat-card {
-        padding: 1.3rem;
-
-        .stat-number {
-          font-size: 1.8rem;
-        }
-
-        .stat-label {
-          font-size: 0.85rem;
-        }
-      }
-    }
-  }
-}
-
-// Small Mobile
-@media (max-width: 375px) {
-  .departments-header {
-    padding: 2rem 0;
-
-    h1 {
-      font-size: 1.6rem;
-    }
-
-    .header-description {
-      font-size: 0.95rem;
-    }
-
-    .total-revenue-card {
-      padding: 1rem;
-
-      .total-amount {
-        font-size: 1.6rem;
-      }
-    }
-  }
-
-  .departments-section {
-    padding: 2rem 0;
-
-    .department-card {
-      .card-header {
-        padding: 1rem;
-
-        .department-icon {
-          font-size: 2rem;
-          min-width: 45px;
-          min-height: 45px;
-          padding: 0.7rem;
-        }
-
-        .department-info h3 {
-          font-size: 1rem;
-        }
-      }
-
-      .card-body {
-        padding: 1rem;
-      }
-
-      .card-footer {
-        padding: 0.8rem 1rem;
-      }
-    }
-  }
-
-  .statistics-section {
-    .section-title {
-      font-size: 1.5rem;
-    }
-
-    .stats-grid .stat-card {
-      padding: 1.2rem;
-
-      .stat-number {
-        font-size: 1.6rem;
-      }
-    }
-  }
-}
-
-// Very Small Mobile
-@media (max-width: 320px) {
-  .container {
-    padding: 0 0.6rem;
-  }
-
-  .departments-header {
-    padding: 1.8rem 0;
-
-    h1 {
-      font-size: 1.4rem;
-    }
-
-    .header-description {
-      font-size: 0.9rem;
-    }
-
-    .total-revenue-card {
-      padding: 0.9rem;
-
-      h3 {
-        font-size: 0.95rem;
-      }
-
-      .total-amount {
-        font-size: 1.5rem;
-      }
-
-      p {
-        font-size: 0.85rem;
-      }
-    }
-  }
-
-  .departments-section {
-    padding: 1.8rem 0;
-
-    .department-card {
-      .card-header {
-        padding: 0.9rem;
-
-        .department-icon {
-          font-size: 1.8rem;
-          min-width: 42px;
-          min-height: 42px;
-        }
-
-        .department-info h3 {
-          font-size: 0.95rem;
-        }
-      }
-
-      .card-body {
-        padding: 0.9rem;
-
-        .department-description {
-          font-size: 0.85rem;
-        }
-      }
-    }
-  }
-
-  .department-details .details-card {
-    .details-header {
-      padding: 1rem;
-
-      .header-content {
-        .department-icon-large {
-          font-size: 2.2rem;
-          padding: 0.9rem;
-        }
-
-        .department-title-section h2 {
-          font-size: 1.2rem;
-        }
-      }
-    }
-
-    .details-body {
-      padding: 1rem;
-    }
-  }
-
-  .statistics-section {
-    padding: 2rem 0;
-
-    .section-title {
-      font-size: 1.4rem;
-    }
-
-    .stats-grid .stat-card {
-      padding: 1rem;
-
-      .stat-number {
-        font-size: 1.5rem;
-      }
-
-      .stat-label {
-        font-size: 0.8rem;
       }
     }
   }
