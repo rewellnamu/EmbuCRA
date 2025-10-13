@@ -50,7 +50,6 @@
     flex-wrap: wrap;
     justify-content: center;
 
-
     a {
       color: white;
       text-decoration: none;
@@ -66,7 +65,6 @@
       white-space: nowrap;
       letter-spacing: 0.3px;
 
-      // Subtle gradient overlay
       &::before {
         content: '';
         position: absolute;
@@ -97,12 +95,11 @@
         box-shadow: 0 2px 6px rgba(255, 221, 87, 0.3);
       }
 
-      // Active/current page indicator (add routerLinkActive="active" in HTML)
       &.active {
         background: rgba(255, 221, 87, 0.25);
         border-color: rgba(255, 221, 87, 0.5);
         font-weight: 600;
-        
+
         &::after {
           content: '';
           position: absolute;
@@ -116,7 +113,6 @@
     }
   }
 
-  // Hamburger menu button (hidden on desktop)
   .menu-toggle {
     display: none;
     flex-direction: column;
@@ -128,8 +124,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 1001;
-    margin-left: auto; /* Pushes toggle to the right */
-    
+    margin-left: auto;
+
     &:hover {
       background: rgba(255, 255, 255, 0.2);
       border-color: #ffdd57;
@@ -145,7 +141,7 @@
 
     &.open {
       background: rgba(255, 221, 87, 0.2);
-      
+
       span:nth-child(1) {
         transform: rotate(45deg) translate(7px, 7px);
       }
@@ -160,7 +156,7 @@
   }
 }
 
-/* Large Desktop - Optimize spacing */
+/* Large Desktop */
 @media (min-width: 1441px) {
   .header {
     padding: 1.2rem 3rem;
@@ -183,13 +179,6 @@
         font-size: 0.95rem;
       }
     }
-  }
-}
-
-/* Standard Desktop */
-@media (max-width: 1440px) {
-  .header {
-    padding: 1rem 2rem;
   }
 }
 
@@ -223,64 +212,18 @@
   }
 }
 
-/* Tablet Portrait */
-@media (max-width: 1024px) {
-  .header {
-    padding: 0.9rem 1.2rem;
-    gap: 1rem;
-
-    .logo {
-      padding: 0.4rem 0.8rem;
-      
-      img {
-        height: 42px;
-      }
-
-      span {
-        font-size: 1rem;
-      }
-    }
-
-    .nav {
-      gap: 0.25rem;
-
-      a {
-        padding: 0.45rem 0.7rem;
-        font-size: 0.8rem;
-      }
-    }
-  }
-}
-
-/* Mobile Landscape / Large Mobile */
-@media (max-width: 900px) {
-  .header {
-    padding: 0.8rem 1rem;
-    gap: 1.5rem;
-
-    .nav {
-      gap: 0.2rem;
-
-      a {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.75rem;
-      }
-    }
-  }
-}
-
-/* Mobile View - Switch to hamburger menu */
+/* Tablet Portrait & Mobile */
 @media (max-width: 768px) {
   .header {
     padding: 0.8rem 1rem;
     flex-wrap: wrap;
-    gap: 1.5rem; /* Increased gap between logo and toggle */
+    gap: 1.5rem;
 
     .logo {
-      flex: 0 1 auto; /* Don't grow, but can shrink if needed */
+      flex: 0 1 auto;
       min-width: 0;
       padding: 0.35rem 0.7rem;
-      margin-right: auto; /* Pushes logo to the left */
+      margin-right: auto;
 
       img {
         height: 40px;
@@ -294,7 +237,7 @@
     .menu-toggle {
       display: flex;
       order: 2;
-      flex-shrink: 0; /* Prevents toggle from shrinking */
+      flex-shrink: 0;
     }
 
     .nav {
@@ -302,38 +245,41 @@
       width: 100%;
       order: 3;
       flex-direction: column;
+      align-items: stretch;
       gap: 0.5rem;
       margin-top: 1rem;
       padding-top: 1rem;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
-      animation: slideDown 0.3s ease;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: all 0.35s ease;
 
       &.open {
         display: flex;
+        max-height: 500px;
+        opacity: 1;
       }
 
       a {
+        display: block;
         width: 100%;
         text-align: center;
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
+        padding: 0.85rem 1rem;
+        font-size: 1rem;
         justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-sizing: border-box;
+        transition: all 0.3s ease;
 
-        &::before {
-          border-radius: 8px;
+        &:hover {
+          background: linear-gradient(135deg, #ffdd57 0%, #ffd700 100%);
+          color: #004d00;
+          transform: translateY(-1px);
         }
       }
-    }
-  }
-
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 }
@@ -342,7 +288,7 @@
 @media (max-width: 480px) {
   .header {
     padding: 0.7rem 0.8rem;
-    gap: 1rem; /* Better spacing on smaller screens */
+    gap: 1rem;
 
     .logo {
       gap: 0.5rem;
@@ -367,15 +313,9 @@
       }
     }
 
-    .nav {
-      gap: 0.4rem;
-      margin-top: 0.8rem;
-      padding-top: 0.8rem;
-
-      a {
-        padding: 0.65rem 0.8rem;
-        font-size: 0.9rem;
-      }
+    .nav a {
+      padding: 0.75rem;
+      font-size: 0.9rem;
     }
   }
 }
@@ -384,7 +324,6 @@
 @media (max-width: 375px) {
   .header {
     padding: 0.6rem 0.7rem;
-    gap: 0.8rem;
 
     .logo {
       gap: 0.4rem;
@@ -399,31 +338,22 @@
       }
     }
 
-    .menu-toggle {
-      padding: 0.45rem;
-
-      span {
-        width: 20px;
-        height: 2px;
-      }
+    .menu-toggle span {
+      width: 20px;
+      height: 2px;
     }
 
-    .nav {
-      gap: 0.3rem;
-
-      a {
-        padding: 0.6rem 0.7rem;
-        font-size: 0.85rem;
-      }
+    .nav a {
+      padding: 0.65rem 0.7rem;
+      font-size: 0.85rem;
     }
   }
 }
 
-/* Very Small Devices (e.g., iPhone SE, small Androids) */
+/* Very Small Devices */
 @media (max-width: 320px) {
   .header {
     padding: 0.5rem 0.6rem;
-    gap: 0.6rem;
 
     .logo {
       gap: 0.3rem;
@@ -438,13 +368,9 @@
       }
     }
 
-    .menu-toggle {
-      padding: 0.4rem;
-
-      span {
-        width: 18px;
-        height: 2px;
-      }
+    .menu-toggle span {
+      width: 18px;
+      height: 2px;
     }
 
     .nav a {
