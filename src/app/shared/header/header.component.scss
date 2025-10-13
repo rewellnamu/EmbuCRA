@@ -216,14 +216,13 @@
 @media (max-width: 768px) {
   .header {
     padding: 0.8rem 1rem;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    flex-wrap: nowrap;
+    gap: 1rem;
 
     .logo {
       flex: 0 1 auto;
       min-width: 0;
       padding: 0.35rem 0.7rem;
-      margin-right: auto;
 
       img {
         height: 40px;
@@ -236,32 +235,37 @@
 
     .menu-toggle {
       display: flex;
-      order: 2;
       flex-shrink: 0;
+      margin-left: auto;
     }
 
-    /* ✅ Refined mobile nav */
+    /* ✅ Professional mobile nav */
     .nav {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      right: 0;
       width: 100%;
-      order: 3;
       flex-direction: column;
       align-items: stretch;
-      gap: 0.6rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      gap: 0.5rem;
+      padding: 0.8rem 1rem;
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transform: translateY(-10px);
-      background: rgba(0, 0, 0, 0.15);
-      backdrop-filter: blur(8px);
-      border-radius: 10px;
-      transition: all 0.4s ease;
+      transform: translateY(-15px);
+      background: linear-gradient(135deg, rgba(3, 114, 6, 0.98) 0%, rgba(2, 90, 5, 0.98) 100%);
+      backdrop-filter: blur(12px);
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 221, 87, 0.2);
+      border-top: none;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
 
       &.open {
         display: flex;
-        max-height: 600px;
+        max-height: 500px;
         opacity: 1;
         transform: translateY(0);
       }
@@ -270,18 +274,33 @@
         display: block;
         width: 100%;
         text-align: center;
-        padding: 0.9rem 1rem;
-        font-size: 1rem;
-        background: rgba(255, 255, 255, 0.1);
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        background: rgba(255, 255, 255, 0.08);
         border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         box-sizing: border-box;
-        transition: all 0.3s ease;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        letter-spacing: 0.3px;
 
         &:hover {
           background: linear-gradient(135deg, #ffdd57 0%, #ffd700 100%);
           color: #004d00;
-          transform: translateY(-2px);
+          transform: translateX(4px);
+          border-color: #ffd700;
+          box-shadow: 0 4px 12px rgba(255, 221, 87, 0.3);
+        }
+
+        &:active {
+          transform: translateX(2px);
+        }
+
+        &.active {
+          background: linear-gradient(135deg, rgba(255, 221, 87, 0.25) 0%, rgba(255, 215, 0, 0.2) 100%);
+          border-color: rgba(255, 221, 87, 0.4);
+          font-weight: 600;
+          box-shadow: inset 0 0 0 1px rgba(255, 221, 87, 0.3);
         }
       }
     }
