@@ -14,6 +14,15 @@ export class SearchComponent {
   query: string = '';
   results: { name: string; path: string }[] = [];
 
+  // Scrolling text messages
+  scrollingTexts: string[] = [
+    'Kulipa Ushuru ni Kujitegemea',
+    'Kulipa Ushuru ni Kujitegemea',
+    'Kulipa Ushuru ni Kujitegemea',
+    'Kulipa Ushuru ni Kujitegemea',
+    'Kulipa Ushuru ni Kujitegemea'
+  ];
+
   // Define searchable pages (expand this list if needed)
   pages = [
     { name: 'Home', path: '/' },

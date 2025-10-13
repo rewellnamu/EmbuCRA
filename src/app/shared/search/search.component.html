@@ -2,11 +2,7 @@
   <!-- Scrolling Text Animation -->
   <div class="scrolling-text-container">
     <div class="scrolling-text">
-      <span>Kulipa Ushuru ni Kujitegemea</span>
-      <span>Kulipa Ushuru ni Kujitegemea</span>
-      <span>Kulipa Ushuru ni Kujitegemea</span>
-      <span>Kulipa Ushuru ni Kujitegemea</span>
-      <span>Kulipa Ushuru ni Kujitegemea</span>
+      <span *ngFor="let text of scrollingTexts">{{ text }}</span>
     </div>
   </div>
 
