@@ -31,10 +31,13 @@
       <line x1="6" y1="6" x2="18" y2="18"/>
     </svg>
 
-    <!-- Notification Badge -->
+    <!-- Notification Badge with Animation -->
     <span *ngIf="unreadCount > 0 && !isOpen" class="notification-badge">
-      {{ unreadCount }}
+      {{ unreadCount > 9 ? '9+' : unreadCount }}
     </span>
+
+    <!-- Pulse Ring Effect -->
+    <span class="pulse-ring" *ngIf="!isOpen"></span>
   </button>
 
   <!-- Chat Window -->
@@ -49,55 +52,127 @@
           </svg>
         </div>
         <div class="header-info">
-          <h3 class="title">Embu County Revenue Authority</h3>
+          <h3 class="title">Embu County Revenue</h3>
           <div class="status">
             <span class="status-indicator"></span>
-            <span class="status-text">Online</span>
+            <span class="status-text">Always available</span>
           </div>
         </div>
       </div>
-      <button class="minimize-btn" (click)="toggleChat()" aria-label="Minimize chat">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="18 15 12 9 6 15"/>
-        </svg>
-      </button>
+      <div class="header-actions">
+        <button class="header-btn" (click)="clearChat()" aria-label="Clear chat" title="Clear conversation">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+        </button>
+        <button class="header-btn minimize-btn" (click)="toggleChat()" aria-label="Minimize chat" title="Minimize">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Messages Container -->
     <div class="chat-body" #messagesContainer>
+      <!-- Empty State -->
+      <div *ngIf="messages.length === 0" class="empty-state">
+        <div class="empty-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h4>Welcome to Embu County Revenue!</h4>
+        <p>How can we assist you today?</p>
+      </div>
+
       <div class="messages-list">
         
         <!-- Individual Messages -->
-        <div *ngFor="let message of messages" 
+        <div *ngFor="let message of messages; let i = index" 
              class="message-wrapper"
              [class.user-message]="!message.isBot"
-             [class.bot-message]="message.isBot">
+             [class.bot-message]="message.isBot"
+             [@messageAnimation]>
           
-          <div class="message-bubble">
-            <div class="message-content" [innerHTML]="message.text | textToHtml"></div>
-            <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+          <!-- Bot Avatar -->
+          <div *ngIf="message.isBot" class="message-avatar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+
+          <div class="message-content-wrapper">
+            <div class="message-bubble">
+              <div class="message-text" [innerHTML]="message.text | textToHtml"></div>
+              <div class="message-footer">
+                <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+                <span *ngIf="!message.isBot && message.id === messages[messages.length - 1].id" class="message-status">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <!-- Copy Button for Bot Messages -->
+            <button *ngIf="message.isBot" 
+                    class="copy-btn" 
+                    (click)="copyMessage(message.text)"
+                    [class.copied]="copiedMessageId === message.id"
+                    title="Copy message">
+              <svg *ngIf="copiedMessageId !== message.id" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <svg *ngIf="copiedMessageId === message.id" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
           </div>
         </div>
 
         <!-- Typing Indicator -->
-        <div *ngIf="isTyping" class="message-wrapper bot-message typing-wrapper">
-          <div class="message-bubble typing-bubble">
-            <div class="typing-indicator">
-              <span></span>
-              <span></span>
-              <span></span>
+        <div *ngIf="isTyping" class="message-wrapper bot-message typing-wrapper" [@messageAnimation]>
+          <div class="message-avatar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <div class="message-content-wrapper">
+            <div class="message-bubble typing-bubble">
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Quick Actions -->
         <div *ngIf="showQuickActions && currentQuickActions.length > 0 && !isTyping" 
-             class="quick-actions-container">
+             class="quick-actions-container"
+             [@quickActionsAnimation]>
+          <div class="quick-actions-header">
+            <span>Quick Actions</span>
+          </div>
           <button *ngFor="let action of currentQuickActions"
                   class="quick-action-btn"
-                  (click)="selectQuickAction(action)">
+                  (click)="selectQuickAction(action)"
+                  [@quickActionAnimation]>
             <span class="action-icon">{{ action.icon }}</span>
             <span class="action-label">{{ action.label }}</span>
+            <svg class="action-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -106,6 +181,19 @@
     <!-- Input Area -->
     <div class="chat-footer">
       <div class="input-container">
+        <button 
+          class="attachment-btn"
+          (click)="showAttachmentOptions()"
+          [disabled]="isTyping"
+          aria-label="Attachment options"
+          title="More options">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="1"/>
+            <circle cx="12" cy="5" r="1"/>
+            <circle cx="12" cy="19" r="1"/>
+          </svg>
+        </button>
+
         <input 
           type="text"
           class="chat-input"
@@ -113,12 +201,18 @@
           (keydown)="handleKeyPress($event)"
           [disabled]="isTyping"
           placeholder="Type your message..."
+          maxlength="500"
           autocomplete="off">
         
+        <div class="char-counter" *ngIf="userInput.length > 400">
+          {{ userInput.length }}/500
+        </div>
+
         <button 
           class="send-btn"
           (click)="sendMessage()"
           [disabled]="!userInput.trim() || isTyping"
+          [class.has-text]="userInput.trim()"
           aria-label="Send message">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="22" y1="2" x2="11" y2="13"/>
@@ -131,7 +225,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        <span>Your data is secure and confidential</span>
+        <span>Secure & confidential • Powered by ECRA</span>
       </div>
     </div>
 
