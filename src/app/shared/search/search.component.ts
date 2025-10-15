@@ -3,6 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
+interface SearchItem {
+  name: string;
+  path: string;
+  description?: string;
+  keywords?: string[];
+  category?: string;
+}
+
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -12,9 +20,8 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent {
   query: string = '';
-  results: { name: string; path: string }[] = [];
+  results: SearchItem[] = [];
 
-  // Scrolling text messages
   scrollingTexts: string[] = [
     'Kulipa Ushuru ni Kujitegemea',
     'Kulipa Ushuru ni Kujitegemea',
@@ -23,33 +30,94 @@ export class SearchComponent {
     'Kulipa Ushuru ni Kujitegemea'
   ];
 
-  // Define searchable pages (expand this list if needed)
-  pages = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Departments', path: '/departments' },
-    { name: 'Services', path: '/services' },
-    { name: 'News', path: '/news' },
-    { name: 'Tenders', path: '/tenders' },
-    { name: 'Downloads', path: '/downloads' },
-    { name: 'Contact', path: '/contact' },
+  // ✅ Expanded searchable data
+  pages: SearchItem[] = [
+    { 
+      name: 'Home', 
+      path: '/', 
+      description: 'Overview of the Embu County Revenue Authority', 
+      keywords: ['main', 'dashboard', 'overview'], 
+      category: 'General' 
+    },
+    { 
+      name: 'About', 
+      path: '/about', 
+      description: 'Learn more about ECRA’s mission, vision, and leadership', 
+      keywords: ['info', 'organization', 'who we are'], 
+      category: 'General' 
+    },
+    { 
+      name: 'Departments', 
+      path: '/departments', 
+      description: 'Explore our functional departments handling revenue services', 
+      keywords: ['division', 'units', 'sections'], 
+      category: 'Services' 
+    },
+    { 
+      name: 'Services', 
+      path: '/services', 
+      description: 'List of public services, licensing, and revenue management tools', 
+      keywords: ['payments', 'permits', 'tax', 'licensing'], 
+      category: 'Services' 
+    },
+    { 
+      name: 'News', 
+      path: '/news', 
+      description: 'Stay updated with the latest ECRA announcements and updates', 
+      keywords: ['updates', 'press', 'events'], 
+      category: 'Media' 
+    },
+    { 
+      name: 'Tenders', 
+      path: '/tenders', 
+      description: 'Procurement opportunities and tender announcements', 
+      keywords: ['procurement', 'bids', 'contracts'], 
+      category: 'Procurement' 
+    },
+    { 
+      name: 'Downloads', 
+      path: '/downloads', 
+      description: 'Download official forms, reports, and documents', 
+      keywords: ['forms', 'pdf', 'documents'], 
+      category: 'Resources' 
+    },
+    { 
+      name: 'Contact', 
+      path: '/contact', 
+      description: 'Reach out to us for inquiries or feedback', 
+      keywords: ['support', 'help', 'call', 'email'], 
+      category: 'Support' 
+    },
   ];
 
   constructor(private router: Router) {}
 
+  // ✅ Improved smart search
   onSearch() {
-    if (this.query.trim()) {
-      this.results = this.pages.filter((page) =>
-        page.name.toLowerCase().includes(this.query.toLowerCase())
-      );
+    const query = this.query.trim().toLowerCase();
 
-      // OPTIONAL: Auto-redirect immediately if exactly one match
-      // if (this.results.length === 1) {
-      //   this.router.navigate([this.results[0].path]);
-      // }
-    } else {
+    if (!query) {
       this.results = [];
+      return;
     }
+
+    // Broader matching: name, description, and keywords
+    this.results = this.pages
+      .map(item => {
+        const nameMatch = item.name.toLowerCase().includes(query);
+        const descMatch = item.description?.toLowerCase().includes(query);
+        const keywordMatch = item.keywords?.some(k => k.toLowerCase().includes(query));
+
+        // Give each type of match a weight for ranking
+        let relevance = 0;
+        if (nameMatch) relevance += 3;
+        if (descMatch) relevance += 2;
+        if (keywordMatch) relevance += 1;
+
+        return { ...item, relevance };
+      })
+      .filter(item => item.relevance > 0)
+      .sort((a, b) => b.relevance - a.relevance);
   }
 
   goToPage(path: string) {
