@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 .chatbot-wrapper {
   position: fixed;
   bottom: 24px;
@@ -696,6 +698,8 @@
   background: white;
   border-top: 1px solid #e5e7eb;
   border-radius: 0 0 20px 20px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .input-container {
@@ -704,6 +708,8 @@
   align-items: center;
   margin-bottom: 12px;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .attachment-btn {
@@ -719,6 +725,7 @@
   justify-content: center;
   transition: all 0.2s;
   flex-shrink: 0;
+  box-sizing: border-box;
 
   &:hover:not(:disabled) {
     background: #e5e7eb;
@@ -739,6 +746,7 @@
 
 .chat-input {
   flex: 1;
+  min-width: 0;
   padding: 14px 18px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
@@ -749,6 +757,7 @@
   background: #f9fafb;
   resize: none;
   max-height: 120px;
+  box-sizing: border-box;
 
   &:focus {
     border-color: #037206;
@@ -792,6 +801,7 @@
   box-shadow: 0 2px 8px rgba(3, 114, 6, 0.25);
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 
   &::before {
     content: '';
@@ -907,8 +917,37 @@
     padding-left: 0;
   }
 
+  .chat-footer {
+    padding: 16px;
+  }
+
+  .input-container {
+    gap: 8px;
+  }
+
   .chat-input {
     font-size: 16px; // Prevent zoom on iOS
+    padding: 12px 14px;
+  }
+
+  .attachment-btn {
+    width: 36px;
+    height: 44px;
+  }
+
+  .send-btn {
+    width: 44px;
+    height: 44px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .char-counter {
+    right: 52px;
+    font-size: 10px;
   }
 }
 
@@ -959,7 +998,11 @@
   }
 
   .chat-footer {
-    padding: 16px 20px;
+    padding: 12px;
+  }
+
+  .input-container {
+    gap: 6px;
   }
 
   .quick-action-btn {
@@ -979,16 +1022,21 @@
   .attachment-btn {
     width: 36px;
     height: 44px;
-  }
-
-  .send-btn {
-    width: 44px;
-    height: 44px;
 
     svg {
       width: 18px;
       height: 18px;
     }
+  }
+
+  .send-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .chat-input {
+    padding: 11px 12px;
+    font-size: 16px;
   }
 
   .empty-state {
@@ -1033,6 +1081,44 @@
 
   .message-content-wrapper {
     max-width: 80%;
+  }
+
+  .chat-footer {
+    padding: 10px;
+  }
+
+  .input-container {
+    gap: 6px;
+  }
+
+  .attachment-btn {
+    width: 32px;
+    height: 40px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .send-btn {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .chat-input {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .char-counter {
+    right: 46px;
+    bottom: -18px;
   }
 }
 

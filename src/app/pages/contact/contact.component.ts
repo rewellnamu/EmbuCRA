@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -24,9 +25,21 @@ export class ContactComponent {
   successMessage = '';
 
   onSubmit() {
-    this.successMessage =
-      'Thank you for contacting us! We will get back to you soon.';
-    this.form = { name: '', email: '', message: '' };
-    setTimeout(() => (this.successMessage = ''), 5000);
+    // Simulate form submission
+    console.log('Form submitted:', this.form);
+    
+    this.successMessage = 'Thank you for contacting us! We will get back to you soon.';
+    
+    // Reset form
+    this.form = { 
+      name: '', 
+      email: '', 
+      message: '' 
+    };
+    
+    // Clear success message after 5 seconds
+    setTimeout(() => {
+      this.successMessage = '';
+    }, 5000);
   }
 }

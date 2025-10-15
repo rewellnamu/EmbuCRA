@@ -2,69 +2,126 @@
   <div class="contact-container">
     <!-- Left side: contact info -->
     <div class="contact-info">
-      <h1>Contact Us</h1>
-      <div class="info-item">
-        <span class="material-icons info-icon">phone</span>
-        <span>
-          <strong>Phone:</strong>
-          <a href="tel:0718500767">{{ contacts.phone }}</a>
-        </span>
+      <div class="info-header">
+        <h1>Get In Touch</h1>
+        <p class="subtitle">We'd love to hear from you. Our team is here to help.</p>
       </div>
-      <div class="info-item">
-        <span class="material-icons info-icon">email</span>
-        <span>
-          <strong>Email:</strong>
-          <a href="mailto:ecra@embu.go.ke">{{ contacts.email }}</a>
-        </span>
-      </div>
-      <div class="info-item">
-        <span class="material-icons info-icon">location_on</span>
-        <span> <strong>Address:</strong> {{ contacts.address }} </span>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="icon-wrapper">
+            <span class="material-icons">phone</span>
+          </div>
+          <div class="card-content">
+            <h3>Phone</h3>
+            <a href="tel:0718500767">{{ contacts.phone }}</a>
+            <p class="card-subtext">Mon-Fri 8AM-5PM</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="icon-wrapper">
+            <span class="material-icons">email</span>
+          </div>
+          <div class="card-content">
+            <h3>Email</h3>
+            <a href="mailto:ecra@embu.go.ke">{{ contacts.email }}</a>
+            <p class="card-subtext">We'll respond within 24hrs</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="icon-wrapper">
+            <span class="material-icons">location_on</span>
+          </div>
+          <div class="card-content">
+            <h3>Address</h3>
+            <p>{{ contacts.address }}</p>
+            <a href="https://www.google.com/maps/search/?api=1&query={{ contacts.address }}" class="map-link">View on map →</a>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Right side: contact form -->
-    <form
-      class="contact-form"
-      (ngSubmit)="onSubmit()"
-      #contactForm="ngForm"
-      autocomplete="off"
-    >
-      <h2>Send Us a Message</h2>
-      <div class="form-group">
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-          [(ngModel)]="form.name"
-        />
-      </div>
-      <div class="form-group">
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          required
-          [(ngModel)]="form.email"
-        />
-      </div>
-      <div class="form-group">
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows="5"
-          required
-          [(ngModel)]="form.message"
-        ></textarea>
-      </div>
-      <button type="submit" [disabled]="contactForm.invalid">
-        Send Message
-      </button>
-      <div class="form-success" *ngIf="successMessage">
-        <span class="material-icons">check_circle</span>
-        {{ successMessage }}
-      </div>
-    </form>
+    <div class="form-wrapper">
+      <form
+        class="contact-form"
+        (ngSubmit)="onSubmit()"
+        #contactForm="ngForm"
+        autocomplete="off"
+      >
+        <h2>Send Us a Message</h2>
+        <p class="form-subtitle">Fill out the form below and we'll get back to you shortly.</p>
+
+        <div class="form-group">
+          <label for="name">Full Name <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="material-icons input-icon">person</span>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="John Doe"
+              required
+              [(ngModel)]="form.name"
+              #nameInput="ngModel"
+            />
+          </div>
+          <span class="error-message" *ngIf="nameInput.invalid && nameInput.touched">
+            Please enter your name
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="material-icons input-icon">email</span>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="john@example.com"
+              required
+              email
+              [(ngModel)]="form.email"
+              #emailInput="ngModel"
+            />
+          </div>
+          <span class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+            Please enter a valid email
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="material-icons input-icon textarea-icon">message</span>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Tell us how we can help you..."
+              rows="5"
+              required
+              [(ngModel)]="form.message"
+              #messageInput="ngModel"
+            ></textarea>
+          </div>
+          <span class="error-message" *ngIf="messageInput.invalid && messageInput.touched">
+            Please enter your message
+          </span>
+        </div>
+
+        <button type="submit" [disabled]="contactForm.invalid" class="submit-btn">
+          <span class="btn-text">Send Message</span>
+          <span class="material-icons btn-icon">send</span>
+        </button>
+
+        <div class="form-success" *ngIf="successMessage">
+          <span class="material-icons">check_circle</span>
+          <span>{{ successMessage }}</span>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
