@@ -17,5 +17,12 @@ export const routes: Routes = [
   { path: 'downloads', component: DownloadsComponent },
   { path: 'departments', component: DepartmentsComponent },
   { path: 'contact', component: ContactComponent },
+  
+  // Admin module - lazy loaded
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.adminRoutes)
+  },
+  
   { path: '**', redirectTo: '' }
 ];

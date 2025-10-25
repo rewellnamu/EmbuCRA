@@ -1,0 +1,72 @@
+<div class="content-management">
+  <div class="page-header">
+    <div>
+      <h1>Content Management</h1>
+      <p>Manage website content, news, and publications</p>
+    </div>
+  </div>
+
+  <div class="content-types-grid">
+    <div *ngFor="let type of contentTypes" class="type-card" [attr.data-color]="type.color">
+      <div class="type-header">
+        <div class="type-icon" [attr.data-color]="type.color">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path [attr.d]="type.icon"/>
+          </svg>
+        </div>
+        <div class="type-count">{{ type.count }}</div>
+      </div>
+      <h3>{{ type.name }}</h3>
+      <p>{{ type.description }}</p>
+      <button class="btn-manage">
+        <span>Manage</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="recent-content">
+    <div class="section-header">
+      <h2>Recent Content</h2>
+      <button class="btn-view-all">View All</button>
+    </div>
+    
+    <div class="content-table">
+      <div class="table-header">
+        <div class="col-title">Title</div>
+        <div class="col-type">Type</div>
+        <div class="col-date">Date</div>
+        <div class="col-status">Status</div>
+        <div class="col-actions">Actions</div>
+      </div>
+      <div *ngFor="let content of recentContent" class="table-row">
+        <div class="col-title">{{ content.title }}</div>
+        <div class="col-type">
+          <span class="type-badge">{{ content.type }}</span>
+        </div>
+        <div class="col-date">{{ content.date }}</div>
+        <div class="col-status">
+          <span class="status-badge" [class.published]="content.status === 'published'" [class.draft]="content.status === 'draft'">
+            {{ content.status }}
+          </span>
+        </div>
+        <div class="col-actions">
+          <button class="action-btn" title="Edit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </button>
+          <button class="action-btn" title="Delete">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

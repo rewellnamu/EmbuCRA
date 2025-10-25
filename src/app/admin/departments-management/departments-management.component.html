@@ -1,0 +1,40 @@
+<div class="departments-management">
+  <div class="page-header">
+    <div>
+      <h1>Departments</h1>
+      <p>Manage county departments and their information</p>
+    </div>
+    <button class="btn-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add Department
+    </button>
+  </div>
+
+  <div class="departments-grid">
+    <div *ngFor="let dept of departments" class="dept-card">
+      <div class="dept-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path [attr.d]="dept.icon"/>
+        </svg>
+      </div>
+      <h3>{{ dept.name }}</h3>
+      <div class="dept-stats">
+        <div class="stat">
+          <span class="stat-label">Staff</span>
+          <span class="stat-value">{{ dept.staff }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Budget</span>
+          <span class="stat-value">{{ dept.budget }}</span>
+        </div>
+      </div>
+      <div class="dept-actions">
+        <button class="btn-edit">Edit</button>
+        <button class="btn-view">View Details</button>
+      </div>
+    </div>
+  </div>
+</div>
