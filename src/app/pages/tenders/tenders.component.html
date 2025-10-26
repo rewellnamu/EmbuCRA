@@ -2,19 +2,17 @@
   <div class="tenders-header">
     <h1>Open Tenders</h1>
     <p class="subtitle">
-      Browse current procurement opportunities from Embu County Revenue
-      Authority.
+      Browse current procurement opportunities from Embu County Revenue Authority.
     </p>
   </div>
+
   <div class="tenders-grid">
     <div class="tender-card" *ngFor="let t of tenders">
       <div class="tender-info">
         <h2>{{ t.title }}</h2>
         <div class="tender-meta">
           <span class="closing-label">Closing:</span>
-          <span class="closing-date">{{
-            t.closing | date : "dd MMM yyyy"
-          }}</span>
+          <span class="closing-date">{{ t.closingDate | date : "dd MMM yyyy" }}</span>
         </div>
       </div>
       <div class="tender-actions">
@@ -28,34 +26,34 @@
     </div>
   </div>
 
+  <!-- Empty State -->
+  <div *ngIf="tenders.length === 0" class="empty-state">
+    <p>No tenders available at the moment. Please check back later.</p>
+  </div>
+
   <!-- Professional Tender Details Modal -->
-  <div
-    class="popup-overlay"
-    *ngIf="selectedTender"
-    (click)="selectedTender = null"
-  >
+  <div class="popup-overlay" *ngIf="selectedTender" (click)="selectedTender = null">
     <div class="popup-modal" (click)="$event.stopPropagation()">
       <div class="popup-header">
         <span class="popup-title">{{ selectedTender.title }}</span>
-        <button
-          class="popup-close"
-          (click)="selectedTender = null"
-          aria-label="Close"
-        >
+        <button class="popup-close" (click)="selectedTender = null" aria-label="Close">
           &times;
         </button>
       </div>
       <div class="popup-body">
-        <p>
-          <strong>Closing Date:</strong>
-          {{ selectedTender.closing | date : "fullDate" }}
+        <p><strong>Category:</strong> {{ selectedTender.category }}</p>
+        <p><strong>Description:</strong> {{ selectedTender.description }}</p>
+        <p><strong>Opening Date:</strong> {{ selectedTender.openingDate | date : "fullDate" }}</p>
+        <p><strong>Closing Date:</strong> {{ selectedTender.closingDate | date : "fullDate" }}</p>
+        <p><strong>Status:</strong> 
+          <span [style.color]="getStatusColor(selectedTender.status)">
+            {{ selectedTender.status | uppercase }}
+          </span>
         </p>
-        <!-- Add more tender details here as needed -->
+        <p *ngIf="selectedTender.value"><strong>Estimated Value:</strong> {{ formatCurrency(selectedTender.value) }}</p>
+        
         <div class="popup-actions">
-          <button
-            class="btn btn-outline"
-            (click)="downloadTenderDocs(selectedTender)"
-          >
+          <button class="btn btn-outline" (click)="downloadTenderDocs(selectedTender)">
             Download Docs
           </button>
         </div>

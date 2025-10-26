@@ -1,20 +1,200 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { DepartmentsService, Department, RevenueStream } from '../../services/departments.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-departments-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './departments-management.component.html',
   styleUrl: './departments-management.component.scss'
 })
-export class DepartmentsManagementComponent {
-  departments = [
-    { name: 'Health Services', staff: 45, budget: 'KES 5.2M', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
-    { name: 'Finance', staff: 32, budget: 'KES 3.8M', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { name: 'Education', staff: 28, budget: 'KES 4.5M', icon: 'M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' },
-    { name: 'Public Works', staff: 56, budget: 'KES 8.1M', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
-    { name: 'Agriculture', staff: 38, budget: 'KES 6.3M', icon: 'M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3' },
-    { name: 'Water & Sanitation', staff: 42, budget: 'KES 7.2M', icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z' }
-  ];
+export class DepartmentsManagementComponent implements OnInit, OnDestroy {
+  departments: Department[] = [];
+  selectedDepartment: Department | null = null;
+  showModal = false;
+  showDetailsModal = false;
+  editMode = false;
+  currentDepartment: Department | null = null;
+  departmentForm!: FormGroup;
+  searchTerm = '';
+  private subscription?: Subscription;
+
+  constructor(
+    private fb: FormBuilder,
+    private departmentsService: DepartmentsService
+  ) {}
+
+  ngOnInit(): void {
+    this.initForm();
+    this.loadDepartments();
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  initForm(): void {
+    this.departmentForm = this.fb.group({
+      name: ['', Validators.required],
+      shortName: [''],
+      icon: ['', Validators.required],
+      description: ['', Validators.required],
+      revenueStreams: this.fb.array([])
+    });
+  }
+
+  get revenueStreamsArray(): FormArray {
+    return this.departmentForm.get('revenueStreams') as FormArray;
+  }
+
+  addRevenueStream(): void {
+    const streamGroup = this.fb.group({
+      name: ['', Validators.required],
+      description: ['']
+    });
+    this.revenueStreamsArray.push(streamGroup);
+  }
+
+  removeRevenueStream(index: number): void {
+    this.revenueStreamsArray.removeAt(index);
+  }
+
+  loadDepartments(): void {
+    // Subscribe to departments service
+    this.subscription = this.departmentsService.departments$.subscribe(
+      departments => {
+        this.departments = departments;
+      }
+    );
+  }
+
+  get filteredDepartments(): Department[] {
+    if (!this.searchTerm) return this.departments;
+    
+    const term = this.searchTerm.toLowerCase();
+    return this.departments.filter(dept => 
+      dept.name.toLowerCase().includes(term) ||
+      dept.description.toLowerCase().includes(term) ||
+      dept.revenueStreams.some(stream => stream.name.toLowerCase().includes(term))
+    );
+  }
+
+  getTotalCountyRevenue(): number {
+    return this.departmentsService.getTotalRevenue();
+  }
+
+  formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('en-KE', {
+      style: 'currency',
+      currency: 'KES',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  }
+
+  getPercentageOfTotal(departmentRevenue: number): number {
+    const total = this.getTotalCountyRevenue();
+    return total > 0 ? Math.round((departmentRevenue / total) * 100) : 0;
+  }
+
+  openModal(department?: Department): void {
+    this.showModal = true;
+    
+    // Clear the form array first
+    while (this.revenueStreamsArray.length) {
+      this.revenueStreamsArray.removeAt(0);
+    }
+
+    if (department) {
+      this.editMode = true;
+      this.currentDepartment = department;
+      this.departmentForm.patchValue({
+        name: department.name,
+        shortName: department.shortName || '',
+        icon: department.icon,
+        description: department.description
+      });
+      
+      // Add existing revenue streams
+      department.revenueStreams.forEach(stream => {
+        const streamGroup = this.fb.group({
+          name: [stream.name, Validators.required],
+          description: [stream.description || '']
+        });
+        this.revenueStreamsArray.push(streamGroup);
+      });
+    } else {
+      this.editMode = false;
+      this.currentDepartment = null;
+      this.departmentForm.reset();
+      // Add one empty revenue stream for new departments
+      this.addRevenueStream();
+    }
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.editMode = false;
+    this.currentDepartment = null;
+    this.departmentForm.reset();
+  }
+
+  onSubmit(): void {
+    if (this.departmentForm.invalid) return;
+
+    const formValue = this.departmentForm.value;
+    const departmentData: Department = {
+      id: this.editMode && this.currentDepartment 
+        ? this.currentDepartment.id 
+        : this.generateId(formValue.name),
+      name: formValue.name,
+      shortName: formValue.shortName || formValue.name,
+      icon: formValue.icon,
+      description: formValue.description,
+      revenueStreams: formValue.revenueStreams,
+      totalRevenue: this.editMode && this.currentDepartment 
+        ? this.currentDepartment.totalRevenue 
+        : Math.floor(Math.random() * 200000000) + 50000000
+    };
+
+    if (this.editMode && this.currentDepartment) {
+      // Update existing department using service
+      this.departmentsService.updateDepartment(this.currentDepartment.id, departmentData);
+    } else {
+      // Add new department using service
+      this.departmentsService.addDepartment(departmentData);
+    }
+
+    this.closeModal();
+  }
+
+  generateId(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9]/g, '-').substring(0, 20) + '-' + Date.now();
+  }
+
+  deleteDepartment(department: Department): void {
+    if (confirm(`Are you sure you want to delete "${department.name}"? This will also remove all its revenue streams.`)) {
+      this.departmentsService.deleteDepartment(department.id);
+    }
+  }
+
+  viewDetails(department: Department): void {
+    this.selectedDepartment = department;
+    this.showDetailsModal = true;
+  }
+
+  closeDetails(): void {
+    this.selectedDepartment = null;
+    this.showDetailsModal = false;
+  }
+
+  trackByDepartmentId(index: number, department: Department): string {
+    return department.id;
+  }
 }

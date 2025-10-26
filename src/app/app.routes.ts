@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'departments', component: DepartmentsComponent },
   { path: 'contact', component: ContactComponent },
   
-  // Admin module - lazy loaded
+  // Admin - lazy loaded
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.routes').then(m => m.adminRoutes)

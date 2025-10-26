@@ -1,10 +1,16 @@
 <div class="departments-management">
+  <!-- Page Header -->
   <div class="page-header">
-    <div>
-      <h1>Departments</h1>
-      <p>Manage county departments and their information</p>
+    <div class="header-content">
+      <h1>Departments Management</h1>
+      <p>Manage county departments and their revenue streams</p>
+      <div class="total-revenue-card">
+        <h3>Total County Revenue</h3>
+        <div class="total-amount">{{ formatCurrency(getTotalCountyRevenue()) }}</div>
+        <p>Across {{ departments.length }} departments</p>
+      </div>
     </div>
-    <button class="btn-primary">
+    <button class="btn-primary" (click)="openModal()">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"/>
         <line x1="5" y1="12" x2="19" y2="12"/>
@@ -13,27 +19,232 @@
     </button>
   </div>
 
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input 
+      type="text" 
+      placeholder="Search departments or revenue streams..." 
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <!-- Departments Grid -->
   <div class="departments-grid">
-    <div *ngFor="let dept of departments" class="dept-card">
-      <div class="dept-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path [attr.d]="dept.icon"/>
-        </svg>
-      </div>
-      <h3>{{ dept.name }}</h3>
-      <div class="dept-stats">
-        <div class="stat">
-          <span class="stat-label">Staff</span>
-          <span class="stat-value">{{ dept.staff }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Budget</span>
-          <span class="stat-value">{{ dept.budget }}</span>
+    <div
+      *ngFor="let department of filteredDepartments; trackBy: trackByDepartmentId"
+      class="department-card"
+    >
+      <div class="card-header">
+        <div class="department-icon">{{ department.icon }}</div>
+        <div class="department-info">
+          <h3>{{ department.shortName || department.name }}</h3>
+          <div class="revenue-info">
+            <span class="revenue-amount">{{ formatCurrency(department.totalRevenue!) }}</span>
+            <span class="revenue-percentage">{{ getPercentageOfTotal(department.totalRevenue!) }}% of total</span>
+          </div>
         </div>
       </div>
-      <div class="dept-actions">
-        <button class="btn-edit">Edit</button>
-        <button class="btn-view">View Details</button>
+
+      <div class="card-body">
+        <p class="department-description">{{ department.description }}</p>
+        <div class="revenue-streams-count">
+          <span class="streams-count">{{ department.revenueStreams.length }}</span>
+          <span class="streams-label">Revenue Streams</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <div class="action-buttons">
+          <button class="btn-view" (click)="viewDetails(department)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            View Details
+          </button>
+          <button class="btn-edit" (click)="openModal(department)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </button>
+          <button class="btn-delete" (click)="deleteDepartment(department)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredDepartments.length === 0" class="empty-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <h3>No departments found</h3>
+    <p>{{ searchTerm ? 'Try adjusting your search' : 'Get started by adding your first department' }}</p>
+  </div>
+
+  <!-- Add/Edit Department Modal -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ editMode ? 'Edit' : 'Add' }} Department</h2>
+        <button class="close-btn" (click)="closeModal()">✕</button>
+      </div>
+
+      <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()" class="modal-body">
+        <div class="form-group">
+          <label for="name">Department Name *</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name"
+            placeholder="e.g., Finance & Economic Planning"
+          />
+          <span class="error-message" *ngIf="departmentForm.get('name')?.invalid && departmentForm.get('name')?.touched">
+            Department name is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="shortName">Short Name (Optional)</label>
+          <input 
+            type="text" 
+            id="shortName" 
+            formControlName="shortName"
+            placeholder="e.g., Finance & Planning"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="icon">Icon (Emoji) *</label>
+          <input 
+            type="text" 
+            id="icon" 
+            formControlName="icon"
+            placeholder="e.g., 💰 🏥 🌾 💧"
+            maxlength="2"
+          />
+          <span class="error-message" *ngIf="departmentForm.get('icon')?.invalid && departmentForm.get('icon')?.touched">
+            Icon is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description *</label>
+          <textarea 
+            id="description" 
+            formControlName="description"
+            placeholder="Brief description of this department and its functions"
+            rows="3"
+          ></textarea>
+          <span class="error-message" *ngIf="departmentForm.get('description')?.invalid && departmentForm.get('description')?.touched">
+            Description is required
+          </span>
+        </div>
+
+        <div class="revenue-streams-section">
+          <div class="section-header">
+            <label>Revenue Streams *</label>
+            <button type="button" class="btn-add-stream" (click)="addRevenueStream()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              Add Stream
+            </button>
+          </div>
+
+          <div formArrayName="revenueStreams" class="streams-list">
+            <div *ngFor="let stream of revenueStreamsArray.controls; let i = index" [formGroupName]="i" class="stream-item">
+              <div class="stream-number">{{ i + 1 }}</div>
+              <div class="stream-fields">
+                <input 
+                  type="text" 
+                  formControlName="name"
+                  placeholder="Stream name (e.g., Market Fees)"
+                />
+                <input 
+                  type="text" 
+                  formControlName="description"
+                  placeholder="Description (optional)"
+                />
+              </div>
+              <button type="button" class="btn-remove-stream" (click)="removeRevenueStream(i)" [disabled]="revenueStreamsArray.length === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="closeModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn-primary-submit" [disabled]="departmentForm.invalid || revenueStreamsArray.length === 0">
+            {{ editMode ? 'Update' : 'Create' }} Department
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- View Details Modal -->
+  <div class="department-details" *ngIf="showDetailsModal && selectedDepartment" (click)="closeDetails()">
+    <div class="details-card" (click)="$event.stopPropagation()">
+      <div class="details-header">
+        <div class="header-content">
+          <div class="department-icon-large">{{ selectedDepartment.icon }}</div>
+          <div class="department-title-section">
+            <h2>{{ selectedDepartment.name }}</h2>
+            <p class="full-description">{{ selectedDepartment.description }}</p>
+          </div>
+        </div>
+        <button class="close-btn" (click)="closeDetails()">✕</button>
+      </div>
+
+      <div class="details-body">
+        <div class="revenue-summary">
+          <div class="summary-item">
+            <span class="summary-label">Total Revenue</span>
+            <span class="summary-value">{{ formatCurrency(selectedDepartment.totalRevenue!) }}</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Percentage of County Revenue</span>
+            <span class="summary-value">{{ getPercentageOfTotal(selectedDepartment.totalRevenue!) }}%</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Revenue Streams</span>
+            <span class="summary-value">{{ selectedDepartment.revenueStreams.length }}</span>
+          </div>
+        </div>
+
+        <div class="revenue-streams-view">
+          <h3>Revenue Streams</h3>
+          <div class="streams-grid">
+            <div *ngFor="let stream of selectedDepartment.revenueStreams" class="stream-card">
+              <div class="stream-header">
+                <h4>{{ stream.name }}</h4>
+              </div>
+              <div class="stream-body" *ngIf="stream.description">
+                <p>{{ stream.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

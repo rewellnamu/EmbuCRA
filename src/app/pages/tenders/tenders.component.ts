@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TendersService, Tender } from '../../services/tenders.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tenders',
@@ -8,20 +10,60 @@ import { CommonModule } from '@angular/common';
   templateUrl: './tenders.component.html',
   styleUrls: ['./tenders.component.scss'],
 })
-export class TendersComponent {
-  tenders = [
-    { title: 'Supply of Office Equipment', closing: '2025-10-15' },
-    { title: 'Construction of Market Stalls', closing: '2025-11-05' },
-  ];
+export class TendersComponent implements OnInit, OnDestroy {
+  tenders: Tender[] = [];
+  selectedTender: Tender | null = null;
+  private subscription?: Subscription;
 
-  selectedTender: any = null;
+  constructor(private tendersService: TendersService) {}
 
-  openTenderDetails(tender: any) {
+  ngOnInit(): void {
+    // Subscribe to tenders from service
+    this.subscription = this.tendersService.tenders$.subscribe(
+      tenders => {
+        this.tenders = tenders;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  openTenderDetails(tender: Tender): void {
     this.selectedTender = tender;
   }
 
-  downloadTenderDocs(tender: any) {
-    // Implement actual download logic here
-    alert('Download for "' + tender.title + '" not implemented.');
+  downloadTenderDocs(tender: Tender): void {
+    if (tender.documentUrl) {
+      window.open(tender.documentUrl, '_blank');
+    } else {
+      alert('Document not available for "' + tender.title + '"');
+    }
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'open':
+        return '#27ae60';
+      case 'closed':
+        return '#e74c3c';
+      case 'awarded':
+        return '#3498db';
+      default:
+        return '#6c757d';
+    }
+  }
+
+  formatCurrency(amount?: number): string {
+    if (!amount) return 'N/A';
+    return new Intl.NumberFormat('en-KE', {
+      style: 'currency',
+      currency: 'KES',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
   }
 }
