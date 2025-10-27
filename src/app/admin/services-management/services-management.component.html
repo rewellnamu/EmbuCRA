@@ -1,0 +1,226 @@
+<div class="services-management">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1>Services Management</h1>
+      <p>Manage county services, fees, and requirements</p>
+    </div>
+    <button class="btn-primary" (click)="openModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add Service
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input 
+      type="text" 
+      placeholder="Search services..." 
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <!-- Services Grid -->
+  <div class="services-grid">
+    <div *ngFor="let service of filteredServices; trackBy: trackByServiceId" class="service-card">
+      <div class="card-header">
+        <div class="service-icon">{{ service.icon }}</div>
+        <div class="service-info">
+          <h3>{{ service.title }}</h3>
+          <span class="category-badge">{{ service.category }}</span>
+        </div>
+        <div class="service-badges">
+          <span class="badge digital" *ngIf="service.digitalAvailable">Digital</span>
+          <span class="badge featured" *ngIf="service.featured">Featured</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="description">{{ service.description }}</p>
+        
+        <div class="service-meta">
+          <div class="meta-item">
+            <span class="label">Processing:</span>
+            <span class="value">{{ service.processingTime }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Requirements:</span>
+            <span class="value">{{ service.requirements?.length || 0 }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Locations:</span>
+            <span class="value">{{ service.location?.length || 0 }}</span>
+          </div>
+        </div>
+
+        <div class="fees-preview" *ngIf="getFees(service).length > 0">
+          <strong>Fees:</strong>
+          <div class="fee-item" *ngFor="let fee of getFees(service).slice(0, 2)">
+            {{ fee.description }}: {{ formatCurrency(fee.amount) }}
+            <small *ngIf="fee.period">{{ fee.period }}</small>
+          </div>
+          <span *ngIf="getFees(service).length > 2" class="more-fees">
+            +{{ getFees(service).length - 2 }} more
+          </span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn-edit" (click)="openModal(service)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Edit
+        </button>
+        <button class="btn-delete" (click)="deleteService(service)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+          </svg>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredServices.length === 0" class="empty-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <h3>No services found</h3>
+    <p>{{ searchTerm ? 'Try adjusting your search' : 'Get started by adding your first service' }}</p>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-large" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ editMode ? 'Edit' : 'Add' }} Service</h2>
+        <button class="close-btn" (click)="closeModal()">✕</button>
+      </div>
+
+      <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()" class="modal-body">
+        <!-- Basic Information -->
+        <div class="form-section">
+          <h3>Basic Information</h3>
+          
+          <div class="form-group">
+            <label for="title">Service Title *</label>
+            <input type="text" id="title" formControlName="title" placeholder="e.g., Single Business Permit" />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea id="description" formControlName="description" placeholder="Brief description" rows="3"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="category">Category *</label>
+              <select id="category" formControlName="category">
+                <option value="">Select Category</option>
+                <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="icon">Icon *</label>
+              <input type="text" id="icon" formControlName="icon" placeholder="📋" maxlength="2" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="processingTime">Processing Time *</label>
+              <input type="text" id="processingTime" formControlName="processingTime" placeholder="3-5 days" />
+            </div>
+
+            <div class="form-group">
+              <label for="contactInfo">Contact Info</label>
+              <input type="text" id="contactInfo" formControlName="contactInfo" placeholder="Revenue Office" />
+            </div>
+          </div>
+
+          <div class="checkbox-row">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="digitalAvailable" />
+              <span>Digital Available</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="featured" />
+              <span>Featured</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Fees Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Service Fees</h3>
+            <button type="button" class="btn-add" (click)="addFee()">Add Fee</button>
+          </div>
+          
+          <div formArrayName="fees" class="items-list">
+            <div *ngFor="let fee of feesArray.controls; let i = index" [formGroupName]="i" class="item-row">
+              <span class="item-number">{{ i + 1 }}</span>
+              <input type="text" formControlName="description" placeholder="Fee description" />
+              <input type="number" formControlName="amount" placeholder="Amount" min="0" />
+              <input type="text" formControlName="period" placeholder="Period (optional)" />
+              <button type="button" class="btn-remove" (click)="removeFee(i)">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Requirements Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Requirements</h3>
+            <button type="button" class="btn-add" (click)="addRequirement()">Add Requirement</button>
+          </div>
+          
+          <div formArrayName="requirements" class="items-list">
+            <div *ngFor="let req of requirementsArray.controls; let i = index" class="item-row">
+              <span class="item-number">{{ i + 1 }}</span>
+              <input type="text" [formControlName]="i" placeholder="Required document" />
+              <button type="button" class="btn-remove" (click)="removeRequirement(i)">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Locations Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Service Locations</h3>
+            <button type="button" class="btn-add" (click)="addLocation()">Add Location</button>
+          </div>
+          
+          <div formArrayName="locations" class="items-list">
+            <div *ngFor="let loc of locationsArray.controls; let i = index" class="item-row">
+              <span class="item-number">{{ i + 1 }}</span>
+              <input type="text" [formControlName]="i" placeholder="Service location" />
+              <button type="button" class="btn-remove" (click)="removeLocation(i)">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary-submit" [disabled]="serviceForm.invalid">
+            {{ editMode ? 'Update' : 'Create' }} Service
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

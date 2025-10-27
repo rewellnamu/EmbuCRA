@@ -1,0 +1,215 @@
+<div class="news-management">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1>News Management</h1>
+      <p>Manage news articles and announcements</p>
+    </div>
+    <button class="btn-primary" (click)="openModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add News Article
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input 
+      type="text" 
+      placeholder="Search news articles..." 
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <!-- News Grid -->
+  <div class="news-grid">
+    <div *ngFor="let article of filteredNews; trackBy: trackByArticleId" class="news-card">
+      <div class="card-header">
+        <div class="article-info">
+          <h3>{{ article.title }}</h3>
+          <div class="meta-row">
+            <span class="category-badge">{{ article.category }}</span>
+            <span class="featured-badge" *ngIf="article.featured">⭐ Featured</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="summary">{{ article.summary }}</p>
+        <p class="content-preview">{{ getExcerpt(article.content, 120) }}</p>
+        
+        <div class="article-meta">
+          <div class="meta-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>{{ article.author }}</span>
+          </div>
+          <div class="meta-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>{{ article.publishDate | date: 'dd MMM yyyy' }}</span>
+          </div>
+        </div>
+
+        <div class="tags" *ngIf="article.tags && article.tags.length > 0">
+          <span class="tag" *ngFor="let tag of article.tags">#{{ tag }}</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn-featured" (click)="toggleFeatured(article)" [class.active]="article.featured">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          {{ article.featured ? 'Featured' : 'Feature' }}
+        </button>
+        <button class="btn-edit" (click)="openModal(article)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Edit
+        </button>
+        <button class="btn-delete" (click)="deleteArticle(article)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+          </svg>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredNews.length === 0" class="empty-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <h3>No news articles found</h3>
+    <p>{{ searchTerm ? 'Try adjusting your search' : 'Get started by adding your first news article' }}</p>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ editMode ? 'Edit' : 'Add' }} News Article</h2>
+        <button class="close-btn" (click)="closeModal()">✕</button>
+      </div>
+
+      <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" class="modal-body">
+        <div class="form-group">
+          <label for="title">Article Title *</label>
+          <input 
+            type="text" 
+            id="title" 
+            formControlName="title"
+            placeholder="e.g., New Digital Revenue System Launched"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="summary">Summary *</label>
+          <textarea 
+            id="summary" 
+            formControlName="summary"
+            placeholder="Brief summary of the article"
+            rows="2"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="content">Article Content *</label>
+          <textarea 
+            id="content" 
+            formControlName="content"
+            placeholder="Full article content"
+            rows="6"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" formControlName="category">
+              <option value="">Select Category</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="author">Author *</label>
+            <input 
+              type="text" 
+              id="author" 
+              formControlName="author"
+              placeholder="e.g., County Communications"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="publishDate">Publish Date *</label>
+            <input 
+              type="date" 
+              id="publishDate" 
+              formControlName="publishDate"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="imageUrl">Image URL (Optional)</label>
+            <input 
+              type="url" 
+              id="imageUrl" 
+              formControlName="imageUrl"
+              placeholder="https://..."
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tags">Tags (comma-separated)</label>
+          <input 
+            type="text" 
+            id="tags" 
+            formControlName="tags"
+            placeholder="e.g., digital, revenue, technology"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="featured" />
+            <span>Feature this article</span>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="closeModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn-primary-submit" [disabled]="newsForm.invalid">
+            {{ editMode ? 'Update' : 'Publish' }} Article
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ServicesDataService, CountyService } from '../../services/services-data.service';
+import { Subscription } from 'rxjs';
 
 interface ServiceRequirement {
   document: string;
@@ -13,9 +15,11 @@ interface ServiceFee {
   period?: string;
 }
 
+// Interface that matches your component structure
 interface Service {
   id: string;
   name: string;
+  title: string;
   description: string;
   category: string;
   icon: string;
@@ -34,9 +38,11 @@ interface Service {
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss']
 })
-export class ServicesComponent {
+export class ServicesComponent implements OnInit, OnDestroy {
   selectedCategory = 'all';
   selectedService: Service | null = null;
+  services: Service[] = [];
+  private subscription?: Subscription;
   
   categories = [
     { id: 'all', name: 'All Services', icon: '🏛️' },
@@ -49,273 +55,57 @@ export class ServicesComponent {
     { id: 'social', name: 'Social Services', icon: '👥' }
   ];
 
-  services: Service[] = [
-    // Business & Trade Services
-    {
-      id: 'single-business-permit',
-      name: 'Single Business Permit (SBP)',
-      description: 'Unified business licensing system combining multiple permits into one comprehensive permit for ease of doing business.',
-      category: 'business',
-      icon: '📋',
-      fees: [
-        { description: 'Small Business (Turnover < 1M)', amount: 3000 },
-        { description: 'Medium Business (1M - 5M)', amount: 10000 },
-        { description: 'Large Business (> 5M)', amount: 25000 }
-      ],
-      requirements: [
-        { document: 'Business Registration Certificate', required: true },
-        { document: 'National ID/Passport', required: true },
-        { document: 'KRA PIN Certificate', required: true },
-        { document: 'Lease Agreement/Title Deed', required: true },
-        { document: 'Site Plan', required: false }
-      ],
-      processingTime: '3-5 working days',
-      location: ['ECRA Offices - Embu', 'Sub-County Offices', 'Online Portal'],
-      digitalAvailable: true,
-      featured: true
-    },
-    {
-      id: 'liquor-license',
-      name: 'Liquor Licensing',
-      description: 'Permits for sale, manufacture, and distribution of alcoholic beverages within Embu County.',
-      category: 'business',
-      icon: '🍺',
-      fees: [
-        { description: 'Wine & Beer License', amount: 15000, period: 'annual' },
-        { description: 'Spirits License', amount: 30000, period: 'annual' },
-        { description: 'Manufacturer License', amount: 50000, period: 'annual' }
-      ],
-      requirements: [
-        { document: 'Business Permit', required: true },
-        { document: 'Certificate of Good Conduct', required: true },
-        { document: 'Premises Inspection Report', required: true },
-        { document: 'Fire Safety Certificate', required: true }
-      ],
-      processingTime: '7-10 working days',
-      location: ['ECRA Headquarters', 'Trade Department'],
-      digitalAvailable: false,
-      featured: false
-    },
-    {
-      id: 'market-stalls',
-      name: 'Market Stall Allocation',
-      description: 'Rental and allocation of market stalls in county markets for trade and business activities.',
-      category: 'business',
-      icon: '🏪',
-      fees: [
-        { description: 'Permanent Stall', amount: 2000, period: 'monthly' },
-        { description: 'Temporary Stall', amount: 100, period: 'daily' },
-        { description: 'Market Entry Fee', amount: 20, period: 'daily' }
-      ],
-      requirements: [
-        { document: 'National ID', required: true },
-        { document: 'Business Permit', required: false },
-        { document: 'Medical Certificate', required: true }
-      ],
-      processingTime: 'Same day',
-      location: ['Various County Markets', 'Market Administration Offices'],
-      digitalAvailable: true,
-      featured: true
-    },
+  constructor(private servicesDataService: ServicesDataService) {}
 
-    // Property & Land Services
-    {
-      id: 'property-rates',
-      name: 'Property Rates Payment',
-      description: 'Annual property tax based on the unimproved site value of land and properties within the county.',
-      category: 'property',
-      icon: '🏠',
-      fees: [
-        { description: 'Residential Property', amount: 0, period: 'Rate varies by valuation' },
-        { description: 'Commercial Property', amount: 0, period: 'Rate varies by valuation' },
-        { description: 'Industrial Property', amount: 0, period: 'Rate varies by valuation' }
-      ],
-      requirements: [
-        { document: 'Title Deed', required: true },
-        { document: 'National ID', required: true },
-        { document: 'Previous Rate Payment Receipt', required: false }
-      ],
-      processingTime: 'Immediate',
-      location: ['ECRA Offices', 'Online Portal', 'Mobile Money'],
-      digitalAvailable: true,
-      featured: true
-    },
-    {
-      id: 'subdivision-approval',
-      name: 'Land Subdivision Approval',
-      description: 'Approval for subdivision of land parcels and issuance of subdivision permits.',
-      category: 'property',
-      icon: '📏',
-      fees: [
-        { description: 'Survey Fee', amount: 15000 },
-        { description: 'Approval Fee', amount: 5000 },
-        { description: 'Processing Fee', amount: 2000 }
-      ],
-      requirements: [
-        { document: 'Original Title Deed', required: true },
-        { document: 'Survey Plan', required: true },
-        { document: 'Environmental Impact Assessment', required: true },
-        { document: 'Site Plan', required: true }
-      ],
-      processingTime: '14-21 working days',
-      location: ['Lands Department', 'Physical Planning Office'],
-      digitalAvailable: false,
-      featured: false
-    },
+  ngOnInit(): void {
+    // Subscribe to services from service
+    this.subscription = this.servicesDataService.services$.subscribe(
+      services => {
+        // Transform services to match component structure
+        this.services = services.map(s => ({
+          ...s,
+          name: s.title,
+          fees: this.parseFees(s.fees || ''),
+          requirements: this.parseRequirements(s.requirements || []),
+          processingTime: s.processingTime || '3-5 working days',
+          location: s.location || ['ECRA Offices'],
+          digitalAvailable: s.digitalAvailable || false,
+          featured: s.featured || false
+        }));
+      }
+    );
+  }
 
-    // Transport & Parking Services
-    {
-      id: 'parking-fees',
-      name: 'Digital Parking Payment',
-      description: 'Convenient digital payment system for vehicle parking in designated county parking zones.',
-      category: 'transport',
-      icon: '🅿️',
-      fees: [
-        { description: 'Hourly Parking', amount: 20, period: 'per hour' },
-        { description: 'Daily Parking', amount: 100, period: 'per day' },
-        { description: 'Monthly Pass', amount: 1500, period: 'monthly' }
-      ],
-      requirements: [
-        { document: 'Vehicle Registration', required: false },
-        { document: 'Mobile Phone', required: true }
-      ],
-      processingTime: 'Instant',
-      location: ['CBD Parking Zones', 'Mobile App', 'SMS Service'],
-      digitalAvailable: true,
-      featured: true
-    },
-    {
-      id: 'transport-permits',
-      name: 'Transport & PSV Permits',
-      description: 'Permits for public service vehicles, matatu stages, and transport operations.',
-      category: 'transport',
-      icon: '🚌',
-      fees: [
-        { description: 'PSV Permit', amount: 5000, period: 'annual' },
-        { description: 'Stage License', amount: 10000, period: 'annual' },
-        { description: 'Route Permit', amount: 3000, period: 'annual' }
-      ],
-      requirements: [
-        { document: 'Vehicle Logbook', required: true },
-        { document: 'Insurance Certificate', required: true },
-        { document: 'Road License', required: true },
-        { document: 'Driver\'s License', required: true }
-      ],
-      processingTime: '5-7 working days',
-      location: ['Transport Department', 'ECRA Offices'],
-      digitalAvailable: false,
-      featured: false
-    },
-
-    // Health Services
-    {
-      id: 'health-certificates',
-      name: 'Health Certificates',
-      description: 'Medical certificates for food handlers, business operators, and health clearances.',
-      category: 'health',
-      icon: '🏥',
-      fees: [
-        { description: 'Food Handler Certificate', amount: 300 },
-        { description: 'Business Health Certificate', amount: 1000 },
-        { description: 'Health Clearance', amount: 500 }
-      ],
-      requirements: [
-        { document: 'National ID', required: true },
-        { document: 'Medical Examination', required: true },
-        { document: 'Passport Photo', required: true }
-      ],
-      processingTime: '1-2 working days',
-      location: ['County Health Facilities', 'Public Health Office'],
-      digitalAvailable: false,
-      featured: false
-    },
-
-    // Agriculture & Livestock Services
-    {
-      id: 'veterinary-services',
-      name: 'Veterinary Services',
-      description: 'Animal health services, livestock registration, and veterinary permits.',
-      category: 'agriculture',
-      icon: '🐄',
-      fees: [
-        { description: 'Livestock Registration', amount: 500, period: 'per animal' },
-        { description: 'Vaccination Services', amount: 200, period: 'per animal' },
-        { description: 'Health Certificate', amount: 1000 }
-      ],
-      requirements: [
-        { document: 'National ID', required: true },
-        { document: 'Livestock Ownership Proof', required: true }
-      ],
-      processingTime: 'Same day',
-      location: ['Veterinary Offices', 'Livestock Markets'],
-      digitalAvailable: false,
-      featured: false
-    },
-    {
-      id: 'cess-collection',
-      name: 'Agricultural Produce Cess',
-      description: 'Tax collection on agricultural produce transported within and outside the county.',
-      category: 'agriculture',
-      icon: '🚚',
-      fees: [
-        { description: 'Coffee Cess', amount: 2, period: 'per kg' },
-        { description: 'Tea Cess', amount: 1, period: 'per kg' },
-        { description: 'General Produce', amount: 50, period: 'per ton' }
-      ],
-      requirements: [
-        { document: 'Produce Manifest', required: true },
-        { document: 'Transport Permit', required: true }
-      ],
-      processingTime: 'Instant',
-      location: ['County Barriers', 'Agricultural Offices'],
-      digitalAvailable: true,
-      featured: false
-    },
-
-    // Environment & Water Services
-    {
-      id: 'water-connection',
-      name: 'Water Connection Services',
-      description: 'New water connections, reconnections, and water service applications.',
-      category: 'environment',
-      icon: '💧',
-      fees: [
-        { description: 'New Connection', amount: 5000 },
-        { description: 'Reconnection Fee', amount: 2000 },
-        { description: 'Meter Installation', amount: 3000 }
-      ],
-      requirements: [
-        { document: 'National ID', required: true },
-        { document: 'Proof of Land Ownership', required: true },
-        { document: 'Site Plan', required: true }
-      ],
-      processingTime: '7-14 working days',
-      location: ['Water Department', 'Sub-County Offices'],
-      digitalAvailable: true,
-      featured: false
-    },
-    {
-      id: 'borehole-permit',
-      name: 'Borehole Drilling Permits',
-      description: 'Permits for drilling boreholes and groundwater abstraction.',
-      category: 'environment',
-      icon: '🏗️',
-      fees: [
-        { description: 'Drilling Permit', amount: 10000 },
-        { description: 'Water Abstraction License', amount: 5000 },
-        { description: 'Environmental Clearance', amount: 3000 }
-      ],
-      requirements: [
-        { document: 'Land Ownership Document', required: true },
-        { document: 'Hydrogeological Survey', required: true },
-        { document: 'Environmental Impact Assessment', required: true }
-      ],
-      processingTime: '14-21 working days',
-      location: ['Water Resources Department', 'ECRA Headquarters'],
-      digitalAvailable: false,
-      featured: false
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
-  ];
+  }
+
+  // Helper method to parse fees string into array
+  private parseFees(feesString: string): ServiceFee[] {
+    if (!feesString) return [];
+    
+    try {
+      // If it's already JSON, parse it
+      return JSON.parse(feesString);
+    } catch {
+      // Otherwise return a default fee structure
+      return [{ description: 'Service Fee', amount: 0, period: 'Variable' }];
+    }
+  }
+
+  // Helper method to parse requirements
+  private parseRequirements(requirements: string[]): ServiceRequirement[] {
+    if (!requirements || requirements.length === 0) {
+      return [{ document: 'National ID', required: true }];
+    }
+    
+    return requirements.map(req => ({
+      document: req,
+      required: true
+    }));
+  }
 
   getFilteredServices(): Service[] {
     if (this.selectedCategory === 'all') {

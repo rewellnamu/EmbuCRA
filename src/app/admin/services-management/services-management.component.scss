@@ -1,4 +1,4 @@
-.tenders-management {
+.services-management {
   .page-header {
     display: flex;
     justify-content: space-between;
@@ -11,10 +11,6 @@
       font-size: 2rem;
       color: #1a202c;
       margin: 0 0 0.5rem 0;
-
-      @media (max-width: 768px) {
-        font-size: 1.75rem;
-      }
     }
 
     p {
@@ -52,7 +48,6 @@
       top: 50%;
       transform: translateY(-50%);
       color: #a0aec0;
-      pointer-events: none;
     }
 
     input {
@@ -61,8 +56,6 @@
       border: 2px solid #e2e8f0;
       border-radius: 0.5rem;
       font-size: 1rem;
-      background: white;
-      transition: all 0.2s;
 
       &:focus {
         outline: none;
@@ -72,7 +65,7 @@
     }
   }
 
-  .tenders-grid {
+  .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 1.5rem;
@@ -81,13 +74,11 @@
       grid-template-columns: 1fr;
     }
 
-    .tender-card {
+    .service-card {
       background: white;
       border-radius: 1rem;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
 
       &:hover {
         transform: translateY(-4px);
@@ -98,50 +89,61 @@
         padding: 1.5rem;
         border-bottom: 1px solid #e2e8f0;
         display: flex;
-        justify-content: space-between;
         align-items: flex-start;
         gap: 1rem;
 
-        h3 {
-          font-size: 1.125rem;
-          color: #1a202c;
-          margin: 0;
-          flex: 1;
+        .service-icon {
+          font-size: 2.5rem;
+          flex-shrink: 0;
         }
 
-        .status-badge {
-          padding: 0.25rem 0.75rem;
-          border-radius: 9999px;
-          font-size: 0.75rem;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+        .service-info {
+          flex: 1;
 
-          &.badge-success {
-            background: rgba(72, 187, 120, 0.1);
-            color: #38a169;
+          h3 {
+            font-size: 1.125rem;
+            color: #1a202c;
+            margin: 0 0 0.5rem 0;
           }
 
-          &.badge-danger {
-            background: rgba(245, 101, 101, 0.1);
-            color: #e53e3e;
+          .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #edf2f7;
+            color: #4a5568;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-transform: uppercase;
           }
+        }
 
-          &.badge-info {
-            background: rgba(66, 153, 225, 0.1);
-            color: #3182ce;
-          }
+        .service-badges {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
 
-          &.badge-secondary {
-            background: rgba(160, 174, 192, 0.1);
-            color: #718096;
+          .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+
+            &.digital {
+              background: rgba(72, 187, 120, 0.1);
+              color: #38a169;
+            }
+
+            &.featured {
+              background: rgba(237, 137, 54, 0.1);
+              color: #dd6b20;
+            }
           }
         }
       }
 
       .card-body {
         padding: 1.5rem;
-        flex: 1;
 
         .description {
           color: #718096;
@@ -150,12 +152,13 @@
           margin-bottom: 1rem;
         }
 
-        .tender-details {
+        .service-meta {
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
+          margin-bottom: 1rem;
 
-          .detail-item {
+          .meta-item {
             display: flex;
             justify-content: space-between;
             font-size: 0.875rem;
@@ -169,6 +172,35 @@
               color: #2c3e50;
               font-weight: 600;
             }
+          }
+        }
+
+        .fees-preview {
+          padding: 1rem;
+          background: #f7fafc;
+          border-radius: 0.5rem;
+          font-size: 0.875rem;
+
+          strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+          }
+
+          .fee-item {
+            color: #4a5568;
+            margin-bottom: 0.25rem;
+
+            small {
+              color: #718096;
+              font-style: italic;
+            }
+          }
+
+          .more-fees {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.8125rem;
           }
         }
       }
@@ -228,7 +260,6 @@
     padding: 4rem 2rem;
     background: white;
     border-radius: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
     svg {
       color: #cbd5e0;
@@ -247,7 +278,7 @@
     }
   }
 
-  // Modal styles (same as departments)
+  // Modal styles
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -260,47 +291,26 @@
     justify-content: center;
     z-index: 2000;
     padding: 2rem;
-    animation: fadeIn 0.2s ease;
+    animation: fadeIn 0.2s;
 
     @media (max-width: 768px) {
-      padding: 1rem;
-      align-items: flex-start;
-      overflow-y: auto;
-    }
-
-    @media (max-width: 480px) {
       padding: 0;
+      align-items: flex-start;
     }
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  .modal {
+  .modal-large {
     background: white;
     border-radius: 1rem;
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.3s ease;
 
     @media (max-width: 768px) {
-      max-height: 95vh;
-      margin: 1rem 0;
-    }
-
-    @media (max-width: 480px) {
       border-radius: 0;
       max-height: 100vh;
-      margin: 0;
       min-height: 100vh;
     }
 
@@ -315,10 +325,6 @@
         font-size: 1.5rem;
         color: #1a202c;
         margin: 0;
-
-        @media (max-width: 480px) {
-          font-size: 1.3rem;
-        }
       }
 
       .close-btn {
@@ -327,7 +333,6 @@
         cursor: pointer;
         font-size: 1.5rem;
         color: #718096;
-        transition: color 0.2s;
 
         &:hover {
           color: #1a202c;
@@ -338,62 +343,162 @@
     .modal-body {
       padding: 1.5rem;
 
-      @media (max-width: 480px) {
-        padding: 1.25rem;
-      }
+      .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e2e8f0;
 
-      .form-group {
-        margin-bottom: 1.5rem;
-
-        label {
-          display: block;
-          margin-bottom: 0.5rem;
-          color: #2d3748;
-          font-weight: 600;
-          font-size: 0.875rem;
+        &:last-of-type {
+          border-bottom: none;
         }
 
-        input,
-        select,
-        textarea {
-          width: 100%;
-          padding: 0.75rem;
-          border: 2px solid #e2e8f0;
-          border-radius: 0.5rem;
-          font-size: 1rem;
-          transition: all 0.2s;
-          font-family: inherit;
+        h3 {
+          font-size: 1.25rem;
+          color: #1a202c;
+          margin: 0 0 1.5rem 0;
+        }
 
-          &:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          .btn-add {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+
+            &:hover {
+              transform: translateY(-2px);
+            }
           }
         }
 
-        textarea {
-          resize: vertical;
+        .form-group {
+          margin-bottom: 1.5rem;
+
+          label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.875rem;
+          }
+
+          input,
+          select,
+          textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+
+            &:focus {
+              outline: none;
+              border-color: #667eea;
+              box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+          }
+
+          textarea {
+            resize: vertical;
+          }
         }
 
-        .error-message {
-          display: block;
-          margin-top: 0.5rem;
-          color: #fc8181;
-          font-size: 0.875rem;
+        .form-row {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1rem;
         }
-      }
 
-      .form-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
+        .checkbox-row {
+          display: flex;
+          gap: 2rem;
+
+          .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+
+            input[type="checkbox"] {
+              width: auto;
+            }
+
+            span {
+              font-weight: 500;
+              color: #4a5568;
+            }
+          }
+        }
+
+        .items-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+
+          .item-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+
+            .item-number {
+              width: 28px;
+              height: 28px;
+              background: #667eea;
+              color: white;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 700;
+              font-size: 0.875rem;
+              flex-shrink: 0;
+            }
+
+            input {
+              flex: 1;
+              padding: 0.625rem;
+              border: 2px solid #e2e8f0;
+              border-radius: 0.375rem;
+
+              &:focus {
+                outline: none;
+                border-color: #667eea;
+              }
+            }
+
+            .btn-remove {
+              width: 32px;
+              height: 32px;
+              background: white;
+              border: 2px solid #e2e8f0;
+              border-radius: 0.375rem;
+              color: #e53e3e;
+              cursor: pointer;
+              flex-shrink: 0;
+
+              &:hover {
+                background: #fff5f5;
+                border-color: #fc8181;
+              }
+            }
+          }
+        }
       }
 
       .modal-actions {
         display: flex;
         gap: 1rem;
         justify-content: flex-end;
-        margin-top: 2rem;
         padding-top: 1.5rem;
         border-top: 1px solid #e2e8f0;
 
@@ -402,7 +507,6 @@
           border-radius: 0.5rem;
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s;
 
           &.btn-secondary {
             background: white;
@@ -434,14 +538,12 @@
     }
   }
 
-  @keyframes slideUp {
+  @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 }

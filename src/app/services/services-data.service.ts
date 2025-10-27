@@ -7,9 +7,12 @@ export interface CountyService {
   description: string;
   category: string;
   icon: string;
-  requirements?: string[];
-  process?: string[];
-  fees?: string;
+  fees?: string; // JSON string of fees array
+  requirements?: string[]; // Array of requirement strings
+  processingTime?: string;
+  location?: string[];
+  digitalAvailable?: boolean;
+  featured?: boolean;
   contactInfo?: string;
 }
 
@@ -77,26 +80,89 @@ export class ServicesDataService {
   private initializeDefaultServices(): void {
     const defaultServices: CountyService[] = [
       {
-        id: 'service-1',
-        title: 'Single Business Permit',
-        description: 'Apply for a business operating permit within Embu County',
-        category: 'Licenses & Permits',
+        id: 'single-business-permit',
+        title: 'Single Business Permit (SBP)',
+        description: 'Unified business licensing system combining multiple permits into one comprehensive permit for ease of doing business.',
+        category: 'business',
         icon: '📋',
-        requirements: ['Business registration certificate', 'National ID', 'Passport photo', 'Location map'],
-        process: ['Visit county offices', 'Fill application form', 'Submit documents', 'Pay fees', 'Collect permit'],
-        fees: 'KES 5,000 - 50,000 (depends on business category)',
+        fees: JSON.stringify([
+          { description: 'Small Business (Turnover < 1M)', amount: 3000 },
+          { description: 'Medium Business (1M - 5M)', amount: 10000 },
+          { description: 'Large Business (> 5M)', amount: 25000 }
+        ]),
+        requirements: [
+          'Business Registration Certificate',
+          'National ID/Passport',
+          'KRA PIN Certificate',
+          'Lease Agreement/Title Deed'
+        ],
+        processingTime: '3-5 working days',
+        location: ['ECRA Offices - Embu', 'Sub-County Offices', 'Online Portal'],
+        digitalAvailable: true,
+        featured: true,
         contactInfo: 'Revenue Office, Embu County HQ'
       },
       {
-        id: 'service-2',
-        title: 'Land Rates Payment',
-        description: 'Pay your annual property land rates',
-        category: 'Finance',
-        icon: '🏘️',
-        requirements: ['Property ownership documents', 'Previous payment receipts'],
-        process: ['Visit lands office', 'Get assessment', 'Make payment', 'Collect receipt'],
-        fees: 'Varies by property value',
+        id: 'property-rates',
+        title: 'Property Rates Payment',
+        description: 'Annual property tax based on the unimproved site value of land and properties within the county.',
+        category: 'property',
+        icon: '🏠',
+        fees: JSON.stringify([
+          { description: 'Residential Property', amount: 0, period: 'Rate varies by valuation' },
+          { description: 'Commercial Property', amount: 0, period: 'Rate varies by valuation' }
+        ]),
+        requirements: [
+          'Title Deed',
+          'National ID',
+          'Previous Rate Payment Receipt'
+        ],
+        processingTime: 'Immediate',
+        location: ['ECRA Offices', 'Online Portal', 'Mobile Money'],
+        digitalAvailable: true,
+        featured: true,
         contactInfo: 'Lands Office, Embu County'
+      },
+      {
+        id: 'parking-fees',
+        title: 'Digital Parking Payment',
+        description: 'Convenient digital payment system for vehicle parking in designated county parking zones.',
+        category: 'transport',
+        icon: '🅿️',
+        fees: JSON.stringify([
+          { description: 'Hourly Parking', amount: 20, period: 'per hour' },
+          { description: 'Daily Parking', amount: 100, period: 'per day' },
+          { description: 'Monthly Pass', amount: 1500, period: 'monthly' }
+        ]),
+        requirements: [
+          'Vehicle Registration',
+          'Mobile Phone'
+        ],
+        processingTime: 'Instant',
+        location: ['CBD Parking Zones', 'Mobile App', 'SMS Service'],
+        digitalAvailable: true,
+        featured: true,
+        contactInfo: 'Transport Department'
+      },
+      {
+        id: 'market-stalls',
+        title: 'Market Stall Allocation',
+        description: 'Rental and allocation of market stalls in county markets for trade and business activities.',
+        category: 'business',
+        icon: '🏪',
+        fees: JSON.stringify([
+          { description: 'Permanent Stall', amount: 2000, period: 'monthly' },
+          { description: 'Temporary Stall', amount: 100, period: 'daily' }
+        ]),
+        requirements: [
+          'National ID',
+          'Medical Certificate'
+        ],
+        processingTime: 'Same day',
+        location: ['Various County Markets', 'Market Administration Offices'],
+        digitalAvailable: true,
+        featured: false,
+        contactInfo: 'Market Administration'
       }
     ];
     this.saveToStorage(defaultServices);

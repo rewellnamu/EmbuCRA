@@ -90,10 +90,10 @@ export class AdminDashboardComponent implements OnInit {
 
   quickActions = [
     {
-      title: 'Add Revenue Stream',
-      description: 'Create a new revenue collection category',
+      title: 'Manage Services',
+      description: ' Add or update services',
       icon: 'M12 4v16m8-8H4',
-      route: '/admin/revenue-streams',
+      route: '/admin/services',
       color: 'blue'
     },
     {
@@ -104,11 +104,18 @@ export class AdminDashboardComponent implements OnInit {
       color: 'green'
     },
     {
-      title: 'Publish Content',
-      description: 'Add news, tenders or announcements',
+      title: 'Publish News',
+      description: 'Add news articles',
       icon: 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z',
-      route: '/admin/content',
+      route: '/admin/news',
       color: 'purple'
+    },
+    {
+      title: 'Publish Tenders',
+      description: 'Add new tender opportunities',
+      icon: 'M9 17v-6a2 2 0 012-2h6M9 17H5a2 2 0 01-2-2v-6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2z',
+      route: '/admin/tenders',
+      color: 'orange'
     }
   ];
 
