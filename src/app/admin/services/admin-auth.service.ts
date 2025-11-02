@@ -9,7 +9,7 @@ export class AdminAuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
   public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
 
-  // Default admin credentials - CHANGE THESE IN PRODUCTION!
+  // Default admin credentials
   private readonly ADMIN_USERNAME = 'admin';
   private readonly ADMIN_PASSWORD = 'embu2024';
   private readonly AUTH_TOKEN_KEY = 'embu_admin_token';
