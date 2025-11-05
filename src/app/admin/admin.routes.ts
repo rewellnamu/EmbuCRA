@@ -29,10 +29,10 @@ export const adminRoutes: Routes = [
         path: 'dashboard',
         component: AdminDashboardComponent
       },
-      {
-        path: 'revenue-streams',
-        component: RevenueManagementComponent
-      },
+      // {
+      //   path: 'revenue-streams',
+      //   component: RevenueManagementComponent
+      // },
       {
         path: 'departments',
         component: DepartmentsManagementComponent
