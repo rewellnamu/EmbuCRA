@@ -6,8 +6,198 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    /* Preloader Styles */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Logo Styles */
+    .preloader-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 30px;
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    .preloader-logo img {
+      border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Wave Loader */
+    .wave-loader {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      height: 60px;
+      margin-bottom: 35px;
+    }
+
+    .wave-bar {
+      width: 10px;
+      height: 20px;
+      background: white;
+      border-radius: 5px;
+      animation: waveGrow 1.2s ease-in-out infinite;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .wave-bar:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .wave-bar:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .wave-bar:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .wave-bar:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    .wave-bar:nth-child(5) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes waveGrow {
+      0%, 100% {
+        height: 20px;
+        opacity: 0.7;
+      }
+      50% {
+        height: 55px;
+        opacity: 1;
+      }
+    }
+
+    /* Text Styles */
+    .preloader-text {
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-align: center;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .preloader-subtitle {
+      color: #e0e7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Loading Progress Text */
+    .loading-text {
+      color: rgba(255, 255, 255, 0.8);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 13px;
+      margin-top: 25px;
+      animation: fadeInOut 1.5s ease-in-out infinite;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* Hide app-root initially */
+    app-root {
+      display: none;
+    }
+
+    app-root.loaded {
+      display: block;
+    }
+  </style>
 </head>
 <body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-logo">
+      <!-- Replace 'your-logo.png' with your actual logo path -->
+      <!-- Example: <img src="assets/images/logo.png" alt="Embu County Logo"> -->
+      <img src="images/ecrc.webp" alt="Embu County Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:80px;height:80px;background:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;color:#1e3c72;box-shadow:0 4px 12px rgba(0,0,0,0.3)\'>E</div>';">
+    </div>
+    
+    <div class="wave-loader">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+    
+    <div class="preloader-text">Embu County</div>
+    <div class="preloader-subtitle">Revenue Authority</div>
+    
+    <div class="loading-text">Loading...</div>
+  </div>
+
+  <!-- Your Angular App Root -->
   <app-root></app-root>
+
+  <script>
+    // Hide preloader and show app after loading
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const preloader = document.getElementById('preloader');
+        const appRoot = document.querySelector('app-root');
+        
+        // Hide preloader with fade effect
+        preloader.classList.add('hidden');
+        
+        // Show the app
+        if (appRoot) {
+          appRoot.classList.add('loaded');
+        }
+        
+        // Remove preloader from DOM after transition
+        setTimeout(function() {
+          preloader.remove();
+        }, 600);
+      }, 3000); // 3 seconds minimum display time
+    });
+  </script>
 </body>
 </html>

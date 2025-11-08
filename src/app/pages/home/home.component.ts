@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   backgroundImages: string[] = [
     'images/construction.jpg',
     'images/night.jpg',
-    'images/construction2.jpg ',
+    'images/construction2.jpg',
     'images/tourism.jpg',
     'images/hospital.jpg',
     'images/emb6.png',
@@ -22,33 +22,81 @@ export class HomeComponent implements OnInit, OnDestroy {
     'images/naturalenvironment.jpg',
     'images/kathageri.jpg',
     'images/tourism2.jpg',
-    'images/construction.jpg',
   ];
+  
   currentBgIndex: number = 0;
+  previousBgIndex: number = -1;
   intervalId: any;
-  bgFading = false;
+  isTransitioning = false;
 
   ngOnInit(): void {
     this.startBackgroundSlideshow();
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.intervalId);
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   startBackgroundSlideshow() {
+    // Change image every 6 seconds (slower for better viewing)
     this.intervalId = setInterval(() => {
-      this.bgFading = true;
-      setTimeout(() => {
-        this.currentBgIndex =
-          (this.currentBgIndex + 1) % this.backgroundImages.length;
-        this.bgFading = false;
-      }, 900); // match fade duration in CSS
-    }, 5000); // change every 5 seconds
+      this.nextSlide();
+    }, 6000);
   }
 
-  get currentBackground() {
-    return `url(${this.backgroundImages[this.currentBgIndex]})`;
+  nextSlide() {
+    if (this.isTransitioning) return;
+    
+    this.isTransitioning = true;
+    this.previousBgIndex = this.currentBgIndex;
+    this.currentBgIndex = (this.currentBgIndex + 1) % this.backgroundImages.length;
+    
+    // Reset transition flag after animation completes
+    setTimeout(() => {
+      this.isTransitioning = false;
+    }, 1500); // Match CSS transition duration
+  }
+
+  previousSlide() {
+    if (this.isTransitioning) return;
+    
+    this.isTransitioning = true;
+    this.previousBgIndex = this.currentBgIndex;
+    this.currentBgIndex = this.currentBgIndex === 0 
+      ? this.backgroundImages.length - 1 
+      : this.currentBgIndex - 1;
+    
+    setTimeout(() => {
+      this.isTransitioning = false;
+    }, 1500);
+  }
+
+  goToSlide(index: number) {
+    if (this.isTransitioning || index === this.currentBgIndex) return;
+    
+    this.isTransitioning = true;
+    this.previousBgIndex = this.currentBgIndex;
+    this.currentBgIndex = index;
+    
+    setTimeout(() => {
+      this.isTransitioning = false;
+    }, 1500);
+  }
+
+  getBackgroundStyle(index: number) {
+    return {
+      'background-image': `url(${this.backgroundImages[index]})`
+    };
+  }
+
+  isActiveSlide(index: number): boolean {
+    return index === this.currentBgIndex;
+  }
+
+  isPreviousSlide(index: number): boolean {
+    return index === this.previousBgIndex;
   }
 
   highlights = [

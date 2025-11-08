@@ -1,10 +1,17 @@
-<!-- Hero Section with Background Slideshow -->
+<!-- Hero Section with Professional Slideshow -->
 <section class="hero">
-  <div
-    class="hero-bg-transition"
-    [ngStyle]="{ 'background-image': currentBackground }"
-    [class.fade]="bgFading"
-  ></div>
+  <!-- Background Image Container -->
+  <div class="hero-bg-container">
+    <div 
+      *ngFor="let image of backgroundImages; let i = index"
+      class="hero-bg-slide"
+      [class.active]="isActiveSlide(i)"
+      [class.previous]="isPreviousSlide(i)"
+      [ngStyle]="getBackgroundStyle(i)">
+    </div>
+  </div>
+
+  <!-- Hero Content -->
   <div class="hero-content">
     <h1>Embu County Revenue Authority</h1>
     <p>
@@ -14,19 +21,25 @@
 
     <div class="hero-stats">
       <div class="stat-item">
-        <span class="stat-number"
-          >{{ revenuePerformance.overallPerformance }}%</span
-        >
+        <span class="stat-number">{{ revenuePerformance.overallPerformance }}%</span>
         <span class="stat-label">Revenue Performance</span>
       </div>
       <div class="stat-item">
         <span class="stat-number">{{
           formatCurrency(revenuePerformance.totalCollected)
         }}</span>
-        <span class="stat-label"
-          >Total Collected ({{ revenuePerformance.previousFY }})</span
-        >
+        <span class="stat-label">Total Collected ({{ revenuePerformance.previousFY }})</span>
       </div>
+    </div>
+  </div>
+
+  <!-- Slideshow Indicators (Optional) -->
+  <div class="hero-indicators">
+    <div 
+      *ngFor="let image of backgroundImages; let i = index"
+      class="indicator"
+      [class.active]="isActiveSlide(i)"
+      (click)="goToSlide(i)">
     </div>
   </div>
 </section>
@@ -158,9 +171,7 @@
       <div class="summary-card total">
         <h3>Overall Performance</h3>
         <div class="performance-circle">
-          <span class="percentage"
-            >{{ revenuePerformance.overallPerformance }}%</span
-          >
+          <span class="percentage">{{ revenuePerformance.overallPerformance }}%</span>
         </div>
         <p>Target: {{ formatCurrency(revenuePerformance.totalTarget) }}</p>
         <p>
