@@ -11,16 +11,14 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit, OnDestroy {
   // ---------------- Hero Background Slideshow ----------------
   backgroundImages: string[] = [
-    'images/construction.jpg',
-    'images/night.jpg',
-    'images/construction2.jpg',
-    'images/tourism.jpg',
-    'images/hospital.jpg',
-    'images/emb6.png',
-    'images/town.webp',
-    'images/emb7.png',
-    'images/naturalenvironment.jpg',
-    'images/kathageri.jpg',
+    'assets/mount.png',
+    'assets/construction.jpg',
+    'assets/night.jpg',
+    'assets/construction2.jpg',
+    'assets/tourism.jpg',
+    'assets/revenue3Copy.jpg',
+    'assets/revenue4.jpeg',
+    'assets/naturalenvironment.jpg',
     'images/tourism2.jpg',
   ];
   
