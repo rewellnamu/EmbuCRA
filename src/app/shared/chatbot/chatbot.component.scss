@@ -62,6 +62,17 @@
     }
   }
 
+  // Add this inside the .chat-toggle-btn styles, after the existing .icon styles
+.emoji-icon {
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  animation: iconFade 0.3s ease;
+}
+
   .icon {
     width: 28px;
     height: 28px;
