@@ -18,8 +18,8 @@ export class AdminAuthService {
   private readonly MAX_LOGIN_ATTEMPTS_KEY = 'login_attempts';
   private readonly LOCKOUT_TIME_KEY = 'lockout_until';
   private readonly MAX_ATTEMPTS = 3;
-  private readonly LOCKOUT_DURATION = 15 * 60 * 1000; // 15 minutes
-  private readonly TOKEN_VALIDITY = 1 * 60 * 1000; // 1 minute
+  private readonly LOCKOUT_DURATION = 2 * 60 * 1000; // 2 minutes
+  private readonly TOKEN_VALIDITY = 2 * 60 * 1000; // 2 minutes
 
   constructor(private router: Router) {
     this.checkTokenExpiry();
