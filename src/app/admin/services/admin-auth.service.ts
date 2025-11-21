@@ -72,7 +72,7 @@ export class AdminAuthService {
         localStorage.setItem(this.LOCKOUT_TIME_KEY, lockoutUntil.toString());
         return {
           success: false,
-          message: `Too many failed attempts. Account locked for 15 minutes.`
+          message: `Too many failed attempts. Account locked for 2 minutes.`
         };
       }
       
