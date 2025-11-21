@@ -49,25 +49,30 @@ export class AdminLoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit(): void {
-    this.error = '';
+  async onSubmit(): Promise<void> {
+  this.error = '';
 
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-
-    const username = this.f['username'].value;
-    const password = this.f['password'].value;
-
-    setTimeout(() => {
-      if (this.adminAuthService.login(username, password)) {
-        this.router.navigate([this.returnUrl]);
-      } else {
-        this.error = 'Invalid username or password';
-        this.loading = false;
-      }
-    }, 500);
+  if (this.loginForm.invalid) {
+    return;
   }
+
+  this.loading = true;
+
+  const username = this.f['username'].value;
+  const password = this.f['password'].value;
+
+  try {
+    const result = await this.adminAuthService.login(username, password);
+    
+    if (result.success) {
+      this.router.navigate([this.returnUrl]);
+    } else {
+      this.error = result.message || 'Invalid username or password';
+      this.loading = false;
+    }
+  } catch (error) {
+    this.error = 'An error occurred during login. Please try again.';
+    this.loading = false;
+  }
+}
 }
