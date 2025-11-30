@@ -9,6 +9,7 @@ import { TendersManagementComponent } from './tenders-management/tenders-managem
 import { ServicesManagementComponent } from './services-management/services-management.component';
 import { NewsManagementComponent } from './news-management/news-management.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
+import { AnalyticsComponent } from './analytics-dashboard/analytics-dashboard.component';
 
 export const adminRoutes: Routes = [
   {
@@ -52,6 +53,10 @@ export const adminRoutes: Routes = [
       {
         path: 'content',
         component: ContentManagementComponent
+      },
+      {
+        path: 'analytics',
+    component: AnalyticsComponent
       }
     ]
   }

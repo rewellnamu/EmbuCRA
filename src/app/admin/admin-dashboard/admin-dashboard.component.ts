@@ -116,6 +116,13 @@ export class AdminDashboardComponent implements OnInit {
       icon: 'M9 17v-6a2 2 0 012-2h6M9 17H5a2 2 0 01-2-2v-6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2z',
       route: '/admin/tenders',
       color: 'orange'
+    },
+    {
+      title: 'View Analytics',
+      description: 'Check system analytics',
+      icon: 'M3 3v18h18',
+      route: '/admin/analytics',
+      color: 'red'
     }
   ];
 
