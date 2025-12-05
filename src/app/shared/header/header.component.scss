@@ -282,7 +282,7 @@
       
       &.open {
         display: flex;
-        max-height: 500px;
+        max-height: fit-content;
         opacity: 1;
         transform: translateY(0);
       }
