@@ -2,7 +2,8 @@ export const environment = {
   production: true,
 
   // Your local API if you ever use it
-  apiUrl: 'http://localhost:3000/api',
+  
+  apiUrl: 'http://localhost:4200',
 
   // Your Google Analytics MEASUREMENT ID (only used for page tracking)
   googleAnalyticsId: 'G-CM6W7ZZCDN',
