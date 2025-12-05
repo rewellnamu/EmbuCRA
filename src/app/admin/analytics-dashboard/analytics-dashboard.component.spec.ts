@@ -18,12 +18,10 @@ describe('AnalyticsDashboardComponent', () => {
         provideHttpClientTesting(),
         AnalyticsService
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AnalyticsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -31,6 +29,7 @@ describe('AnalyticsDashboardComponent', () => {
   });
 
   it('should initialize with default values', () => {
+    // DO NOT call detectChanges here
     expect(component.isLoading).toBe(true);
     expect(component.isSignedIn).toBe(false);
     expect(component.selectedDateRange).toBe('7days');
@@ -67,11 +66,13 @@ describe('AnalyticsDashboardComponent', () => {
   });
 
   it('should stop realtime updates on destroy', () => {
-    component['realtimeInterval'] = 123; // Set a fake interval ID
+    fixture.detectChanges(); // ngOnInit runs
+
+    component['realtimeInterval'] = 123;
     spyOn(window, 'clearInterval');
-    
+
     component.ngOnDestroy();
-    
+
     expect(window.clearInterval).toHaveBeenCalledWith(123);
   });
 });
