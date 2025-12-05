@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, from, BehaviorSubject } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../environments/environment';
 
 declare const gapi: any;
+declare const google: any;
 
 export interface AnalyticsData {
   pageViews: number;
@@ -23,75 +23,120 @@ export interface AnalyticsData {
 })
 export class AnalyticsService {
   private isGapiLoaded = false;
+  private isGsiLoaded = false;
+  private tokenClient: any;
+  private accessToken: string | null = null;
   private isSignedIn = new BehaviorSubject<boolean>(false);
   public isSignedIn$ = this.isSignedIn.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadGapiClient();
+    this.initializeGoogleAuth();
   }
 
-  // Load Google API client library
-  private loadGapiClient(): Promise<void> {
+  // Initialize Google Identity Services (new method)
+  private async initializeGoogleAuth(): Promise<void> {
+    try {
+      // Load Google Identity Services
+      await this.loadGoogleIdentityServices();
+      
+      // Initialize token client
+      this.tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: environment.google.clientId,
+        scope: 'https://www.googleapis.com/auth/analytics.readonly',
+        callback: (response: any) => {
+          if (response.error) {
+            console.error('Token error:', response);
+            this.isSignedIn.next(false);
+            return;
+          }
+          this.accessToken = response.access_token;
+          this.isSignedIn.next(true);
+        },
+      });
+      
+      this.isGsiLoaded = true;
+      console.log('Google Identity Services initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize Google Identity Services:', error);
+    }
+  }
+
+  // Load Google Identity Services library
+  private loadGoogleIdentityServices(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (this.isGapiLoaded) {
+      if (typeof google !== 'undefined' && google.accounts) {
         resolve();
         return;
       }
 
       const script = document.createElement('script');
-      script.src = 'https://apis.google.com/js/api.js';
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
       script.onload = () => {
-        gapi.load('client:auth2', async () => {
-          try {
-            await gapi.client.init({
-              clientId: environment.google.clientId,
-              scope: 'https://www.googleapis.com/auth/analytics.readonly',
-              discoveryDocs: ['https://analyticsdata.googleapis.com/$discovery/rest?version=v1beta']
-            });
-
-            // Listen for sign-in state changes
-            gapi.auth2.getAuthInstance().isSignedIn.listen((isSignedIn: boolean) => {
-              this.isSignedIn.next(isSignedIn);
-            });
-
-            // Check initial sign-in state
-            const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
-            this.isSignedIn.next(isSignedIn);
-
-            this.isGapiLoaded = true;
+        // Wait for google object to be available
+        const checkGoogle = setInterval(() => {
+          if (typeof google !== 'undefined' && google.accounts) {
+            clearInterval(checkGoogle);
             resolve();
-          } catch (error) {
-            console.error('Error initializing Google API client:', error);
-            reject(error);
           }
-        });
+        }, 100);
+        
+        // Timeout after 5 seconds
+        setTimeout(() => {
+          clearInterval(checkGoogle);
+          if (typeof google === 'undefined' || !google.accounts) {
+            reject(new Error('Google Identity Services failed to load'));
+          }
+        }, 5000);
       };
-      script.onerror = reject;
+      script.onerror = () => reject(new Error('Failed to load Google Identity Services script'));
       document.head.appendChild(script);
     });
   }
 
   // Sign in to Google
   async signIn(): Promise<void> {
-    await this.loadGapiClient();
-    return gapi.auth2.getAuthInstance().signIn();
+    if (!this.isGsiLoaded) {
+      await this.initializeGoogleAuth();
+    }
+
+    if (!this.tokenClient) {
+      throw new Error('Google authentication not initialized');
+    }
+
+    // Request access token
+    this.tokenClient.requestAccessToken();
   }
 
   // Sign out from Google
   async signOut(): Promise<void> {
-    return gapi.auth2.getAuthInstance().signOut();
+    if (this.accessToken) {
+      // Revoke token
+      try {
+        await fetch(`https://oauth2.googleapis.com/revoke?token=${this.accessToken}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        });
+      } catch (error) {
+        console.error('Error revoking token:', error);
+      }
+    }
+    
+    this.accessToken = null;
+    this.isSignedIn.next(false);
   }
 
   // Check if user is signed in
   isUserSignedIn(): boolean {
-    if (!this.isGapiLoaded || !gapi.auth2) return false;
-    return gapi.auth2.getAuthInstance().isSignedIn.get();
+    return this.accessToken !== null;
   }
 
   // Get access token
   private getAccessToken(): string | null {
-    if (!this.isUserSignedIn()) return null;
-    return gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+    return this.accessToken;
   }
 
   // Fetch analytics data from GA4
@@ -153,7 +198,15 @@ export class AnalyticsService {
 
     const body = this.getReportBody(reportType, startDate, endDate);
 
-    return this.http.post(url, body, { headers }).toPromise();
+    try {
+      return await this.http.post(url, body, { headers }).toPromise();
+    } catch (error: any) {
+      console.error(`Error running ${reportType} report:`, error);
+      if (error.status === 403) {
+        throw new Error('Access denied. Please ensure the Google Analytics Data API is enabled and you have access to this property.');
+      }
+      throw error;
+    }
   }
 
   // Get report body based on type
@@ -191,14 +244,15 @@ export class AnalyticsService {
           orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
           limit: 10,
           dimensionFilter: {
-            filter: {
-              fieldName: 'eventName',
-              stringFilter: {
-                matchType: 'EXACT',
-                value: 'page_view',
-                caseSensitive: false
-              },
-              notExpression: true
+            notExpression: {
+              filter: {
+                fieldName: 'eventName',
+                stringFilter: {
+                  matchType: 'EXACT',
+                  value: 'page_view',
+                  caseSensitive: false
+                }
+              }
             }
           }
         };
@@ -280,7 +334,7 @@ export class AnalyticsService {
     );
     const deviceBreakdownArray = (device.rows || []).map((row: any) => ({
       device: this.formatDeviceName(row.dimensionValues[0].value),
-      percentage: Math.round((parseInt(row.metricValues[0].value) / totalDeviceUsers) * 100)
+      percentage: totalDeviceUsers > 0 ? Math.round((parseInt(row.metricValues[0].value) / totalDeviceUsers) * 100) : 0
     }));
 
     // Parse location data
