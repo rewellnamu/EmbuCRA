@@ -7,7 +7,7 @@ import { TendersComponent } from './pages/tenders/tenders.component';
 import { DownloadsComponent } from './pages/downloads/downloads.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { DepartmentsComponent } from './pages/departments/departments.component';
-
+import { RevenueStreamsComponent } from './pages/revenue-streams/revenue-streams.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -17,6 +17,7 @@ export const routes: Routes = [
   { path: 'downloads', component: DownloadsComponent },
   { path: 'departments', component: DepartmentsComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'revenue-streams', component: RevenueStreamsComponent},
   
   // Admin - lazy loaded
   {
