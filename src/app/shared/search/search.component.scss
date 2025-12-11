@@ -9,7 +9,7 @@
   overflow: hidden;
   min-height: 100px;
 
-  // Scrolling Text Animation - Behind everything
+  // Modern Festive Scrolling Text - Behind everything
   .scrolling-text-container {
     position: absolute;
     top: 50%;
@@ -20,84 +20,119 @@
     -webkit-transform: translateY(-50%);
     z-index: 1;
     pointer-events: none;
+    
+    // Gradient mask for smooth fade in/out
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 150px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    &::before {
+      left: 0;
+      background: linear-gradient(90deg, 
+        rgba(10, 205, 219, 1) 0%, 
+        rgba(10, 205, 219, 0) 100%);
+    }
+    
+    &::after {
+      right: 0;
+      background: linear-gradient(90deg, 
+        rgba(231, 217, 12, 0) 0%, 
+        rgba(231, 217, 12, 1) 100%);
+    }
   }
 
   .scrolling-text {
     display: flex;
     white-space: nowrap;
-    animation: scroll 30s linear infinite;
-    -webkit-animation: scroll 30s linear infinite;
+    animation: modernScroll 40s linear infinite;
+    -webkit-animation: modernScroll 40s linear infinite;
     will-change: transform;
     
     span {
-      display: inline-block;
-      padding: 0 4rem;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 3rem;
       font-size: 1.1rem;
-      font-weight: 600;
-      color: rgba(44, 62, 80, 0.35);
-      letter-spacing: 0.08em;
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        #037206 0%,
+        #05a008 25%,
+        #0acddb 50%,
+        #e7d90c 75%,
+        #037206 100%
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.05em;
       position: relative;
-      animation: textGlow 4s ease-in-out infinite;
-      -webkit-animation: textGlow 4s ease-in-out infinite;
-      text-shadow: 0 0 0 transparent;
-      transition: all 0.3s ease;
-      -webkit-transition: all 0.3s ease;
+      text-shadow: none;
+      animation: gradientFlow 8s ease-in-out infinite, floatText 3s ease-in-out infinite;
+      -webkit-animation: gradientFlow 8s ease-in-out infinite, floatText 3s ease-in-out infinite;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
       
-      &:nth-child(1) {
-        animation-delay: 0s;
-        -webkit-animation-delay: 0s;
+      // Stagger animation delays
+      @for $i from 1 through 16 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.5}s;
+          -webkit-animation-delay: #{$i * 0.5}s;
+        }
       }
       
-      &:nth-child(2) {
-        animation-delay: 1s;
-        -webkit-animation-delay: 1s;
-      }
-      
-      &:nth-child(3) {
-        animation-delay: 2s;
-        -webkit-animation-delay: 2s;
-      }
-      
-      &:nth-child(4) {
-        animation-delay: 3s;
-        -webkit-animation-delay: 3s;
-      }
-
-      &:nth-child(5) {
-        animation-delay: 4s;
-        -webkit-animation-delay: 4s;
-      }
-      
+      // Modern festive sparkle effect
       &::before {
-        content: '•';
-        margin-right: 1.5rem;
-        color: rgba(37, 99, 235, 0.4);
-        font-size: 0.8rem;
-        vertical-align: middle;
-        animation: pulseGlow 2s ease-in-out infinite;
-        -webkit-animation: pulseGlow 2s ease-in-out infinite;
+        content: '✦';
+        margin-right: 1rem;
+        font-size: 0.9rem;
+        background: linear-gradient(45deg, #e7d90c, #fff, #e7d90c);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: sparkle 2s ease-in-out infinite;
+        -webkit-animation: sparkle 2s ease-in-out infinite;
         display: inline-block;
+        filter: drop-shadow(0 0 8px rgba(231, 217, 12, 0.6));
       }
       
+      // Elegant underline effect
       &::after {
         content: '';
         position: absolute;
-        bottom: -2px;
-        left: 50%;
-        width: 0%;
+        bottom: -4px;
+        left: 20%;
+        right: 20%;
         height: 2px;
-        background: linear-gradient(90deg, transparent, #2563eb, transparent);
-        transform: translateX(-50%);
-        -webkit-transform: translateX(-50%);
-        animation: underlineExpand 4s ease-in-out infinite;
-        -webkit-animation: underlineExpand 4s ease-in-out infinite;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          #0acddb 20%,
+          #e7d90c 50%,
+          #0acddb 80%,
+          transparent
+        );
+        background-size: 200% 100%;
+        opacity: 0;
+        animation: underlineSlide 3s ease-in-out infinite;
+        -webkit-animation: underlineSlide 3s ease-in-out infinite;
         animation-delay: inherit;
         -webkit-animation-delay: inherit;
+        border-radius: 2px;
       }
     }
   }
 
-  @keyframes scroll {
+  // Modern scroll animation
+  @keyframes modernScroll {
     0% {
       transform: translateX(0);
     }
@@ -106,7 +141,7 @@
     }
   }
 
-  @-webkit-keyframes scroll {
+  @-webkit-keyframes modernScroll {
     0% {
       -webkit-transform: translateX(0);
       transform: translateX(0);
@@ -117,127 +152,113 @@
     }
   }
 
-  @keyframes textGlow {
+  // Gradient flow animation
+  @keyframes gradientFlow {
     0%, 100% {
-      transform: scale(1) translateY(0);
-      color: rgba(44, 62, 80, 0.35);
-      font-weight: 600;
-      text-shadow: 0 0 0 transparent;
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @-webkit-keyframes gradientFlow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  // Float text animation
+  @keyframes floatText {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  @-webkit-keyframes floatText {
+    0%, 100% {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+    }
+    50% {
+      -webkit-transform: translateY(-3px);
+      transform: translateY(-3px);
+    }
+  }
+
+  // Sparkle animation
+  @keyframes sparkle {
+    0%, 100% {
+      background-position: 0% 50%;
+      transform: rotate(0deg) scale(1);
+      opacity: 0.8;
     }
     25% {
-      transform: scale(1.05) translateY(-2px);
-      color: rgba(37, 99, 235, 0.65);
-      font-weight: 700;
-      text-shadow: 0 2px 12px rgba(37, 99, 235, 0.25);
+      transform: rotate(90deg) scale(1.2);
+      opacity: 1;
     }
     50% {
-      transform: scale(1.08) translateY(-3px);
-      color: rgba(37, 99, 235, 0.75);
-      font-weight: 700;
-      text-shadow: 0 3px 18px rgba(37, 99, 235, 0.35);
-    }
-    75% {
-      transform: scale(1.05) translateY(-2px);
-      color: rgba(37, 99, 235, 0.65);
-      font-weight: 700;
-      text-shadow: 0 2px 12px rgba(37, 99, 235, 0.25);
-    }
-  }
-
-  @-webkit-keyframes textGlow {
-    0%, 100% {
-      -webkit-transform: scale(1) translateY(0);
-      transform: scale(1) translateY(0);
-      color: rgba(44, 62, 80, 0.35);
-      font-weight: 600;
-      text-shadow: 0 0 0 transparent;
-    }
-    25% {
-      -webkit-transform: scale(1.05) translateY(-2px);
-      transform: scale(1.05) translateY(-2px);
-      color: rgba(37, 99, 235, 0.65);
-      font-weight: 700;
-      text-shadow: 0 2px 12px rgba(37, 99, 235, 0.25);
-    }
-    50% {
-      -webkit-transform: scale(1.08) translateY(-3px);
-      transform: scale(1.08) translateY(-3px);
-      color: rgba(37, 99, 235, 0.75);
-      font-weight: 700;
-      text-shadow: 0 3px 18px rgba(37, 99, 235, 0.35);
-    }
-    75% {
-      -webkit-transform: scale(1.05) translateY(-2px);
-      transform: scale(1.05) translateY(-2px);
-      color: rgba(37, 99, 235, 0.65);
-      font-weight: 700;
-      text-shadow: 0 2px 12px rgba(37, 99, 235, 0.25);
-    }
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% {
-      transform: scale(1);
-      color: rgba(37, 99, 235, 0.4);
-      text-shadow: 0 0 0 transparent;
-    }
-    50% {
-      transform: scale(1.4);
-      color: rgba(37, 99, 235, 0.8);
-      text-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
-    }
-  }
-
-  @-webkit-keyframes pulseGlow {
-    0%, 100% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      color: rgba(37, 99, 235, 0.4);
-      text-shadow: 0 0 0 transparent;
-    }
-    50% {
-      -webkit-transform: scale(1.4);
-      transform: scale(1.4);
-      color: rgba(37, 99, 235, 0.8);
-      text-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
-    }
-  }
-
-  @keyframes underlineExpand {
-    0%, 100% {
-      width: 0%;
-      opacity: 0;
-    }
-    25% {
-      width: 30%;
-      opacity: 0.5;
-    }
-    50% {
-      width: 80%;
+      background-position: 100% 50%;
+      transform: rotate(180deg) scale(1);
       opacity: 0.8;
     }
     75% {
-      width: 30%;
-      opacity: 0.5;
+      transform: rotate(270deg) scale(1.2);
+      opacity: 1;
     }
   }
 
-  @-webkit-keyframes underlineExpand {
+  @-webkit-keyframes sparkle {
     0%, 100% {
-      width: 0%;
-      opacity: 0;
+      background-position: 0% 50%;
+      -webkit-transform: rotate(0deg) scale(1);
+      transform: rotate(0deg) scale(1);
+      opacity: 0.8;
     }
     25% {
-      width: 30%;
-      opacity: 0.5;
+      -webkit-transform: rotate(90deg) scale(1.2);
+      transform: rotate(90deg) scale(1.2);
+      opacity: 1;
     }
     50% {
-      width: 80%;
+      background-position: 100% 50%;
+      -webkit-transform: rotate(180deg) scale(1);
+      transform: rotate(180deg) scale(1);
       opacity: 0.8;
     }
     75% {
-      width: 30%;
-      opacity: 0.5;
+      -webkit-transform: rotate(270deg) scale(1.2);
+      transform: rotate(270deg) scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  // Underline slide animation
+  @keyframes underlineSlide {
+    0%, 100% {
+      opacity: 0;
+      background-position: 0% 0%;
+    }
+    50% {
+      opacity: 0.7;
+      background-position: 100% 0%;
+    }
+  }
+
+  @-webkit-keyframes underlineSlide {
+    0%, 100% {
+      opacity: 0;
+      background-position: 0% 0%;
+    }
+    50% {
+      opacity: 0.7;
+      background-position: 100% 0%;
     }
   }
 
@@ -673,9 +694,16 @@
     padding: 1.5rem 2rem;
     min-height: 110px;
 
+    .scrolling-text-container {
+      &::before,
+      &::after {
+        width: 180px;
+      }
+    }
+
     .scrolling-text span {
       font-size: 1.15rem;
-      padding: 0 4.5rem;
+      padding: 0 3.5rem;
     }
 
     .search-bar {
@@ -747,14 +775,21 @@
     padding: 1.2rem 1.2rem;
     min-height: 95px;
 
-    .scrolling-text {
-      animation: scroll 28s linear infinite;
-      -webkit-animation: scroll 28s linear infinite;
+    .scrolling-text-container {
+      &::before,
+      &::after {
+        width: 120px;
+      }
     }
 
-    .scrolling-text span {
-      font-size: 1rem;
-      padding: 0 3.5rem;
+    .scrolling-text {
+      animation: modernScroll 35s linear infinite;
+      -webkit-animation: modernScroll 35s linear infinite;
+      
+      span {
+        font-size: 1rem;
+        padding: 0 3rem;
+      }
     }
 
     .search-bar {
@@ -826,17 +861,24 @@
     padding: 1rem 1rem;
     min-height: 85px;
 
+    .scrolling-text-container {
+      &::before,
+      &::after {
+        width: 80px;
+      }
+    }
+
     .scrolling-text {
-      animation: scroll 25s linear infinite;
-      -webkit-animation: scroll 25s linear infinite;
+      animation: modernScroll 30s linear infinite;
+      -webkit-animation: modernScroll 30s linear infinite;
       
       span {
         font-size: 0.95rem;
-        padding: 0 3rem;
+        padding: 0 2.5rem;
 
         &::before {
-          font-size: 0.65rem;
-          margin-right: 1.2rem;
+          font-size: 0.75rem;
+          margin-right: 0.8rem;
         }
       }
     }
@@ -914,11 +956,16 @@
     .scrolling-text-container {
       display: block;
       visibility: visible;
+      
+      &::before,
+      &::after {
+        width: 50px;
+      }
     }
 
     .scrolling-text {
-      animation: scroll 20s linear infinite;
-      -webkit-animation: scroll 20s linear infinite;
+      animation: modernScroll 25s linear infinite;
+      -webkit-animation: modernScroll 25s linear infinite;
       animation-play-state: running;
       -webkit-animation-play-state: running;
       
@@ -927,8 +974,8 @@
         padding: 0 2rem;
         
         &::before {
-          font-size: 0.55rem;
-          margin-right: 1rem;
+          font-size: 0.65rem;
+          margin-right: 0.6rem;
         }
       }
     }
@@ -1004,17 +1051,24 @@
     padding: 0.8rem 0.6rem;
     min-height: 75px;
 
+    .scrolling-text-container {
+      &::before,
+      &::after {
+        width: 40px;
+      }
+    }
+
     .scrolling-text {
-      animation: scroll 18s linear infinite;
-      -webkit-animation: scroll 18s linear infinite;
+      animation: modernScroll 22s linear infinite;
+      -webkit-animation: modernScroll 22s linear infinite;
       
       span {
         font-size: 0.78rem;
         padding: 0 1.5rem;
         
         &::before {
-          font-size: 0.5rem;
-          margin-right: 0.8rem;
+          font-size: 0.6rem;
+          margin-right: 0.5rem;
         }
       }
     }
@@ -1088,17 +1142,24 @@
     padding: 0.7rem 0.5rem;
     min-height: 70px;
 
+    .scrolling-text-container {
+      &::before,
+      &::after {
+        width: 30px;
+      }
+    }
+
     .scrolling-text {
-      animation: scroll 16s linear infinite;
-      -webkit-animation: scroll 16s linear infinite;
+      animation: modernScroll 20s linear infinite;
+      -webkit-animation: modernScroll 20s linear infinite;
       
       span {
         font-size: 0.72rem;
         padding: 0 1.2rem;
         
         &::before {
-          font-size: 0.45rem;
-          margin-right: 0.7rem;
+          font-size: 0.55rem;
+          margin-right: 0.4rem;
         }
       }
     }

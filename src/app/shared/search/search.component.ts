@@ -22,13 +22,16 @@ export class SearchComponent {
   query: string = '';
   results: SearchItem[] = [];
 
-  scrollingTexts: string[] = [
-    'Kulipa Ushuru ni Kujitegemea',
-    'Kulipa Ushuru ni Kujitegemea',
-    'Kulipa Ushuru ni Kujitegemea',
-    'Kulipa Ushuru ni Kujitegemea',
-    'Kulipa Ushuru ni Kujitegemea'
-  ];
+scrollingTexts: string[] = [
+  '🎄 Happy Holidays from ECRA!',
+  '✨ Kulipa Ushuru ni Kujitegemea',
+  '🎅 Merry Christmas Embu County',
+  '🎉 Tax Compliance = Development',
+  '⭐ Festive Season Greetings',
+  '🔔 Pay Taxes, Build Community',
+  '🎄 Kulipa Ushuru Leo, Maendeleo Kesho',
+  '🎊 Season of Giving, Season of Growth'
+];
 
   // ✅ Expanded searchable data
   pages: SearchItem[] = [
