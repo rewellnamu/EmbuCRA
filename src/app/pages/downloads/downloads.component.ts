@@ -29,5 +29,21 @@ export class DownloadsComponent {
       name: 'Business Permit Application Form (PDF)',
       link: '/assets/docs/permit-form.pdf',
     },
+    {
+      name: 'Tax Compliance Requirements (DOCX)',
+      link: '/assets/docs/tax-compliance.docx',
+    },
+    {
+      name: 'Annual Financial Report Template (XLSX)',
+      link: '/assets/docs/financial-report.xlsx',
+    },
+    {
+      name: 'Procurement Procedures Manual (PDF)',
+      link: '/assets/docs/procurement-manual.pdf',
+    },
+    {
+      name: 'Employee Code of Conduct (DOC)',
+      link: '/assets/docs/code-of-conduct.doc',
+    }
   ];
 }

@@ -14,6 +14,7 @@ export interface CountyService {
   digitalAvailable?: boolean;
   featured?: boolean;
   contactInfo?: string;
+  isDefault?: boolean; // Flag to identify default services
 }
 
 @Injectable({
@@ -21,63 +22,142 @@ export interface CountyService {
 })
 export class ServicesDataService {
   private readonly STORAGE_KEY = 'embu_services';
-  private servicesSubject = new BehaviorSubject<CountyService[]>(this.loadFromStorage());
-  public services$: Observable<CountyService[]> = this.servicesSubject.asObservable();
+  private servicesSubject!: BehaviorSubject<CountyService[]>;
+  public services$!: Observable<CountyService[]>;
 
   constructor() {
-    if (this.servicesSubject.value.length === 0) {
-      this.initializeDefaultServices();
-    }
+    // Initialize services immediately
+    const initialServices = this.initializeServices();
+    this.servicesSubject = new BehaviorSubject<CountyService[]>(initialServices);
+    this.services$ = this.servicesSubject.asObservable();
+    
+    console.log('ServicesDataService initialized with', initialServices.length, 'services');
   }
 
+  // Initialize services - always loads defaults first
+  private initializeServices(): CountyService[] {
+    const defaultServices = this.getDefaultServices();
+    const stored = this.loadFromStorage();
+
+    // If no stored data or stored is empty, use defaults
+    if (!stored || stored.length === 0) {
+      console.log('No stored services, using defaults');
+      this.saveToStorage(defaultServices);
+      return defaultServices;
+    }
+
+    // Merge: Keep default services always, add any custom ones
+    const customServices = stored.filter(service => !service.isDefault);
+    const mergedServices = [...defaultServices, ...customServices];
+    
+    console.log('Merged services:', mergedServices.length);
+    this.saveToStorage(mergedServices);
+    return mergedServices;
+  }
+
+  // Get current services value
   getServices(): CountyService[] {
     return this.servicesSubject.value;
   }
 
+  // Get services as observable
   getServices$(): Observable<CountyService[]> {
     return this.services$;
   }
 
+  // Get single service by ID
   getServiceById(id: string): CountyService | undefined {
     return this.servicesSubject.value.find(service => service.id === id);
   }
 
+  // Add new service (custom only, cannot override defaults)
   addService(service: CountyService): void {
+    if (this.isDefaultServiceId(service.id)) {
+      console.warn('Cannot add service with default ID:', service.id);
+      return;
+    }
+    service.isDefault = false; // Mark as custom
     const services = [service, ...this.servicesSubject.value];
     this.saveToStorage(services);
   }
 
+  // Update existing service (can only update custom services)
   updateService(id: string, updatedService: CountyService): void {
+    const existing = this.getServiceById(id);
+    if (existing?.isDefault) {
+      console.warn('Cannot update default service:', id);
+      return;
+    }
+    
     const services = this.servicesSubject.value.map(service =>
-      service.id === id ? updatedService : service
+      service.id === id ? { ...updatedService, isDefault: false } : service
     );
     this.saveToStorage(services);
   }
 
+  // Delete service (can only delete custom services)
   deleteService(id: string): void {
+    const existing = this.getServiceById(id);
+    if (existing?.isDefault) {
+      console.warn('Cannot delete default service:', id);
+      return;
+    }
+    
     const services = this.servicesSubject.value.filter(service => service.id !== id);
     this.saveToStorage(services);
   }
 
+  // Reset to default services
+  resetToDefaults(): void {
+    const defaults = this.getDefaultServices();
+    this.saveToStorage(defaults);
+    console.log('Services reset to defaults');
+  }
+
+  // Check if ID belongs to a default service
+  private isDefaultServiceId(id: string): boolean {
+    const defaultIds = [
+      'single-business-permit',
+      'property-rates',
+      'parking-fees',
+      'market-stalls',
+      'land-subdivision',
+      'building-permit',
+      'liquor-license',
+      'health-certificate',
+      'agriculture-cess',
+      'water-connection'
+    ];
+    return defaultIds.includes(id);
+  }
+
+  // Private methods
   private loadFromStorage(): CountyService[] {
-    const stored = localStorage.getItem(this.STORAGE_KEY);
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch (e) {
-        console.error('Error loading services from storage:', e);
-        return [];
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        console.log('Loaded from storage:', parsed.length, 'services');
+        return parsed;
       }
+    } catch (e) {
+      console.error('Error loading services from storage:', e);
     }
     return [];
   }
 
   private saveToStorage(services: CountyService[]): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(services));
-    this.servicesSubject.next(services);
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(services));
+      this.servicesSubject.next(services);
+      console.log('Saved to storage:', services.length, 'services');
+    } catch (e) {
+      console.error('Error saving services to storage:', e);
+    }
   }
 
-  private initializeDefaultServices(): void {
+  // Get default services - these are always loaded
+  private getDefaultServices(): CountyService[] {
     const defaultServices: CountyService[] = [
       {
         id: 'single-business-permit',
@@ -100,7 +180,8 @@ export class ServicesDataService {
         location: ['ECRA Offices - Embu', 'Sub-County Offices', 'Online Portal'],
         digitalAvailable: true,
         featured: true,
-        contactInfo: 'Revenue Office, Embu County HQ'
+        contactInfo: 'Revenue Office, Embu County HQ',
+        isDefault: true
       },
       {
         id: 'property-rates',
@@ -121,7 +202,8 @@ export class ServicesDataService {
         location: ['ECRA Offices', 'Online Portal', 'Mobile Money'],
         digitalAvailable: true,
         featured: true,
-        contactInfo: 'Lands Office, Embu County'
+        contactInfo: 'Lands Office, Embu County',
+        isDefault: true
       },
       {
         id: 'parking-fees',
@@ -142,7 +224,8 @@ export class ServicesDataService {
         location: ['CBD Parking Zones', 'Mobile App', 'SMS Service'],
         digitalAvailable: true,
         featured: true,
-        contactInfo: 'Transport Department'
+        contactInfo: 'Transport Department',
+        isDefault: true
       },
       {
         id: 'market-stalls',
@@ -162,9 +245,152 @@ export class ServicesDataService {
         location: ['Various County Markets', 'Market Administration Offices'],
         digitalAvailable: true,
         featured: false,
-        contactInfo: 'Market Administration'
+        contactInfo: 'Market Administration',
+        isDefault: true
+      },
+      {
+        id: 'land-subdivision',
+        title: 'Land Subdivision Approval',
+        description: 'Process land subdivision applications and approve planning layouts for land parcels.',
+        category: 'property',
+        icon: '📐',
+        fees: JSON.stringify([
+          { description: 'Small Plot (< 1 Acre)', amount: 5000 },
+          { description: 'Medium Plot (1-5 Acres)', amount: 15000 },
+          { description: 'Large Plot (> 5 Acres)', amount: 30000 }
+        ]),
+        requirements: [
+          'Title Deed',
+          'Survey Plan',
+          'National ID',
+          'Land Rates Clearance Certificate'
+        ],
+        processingTime: '14-21 working days',
+        location: ['Lands Office - Embu County HQ', 'Sub-County Lands Offices'],
+        digitalAvailable: false,
+        featured: false,
+        contactInfo: 'Physical Planning Department',
+        isDefault: true
+      },
+      {
+        id: 'building-permit',
+        title: 'Building Permit Application',
+        description: 'Obtain approval for construction, renovation, or alteration of buildings and structures.',
+        category: 'property',
+        icon: '🏗️',
+        fees: JSON.stringify([
+          { description: 'Residential Building', amount: 0, period: 'Based on plinth area' },
+          { description: 'Commercial Building', amount: 0, period: 'Based on plinth area' }
+        ]),
+        requirements: [
+          'Architectural Drawings',
+          'Structural Drawings',
+          'Title Deed',
+          'Site Plan',
+          'National ID'
+        ],
+        processingTime: '21-30 working days',
+        location: ['Physical Planning Office', 'County HQ'],
+        digitalAvailable: false,
+        featured: true,
+        contactInfo: 'Building Approvals Office',
+        isDefault: true
+      },
+      {
+        id: 'liquor-license',
+        title: 'Liquor Licensing',
+        description: 'Application and renewal of licenses for sale and distribution of alcoholic beverages.',
+        category: 'business',
+        icon: '🍷',
+        fees: JSON.stringify([
+          { description: 'Bar License', amount: 15000, period: 'annually' },
+          { description: 'Restaurant License', amount: 10000, period: 'annually' },
+          { description: 'Wine & Spirits License', amount: 20000, period: 'annually' }
+        ]),
+        requirements: [
+          'Business Permit',
+          'Certificate of Good Conduct',
+          'Lease Agreement',
+          'Medical Certificate',
+          'Food Handler Certificate'
+        ],
+        processingTime: '10-14 working days',
+        location: ['Trade Department', 'ECRA Offices'],
+        digitalAvailable: true,
+        featured: false,
+        contactInfo: 'Liquor Licensing Board',
+        isDefault: true
+      },
+      {
+        id: 'health-certificate',
+        title: 'Food Handler Certificate',
+        description: 'Medical examination and certification for food handlers and business operators.',
+        category: 'health',
+        icon: '🏥',
+        fees: JSON.stringify([
+          { description: 'Individual Certificate', amount: 500 },
+          { description: 'Business Inspection', amount: 2000 }
+        ]),
+        requirements: [
+          'National ID',
+          'Passport Photo',
+          'Medical Examination Form'
+        ],
+        processingTime: '1-2 working days',
+        location: ['County Health Facilities', 'Public Health Offices'],
+        digitalAvailable: false,
+        featured: false,
+        contactInfo: 'Public Health Department',
+        isDefault: true
+      },
+      {
+        id: 'agriculture-cess',
+        title: 'Agricultural Produce Cess',
+        description: 'Payment of cess on agricultural produce transported within or outside the county.',
+        category: 'agriculture',
+        icon: '🌾',
+        fees: JSON.stringify([
+          { description: 'Coffee', amount: 0, period: 'Per kg - rate varies' },
+          { description: 'Tea', amount: 0, period: 'Per kg - rate varies' },
+          { description: 'Miraa', amount: 0, period: 'Per kg - rate varies' },
+          { description: 'Other Produce', amount: 0, period: 'Rate varies by product' }
+        ]),
+        requirements: [
+          'Movement Permit',
+          'National ID',
+          'Vehicle Registration'
+        ],
+        processingTime: 'Immediate',
+        location: ['Cess Collection Points', 'Market Centers'],
+        digitalAvailable: true,
+        featured: false,
+        contactInfo: 'Agriculture Department',
+        isDefault: true
+      },
+      {
+        id: 'water-connection',
+        title: 'Water Connection Service',
+        description: 'New water connection application and billing services for residential and commercial properties.',
+        category: 'utilities',
+        icon: '💧',
+        fees: JSON.stringify([
+          { description: 'Domestic Connection', amount: 8000 },
+          { description: 'Commercial Connection', amount: 15000 }
+        ]),
+        requirements: [
+          'Title Deed/Lease Agreement',
+          'National ID',
+          'Site Plan'
+        ],
+        processingTime: '7-14 working days',
+        location: ['Water Department', 'County HQ'],
+        digitalAvailable: true,
+        featured: true,
+        contactInfo: 'Water Services Department',
+        isDefault: true
       }
     ];
-    this.saveToStorage(defaultServices);
+
+    return defaultServices;
   }
 }

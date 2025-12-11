@@ -14,6 +14,7 @@ export interface Department {
   description: string;
   revenueStreams: RevenueStream[];
   totalRevenue?: number;
+  isDefault?: boolean;
 }
 
 @Injectable({
@@ -21,14 +22,37 @@ export interface Department {
 })
 export class DepartmentsService {
   private readonly STORAGE_KEY = 'embu_departments';
-  private departmentsSubject = new BehaviorSubject<Department[]>(this.loadFromStorage());
-  public departments$: Observable<Department[]> = this.departmentsSubject.asObservable();
+  private departmentsSubject!: BehaviorSubject<Department[]>;
+  public departments$!: Observable<Department[]>;
 
   constructor() {
-    // Initialize with default data if storage is empty
-    if (this.departmentsSubject.value.length === 0) {
-      this.initializeDefaultDepartments();
+    // Initialize departments immediately
+    const initialDepartments = this.initializeDepartments();
+    this.departmentsSubject = new BehaviorSubject<Department[]>(initialDepartments);
+    this.departments$ = this.departmentsSubject.asObservable();
+    
+    console.log('DepartmentsService initialized with', initialDepartments.length, 'departments');
+  }
+
+  // Initialize departments - always loads defaults first
+  private initializeDepartments(): Department[] {
+    const defaultDepartments = this.getDefaultDepartments();
+    const stored = this.loadFromStorage();
+
+    // If no stored data or stored is empty, use defaults
+    if (!stored || stored.length === 0) {
+      console.log('No stored departments, using defaults');
+      this.saveToStorage(defaultDepartments);
+      return defaultDepartments;
     }
+
+    // Merge: Keep default departments always, add any custom ones
+    const customDepartments = stored.filter(dept => !dept.isDefault);
+    const mergedDepartments = [...defaultDepartments, ...customDepartments];
+    
+    console.log('Merged departments:', mergedDepartments.length);
+    this.saveToStorage(mergedDepartments);
+    return mergedDepartments;
   }
 
   // Get current departments value
@@ -46,24 +70,48 @@ export class DepartmentsService {
     return this.departmentsSubject.value.find(dept => dept.id === id);
   }
 
-  // Add new department
+  // Add new department (custom only)
   addDepartment(department: Department): void {
+    if (this.isDefaultDepartmentId(department.id)) {
+      console.warn('Cannot add department with default ID:', department.id);
+      return;
+    }
+    department.isDefault = false;
     const departments = [...this.departmentsSubject.value, department];
     this.saveToStorage(departments);
   }
 
-  // Update existing department
+  // Update existing department (can only update custom departments)
   updateDepartment(id: string, updatedDepartment: Department): void {
+    const existing = this.getDepartmentById(id);
+    if (existing?.isDefault) {
+      console.warn('Cannot update default department:', id);
+      return;
+    }
+    
     const departments = this.departmentsSubject.value.map(dept =>
-      dept.id === id ? updatedDepartment : dept
+      dept.id === id ? { ...updatedDepartment, isDefault: false } : dept
     );
     this.saveToStorage(departments);
   }
 
-  // Delete department
+  // Delete department (can only delete custom departments)
   deleteDepartment(id: string): void {
+    const existing = this.getDepartmentById(id);
+    if (existing?.isDefault) {
+      console.warn('Cannot delete default department:', id);
+      return;
+    }
+    
     const departments = this.departmentsSubject.value.filter(dept => dept.id !== id);
     this.saveToStorage(departments);
+  }
+
+  // Reset to default departments
+  resetToDefaults(): void {
+    const defaults = this.getDefaultDepartments();
+    this.saveToStorage(defaults);
+    console.log('Departments reset to defaults');
   }
 
   // Calculate total county revenue
@@ -74,26 +122,43 @@ export class DepartmentsService {
     );
   }
 
+  // Check if ID belongs to a default department
+  private isDefaultDepartmentId(id: string): boolean {
+    const defaultIds = [
+      'finance', 'trade-tourism', 'lands-housing', 'administration',
+      'roads-transport', 'youth-gender', 'education', 'agriculture',
+      'water-environment', 'health'
+    ];
+    return defaultIds.includes(id);
+  }
+
   // Private methods
   private loadFromStorage(): Department[] {
-    const stored = localStorage.getItem(this.STORAGE_KEY);
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch (e) {
-        console.error('Error loading departments from storage:', e);
-        return [];
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        console.log('Loaded from storage:', parsed.length, 'departments');
+        return parsed;
       }
+    } catch (e) {
+      console.error('Error loading departments from storage:', e);
     }
     return [];
   }
 
   private saveToStorage(departments: Department[]): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(departments));
-    this.departmentsSubject.next(departments);
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(departments));
+      this.departmentsSubject.next(departments);
+      console.log('Saved to storage:', departments.length, 'departments');
+    } catch (e) {
+      console.error('Error saving departments to storage:', e);
+    }
   }
 
-  private initializeDefaultDepartments(): void {
+  // Get default departments - these are always loaded
+  private getDefaultDepartments(): Department[] {
     const defaultDepartments: Department[] = [
       {
         id: 'finance',
@@ -102,6 +167,7 @@ export class DepartmentsService {
         icon: '💰',
         description: 'Responsible for financial planning, budgeting, and various revenue collection activities including market operations and business permits.',
         totalRevenue: 185000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'SBP (Single Business Permit)', description: 'Business licensing and permits' },
           { name: 'Stalls Rent', description: 'Market stall rental fees' },
@@ -124,6 +190,7 @@ export class DepartmentsService {
         icon: '🏢',
         description: 'Promotes trade, tourism, investment opportunities and manages related revenue streams.',
         totalRevenue: 125000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Liquor', description: 'Liquor licensing and permits' },
           { name: 'Weights', description: 'Weights and measures certification' },
@@ -137,6 +204,7 @@ export class DepartmentsService {
         icon: '🏘️',
         description: 'Handles land administration, housing, physical planning and urban development revenue.',
         totalRevenue: 165000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Land Rates', description: 'Property rates and land taxes' },
           { name: 'Subdivision', description: 'Land subdivision and planning fees' },
@@ -150,6 +218,7 @@ export class DepartmentsService {
         icon: '⚙️',
         description: 'Manages administrative services, public service delivery and ICT infrastructure.',
         totalRevenue: 95000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Enforcement', description: 'Revenue enforcement and compliance fees' },
         ]
@@ -161,6 +230,7 @@ export class DepartmentsService {
         icon: '🚧',
         description: 'Responsible for road infrastructure, transport services and public works projects.',
         totalRevenue: 112000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Cemetery', description: 'Cemetery services and burial fees' },
         ]
@@ -172,6 +242,7 @@ export class DepartmentsService {
         icon: '🏃',
         description: 'Promotes youth development, gender equality, sports, culture and social services.',
         totalRevenue: 78000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Youth Empowerment', description: 'Youth development programs and services' },
         ]
@@ -183,6 +254,7 @@ export class DepartmentsService {
         icon: '📚',
         description: 'Manages educational services, libraries and early childhood development programs.',
         totalRevenue: 102000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Library Fees', description: 'Library services and membership fees' },
           { name: 'ECDE Approvals/Inspection', description: 'Early Childhood Development Education approvals' },
@@ -195,6 +267,7 @@ export class DepartmentsService {
         icon: '🌾',
         description: 'Supports agricultural development, livestock management and cooperative societies.',
         totalRevenue: 142000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Veterinary', description: 'Veterinary services and livestock fees' },
           { name: 'Slaughter Fees', description: 'Slaughterhouse and meat inspection fees' },
@@ -210,6 +283,7 @@ export class DepartmentsService {
         icon: '💧',
         description: 'Manages water resources, irrigation, environmental conservation and climate change initiatives.',
         totalRevenue: 128000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Water and Irrigation', description: 'Water supply and irrigation services' },
           { name: 'Borehole Drilling Charges', description: 'Borehole drilling and water point services' },
@@ -223,6 +297,7 @@ export class DepartmentsService {
         icon: '🏥',
         description: 'Comprehensive healthcare delivery through various health facilities across the county.',
         totalRevenue: 245000000,
+        isDefault: true,
         revenueStreams: [
           { name: 'Embu L5', description: 'Level 5 Hospital - Embu Referral Hospital' },
           { name: 'Runyenjes L4', description: 'Level 4 Hospital - Runyenjes Sub-County Hospital' },
@@ -237,6 +312,7 @@ export class DepartmentsService {
         ]
       },
     ];
-    this.saveToStorage(defaultDepartments);
+
+    return defaultDepartments;
   }
 }
