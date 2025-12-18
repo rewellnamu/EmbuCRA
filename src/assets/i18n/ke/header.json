@@ -1,0 +1,25 @@
+{
+  "title": "Mamlaka ya Mapato ya Kaunti ya Embu",
+  "nav": {
+    "home": "Mũciĩ",
+    "about": "Ũhoro Witũ",
+    "departments": "Tũnyũmba",
+    "services": "Ũtungata",
+    "streams": "Mĩthemba ya Mbeeca",
+    "news": "Ũhoro",
+    "tenders": "Zabuni",
+    "downloads": "Kũgũra",
+    "contact": "Tũmenye"
+  },
+  "aria": {
+    "toggleMenu": "Hingũra menu",
+    "socialMobile": "Hongekanĩro cia ũrata (simu)",
+    "socialDesktop": "Hongekanĩro cia ũrata"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "X",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram"
+  }
+}

@@ -1,12 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'home'
+    },
+  ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // ---------------- Hero Background Slideshow ----------------
@@ -41,7 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   startBackgroundSlideshow() {
-    // Change image every 6 seconds (slower for better viewing)
     this.intervalId = setInterval(() => {
       this.nextSlide();
     }, 6000);
@@ -49,169 +55,59 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   nextSlide() {
     if (this.isTransitioning) return;
-    
     this.isTransitioning = true;
     this.previousBgIndex = this.currentBgIndex;
     this.currentBgIndex = (this.currentBgIndex + 1) % this.backgroundImages.length;
-    
-    // Reset transition flag after animation completes
-    setTimeout(() => {
-      this.isTransitioning = false;
-    }, 1500); // Match CSS transition duration
-  }
-
-  previousSlide() {
-    if (this.isTransitioning) return;
-    
-    this.isTransitioning = true;
-    this.previousBgIndex = this.currentBgIndex;
-    this.currentBgIndex = this.currentBgIndex === 0 
-      ? this.backgroundImages.length - 1 
-      : this.currentBgIndex - 1;
-    
-    setTimeout(() => {
-      this.isTransitioning = false;
-    }, 1500);
+    setTimeout(() => { this.isTransitioning = false; }, 1500);
   }
 
   goToSlide(index: number) {
     if (this.isTransitioning || index === this.currentBgIndex) return;
-    
     this.isTransitioning = true;
     this.previousBgIndex = this.currentBgIndex;
     this.currentBgIndex = index;
-    
-    setTimeout(() => {
-      this.isTransitioning = false;
-    }, 1500);
+    setTimeout(() => { this.isTransitioning = false; }, 1500);
   }
 
   getBackgroundStyle(index: number) {
-    return {
-      'background-image': `url(${this.backgroundImages[index]})`
-    };
+    return { 'background-image': `url(${this.backgroundImages[index]})` };
   }
 
-  isActiveSlide(index: number): boolean {
-    return index === this.currentBgIndex;
-  }
+  isActiveSlide(index: number): boolean { return index === this.currentBgIndex; }
+  isPreviousSlide(index: number): boolean { return index === this.previousBgIndex; }
 
-  isPreviousSlide(index: number): boolean {
-    return index === this.previousBgIndex;
-  }
+  // ---------------- Translated Data ----------------
 
   highlights = [
-    {
-      title: 'Efficient Revenue Collection',
-      desc: 'Digital systems for better service delivery.',
-      icon: '💰',
-    },
-    {
-      title: 'Transparency & Accountability',
-      desc: 'Clear processes and open reporting.',
-      icon: '🔍',
-    },
-    {
-      title: 'Service to Citizens',
-      desc: 'Ensuring Embu residents get value from revenue.',
-      icon: '🏛️',
-    },
+    { key: 'highlights.collection', icon: '💰' },
+    { key: 'highlights.transparency', icon: '🔍' },
+    { key: 'highlights.service', icon: '🏛️' },
   ];
 
   boardOfDirectors = [
-    {
-      name: 'Dr. Jane Mwangi',
-      position: 'Chairperson',
-      image: 'images/placeholder2.png',
-    },
-    {
-      name: 'Mr. Peter Kiprotich',
-      position: 'Vice Chairperson',
-      image: 'images/placeholder1.png',
-    },
-    {
-      name: 'Ms. Grace Njeri',
-      position: 'Board Member',
-      image: 'images/placeholder2.png',
-    },
-    {
-      name: 'Mr. David Mutua',
-      position: 'Board Member',
-      image: 'images/placeholder1.png',
-    },
-    {
-      name: 'Mrs. Sarah Wanjiku',
-      position: 'Board Member',
-      image: 'images/placeholder2.png',
-    },
+    { name: 'Dr. Jane Mwangi', positionKey: 'positions.chair', image: 'images/placeholder2.png' },
+    { name: 'Mr. Peter Kiprotich', positionKey: 'positions.viceChair', image: 'images/placeholder1.png' },
+    { name: 'Ms. Grace Njeri', positionKey: 'positions.member', image: 'images/placeholder2.png' },
+    { name: 'Mr. David Mutua', positionKey: 'positions.member', image: 'images/placeholder1.png' },
+    { name: 'Mrs. Sarah Wanjiku', positionKey: 'positions.member', image: 'images/placeholder2.png' },
   ];
 
   management = {
     directors: [
-      {
-        name: 'Mr. John Kamau',
-        position: 'Director General',
-        department: 'Administration',
-        image: 'images/placeholder1.png',
-      },
-      {
-        name: 'Ms. Mary Waithera',
-        position: 'Director',
-        department: 'Revenue Collection',
-        image: 'images/placeholder2.png',
-      },
-      {
-        name: 'Mr. Paul Mwangi',
-        position: 'Director',
-        department: 'Finance & Administration',
-        image: 'images/placeholder1.png',
-      },
+      { name: 'Mr. John Kamau', positionKey: 'positions.dg', deptKey: 'depts.admin', image: 'images/placeholder1.png' },
+      { name: 'Ms. Mary Waithera', positionKey: 'positions.director', deptKey: 'depts.collection', image: 'images/placeholder2.png' },
+      { name: 'Mr. Paul Mwangi', positionKey: 'positions.director', deptKey: 'depts.finance', image: 'images/placeholder1.png' },
     ],
     deputyDirectors: [
-      {
-        name: 'Mr. James Kariuki',
-        position: 'Deputy Director',
-        department: 'Revenue Operations',
-        image: 'images/placeholder1.png',
-      },
-      {
-        name: "Ms. Elizabeth Ndung'u",
-        position: 'Deputy Director',
-        department: 'ICT & Innovation',
-        image: 'images/placeholder2.png',
-      },
-      {
-        name: 'Mr. Samuel Githinji',
-        position: 'Deputy Director',
-        department: 'Human Resources',
-        image: 'images/placeholder1.png',
-      },
+      { name: 'Mr. James Kariuki', positionKey: 'positions.deputy', deptKey: 'depts.ops', image: 'images/placeholder1.png' },
+      { name: "Ms. Elizabeth Ndung'u", positionKey: 'positions.deputy', deptKey: 'depts.ict', image: 'images/placeholder2.png' },
+      { name: 'Mr. Samuel Githinji', positionKey: 'positions.deputy', deptKey: 'depts.hr', image: 'images/placeholder1.png' },
     ],
     revenueOfficers: [
-      {
-        name: 'Mr. Francis Mburu',
-        position: 'Senior Revenue Officer',
-        station: 'Embu Town',
-        image: 'images/placeholder1.png',
-      },
-      {
-        name: 'Ms. Lucy Wanjiru',
-        position: 'Revenue Officer',
-        station: 'Runyenjes',
-        image: 'images/placeholder2.png',
-      },
-      {
-        name: 'Mr. Joseph Njue',
-        position: 'Revenue Officer',
-        station: 'Siakago',
-        image: 'images/placeholder1.png',
-      },
-      {
-        name: 'Ms. Ann Muthoni',
-        position: 'Revenue Officer',
-        station: 'Mbeere South',
-        image: 'images/placeholder2.png',
-      },
+      { name: 'Mr. Francis Mburu', positionKey: 'positions.seniorOfficer', station: 'Embu Town', image: 'images/placeholder1.png' },
+      { name: 'Ms. Lucy Wanjiru', positionKey: 'positions.officer', station: 'Runyenjes', image: 'images/placeholder2.png' },
+      { name: 'Mr. Joseph Njue', positionKey: 'positions.officer', station: 'Siakago', image: 'images/placeholder1.png' },
+      { name: 'Ms. Ann Muthoni', positionKey: 'positions.officer', station: 'Mbeere South', image: 'images/placeholder2.png' },
     ],
   };
 
@@ -219,36 +115,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     currentFY: '2024/2025',
     previousFY: '2023/2024',
     data: [
-      {
-        category: 'Property Rates',
-        target: 450000000,
-        collected: 380000000,
-        percentage: 84.4,
-      },
-      {
-        category: 'Business Permits',
-        target: 180000000,
-        collected: 165000000,
-        percentage: 91.7,
-      },
-      {
-        category: 'Market Fees',
-        target: 120000000,
-        collected: 98000000,
-        percentage: 81.7,
-      },
-      {
-        category: 'Parking Fees',
-        target: 85000000,
-        collected: 79000000,
-        percentage: 92.9,
-      },
-      {
-        category: 'Other Revenue',
-        target: 95000000,
-        collected: 88000000,
-        percentage: 92.6,
-      },
+      { categoryKey: 'categories.property', target: 450000000, collected: 380000000, percentage: 84.4 },
+      { categoryKey: 'categories.permits', target: 180000000, collected: 165000000, percentage: 91.7 },
+      { categoryKey: 'categories.market', target: 120000000, collected: 98000000, percentage: 81.7 },
+      { categoryKey: 'categories.parking', target: 85000000, collected: 79000000, percentage: 92.9 },
+      { categoryKey: 'categories.other', target: 95000000, collected: 88000000, percentage: 92.6 },
     ],
     totalTarget: 930000000,
     totalCollected: 810000000,

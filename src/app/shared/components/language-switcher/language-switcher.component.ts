@@ -21,8 +21,8 @@ export class LanguageSwitcherComponent implements OnInit {
   languages: Language[] = [
     { code: 'en', name: 'English', flag: '🇬🇧' },
     { code: 'sw', name: 'Kiswahili', flag: '🇰🇪' },
-    { code: 'ki', name: 'Kikuyu', flag: '🇰🇪' },
-    { code: 'ke', name: 'Kiembu', flag: '🇰🇪' }
+    { code: 'ke', name: 'Kiembu', flag: '🇰🇪' },
+    { code: 'ki', name: 'Kikuyu', flag: '🇰🇪' }
   ];
 
   currentLanguage: Language = this.languages[0];

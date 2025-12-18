@@ -1,0 +1,25 @@
+{
+  "title": "Embu County Revenue Authority",
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "departments": "Departments",
+    "services": "Services",
+    "streams": "Revenue Streams",
+    "news": "News",
+    "tenders": "Tenders",
+    "downloads": "Downloads",
+    "contact": "Contact"
+  },
+  "aria": {
+    "toggleMenu": "Toggle menu",
+    "socialMobile": "Social links (mobile)",
+    "socialDesktop": "Social links"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "X (formerly Twitter)",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram"
+  }
+}

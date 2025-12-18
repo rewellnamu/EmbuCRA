@@ -1,0 +1,25 @@
+{
+  "title": "Mamlaka ya Mapato ya Kaunti ya Embu",
+  "nav": {
+    "home": "Nyumbani",
+    "about": "Kuhusu Sisi",
+    "departments": "Idara",
+    "services": "Huduma",
+    "streams": "Vyanzo vya Mapato",
+    "news": "Habari",
+    "tenders": "Zabuni",
+    "downloads": "Pakua",
+    "contact": "Wasiliana"
+  },
+  "aria": {
+    "toggleMenu": "Fungua menyu",
+    "socialMobile": "Viungo vya kijamii (simu)",
+    "socialDesktop": "Viungo vya kijamii"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "X (hapo awali Twitter)",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram"
+  }
+}
