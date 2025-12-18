@@ -1,0 +1,28 @@
+{
+  "header": {
+    "title": "Kĩbumbata kĩa Mbeca cia Kaunti ya Embu",
+    "search": "Carĩria ECRA..."
+  },
+  "nav": {
+    "home": "Mũciĩ",
+    "about": "Ũhoro",
+    "departments": "Tũbumbata",
+    "services": "Mawĩra",
+    "streams": "Mĩtaro",
+    "news": "Ũhoro Mwerũ",
+    "tenders": "Marũgano",
+    "downloads": "Ikũria",
+    "contact": "Tũmarĩrie"
+  },
+  "home": {
+    "welcome": "Wĩra Kĩbumbata kĩa Mbeca cia Kaunti ya Embu",
+    "subtitle": "Gũtũma ũgĩtĩri wa ũtonga ũkũre na ũndũ wa gũcookanĩrĩria mbeca na kũhe andũ mawĩra marĩa mega",
+    "holiday": "Kĩrĩkanĩro Kĩega kuuma ECRA",
+    "christmas": "Gĩthembũ Kĩega Kaunti ya Embu"
+  },
+  "footer": {
+    "copyright": "© 2024 Kĩbumbata kĩa Mbeca cia Kaunti ya Embu. Maũndũ mothe nĩ ma gĩkeno.",
+    "address": "Thũnũ ya Posta 000-60100, Embu, Kenya",
+    "email": "info@emburevenue.go.ke"
+  }
+}

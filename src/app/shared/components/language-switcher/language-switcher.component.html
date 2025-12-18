@@ -1,0 +1,69 @@
+<div class="language-switcher">
+  <button 
+    class="language-btn" 
+    (click)="toggleDropdown()"
+    [attr.aria-expanded]="isDropdownOpen"
+    aria-haspopup="true"
+    [attr.aria-label]="'Change language. Current: ' + currentLanguage.name"
+    type="button">
+
+    <span class="flag" role="img" [attr.aria-label]="currentLanguage.name + ' flag'">
+      {{ currentLanguage.flag }}
+    </span>
+    
+    <span class="lang-name">{{ currentLanguage.name }}</span>
+
+    <svg 
+      class="chevron" 
+      [class.rotated]="isDropdownOpen"
+      width="16" 
+      height="16" 
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true">
+      <path
+        d="M4 6L8 10L12 6"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div 
+    class="dropdown" 
+    *ngIf="isDropdownOpen"
+    role="menu"
+    aria-label="Available languages">
+
+    <button 
+      *ngFor="let lang of languages; trackBy: trackByLanguage"
+      class="dropdown-item"
+      [class.active]="lang.code === currentLanguage.code"
+      (click)="selectLanguage(lang)"
+      role="menuitem"
+      [attr.aria-label]="'Switch to ' + lang.name"
+      type="button">
+
+      <span class="flag" role="img" [attr.aria-label]="lang.name + ' flag'">
+        {{ lang.flag }}
+      </span>
+      
+      <span class="lang-name">{{ lang.name }}</span>
+
+      <svg 
+        *ngIf="lang.code === currentLanguage.code"
+        class="check-icon"
+        width="18"
+        height="18"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true">
+        <path
+          fill-rule="evenodd"
+          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+          clip-rule="evenodd"/>
+      </svg>
+    </button>
+  </div>
+</div>

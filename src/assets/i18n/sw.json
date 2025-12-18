@@ -1,0 +1,28 @@
+{
+  "header": {
+    "title": "Mamlaka ya Mapato ya Kaunti ya Embu",
+    "search": "Tafuta ECRA..."
+  },
+  "nav": {
+    "home": "Nyumbani",
+    "about": "Kuhusu",
+    "departments": "Idara",
+    "services": "Huduma",
+    "streams": "Vyanzo",
+    "news": "Habari",
+    "tenders": "Zabuni",
+    "downloads": "Pakua",
+    "contact": "Wasiliana"
+  },
+  "home": {
+    "welcome": "Karibu Mamlaka ya Mapato ya Kaunti ya Embu",
+    "subtitle": "Kuwezesha ukuaji wa kiuchumi kupitia ukusanyaji wa mapato wenye ufanisi na utoaji wa huduma wa uwazi",
+    "holiday": "Likizo Njema kutoka ECRA",
+    "christmas": "Krismasi Njema Kaunti ya Embu"
+  },
+  "footer": {
+    "copyright": "© 2024 Mamlaka ya Mapato ya Kaunti ya Embu. Haki zote zimehifadhiwa.",
+    "address": "S.L.P 000-60100, Embu, Kenya",
+    "email": "info@emburevenue.go.ke"
+  }
+}

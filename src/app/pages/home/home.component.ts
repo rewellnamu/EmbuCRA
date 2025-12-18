@@ -11,6 +11,9 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit, OnDestroy {
   // ---------------- Hero Background Slideshow ----------------
   backgroundImages: string[] = [
+    'assets/EMBFLAG.png',
+    'assets/ecrabanner.png',
+    'assets/embrewell.png',
     'assets/mount.png',
     'assets/construction.jpg',
     'assets/night.jpg',
