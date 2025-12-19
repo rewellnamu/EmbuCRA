@@ -19,17 +19,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   // ---------------- Hero Background Slideshow ----------------
   backgroundImages: string[] = [
     'assets/EMBFLAG.png',
+    'assets/embrewell.jpg',
     'assets/ecrabanner.png',
-    'assets/embrewell.png',
     'assets/mount.png',
     'assets/construction.jpg',
-    'assets/night.jpg',
     'assets/construction2.jpg',
     'assets/tourism.jpg',
     'assets/revenue3Copy.jpg',
     'assets/revenue4.jpeg',
     'assets/naturalenvironment.jpg',
-    'images/tourism2.jpg',
+
   ];
   
   currentBgIndex: number = 0;
