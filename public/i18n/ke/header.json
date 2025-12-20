@@ -1,24 +1,24 @@
 {
-  "title": "Mamlaka ya Mapato ya Kaunti ya Embu",
+  "title": "Kĩhoti kĩa Mbeca cia Kaunti ya Embu",
   "nav": {
     "home": "Mũciĩ",
     "about": "Ũhoro Witũ",
-    "departments": "Tũnyũmba",
-    "services": "Ũtungata",
-    "streams": "Mĩthemba ya Mbeeca",
+    "departments": "Tũhoti",
+    "services": "Wĩra",
+    "streams": "Kĩhumo kĩa Mbeca",
     "news": "Ũhoro",
-    "tenders": "Zabuni",
-    "downloads": "Kũgũra",
-    "contact": "Tũmenye"
+    "tenders": "Thokora cia Wĩra",
+    "downloads": "Kũruta",
+    "contact": "Tũmenyithanie"
   },
   "aria": {
-    "toggleMenu": "Hingũra menu",
-    "socialMobile": "Hongekanĩro cia ũrata (simu)",
-    "socialDesktop": "Hongekanĩro cia ũrata"
+    "toggleMenu": "Hingũra menyu",
+    "socialMobile": "Ihanya cia andũ (simu)",
+    "socialDesktop": "Ihanya cia andũ"
   },
   "social": {
     "facebook": "Facebook",
-    "twitter": "X",
+    "twitter": "X (mbere ĩtwagwo Twitter)",
     "linkedin": "LinkedIn",
     "instagram": "Instagram"
   }

@@ -1,61 +1,61 @@
 {
   "hero": {
-    "title": "Gwaka Kaunti ya Embu ĩrĩ na Ũgaacĩru na Ũndũ wa Gũcookanĩrĩria Mbeeca Wega",
-    "subtitle": "Nĩtwĩhokete ũhoro wa ma, kũruta wĩra, na ũtungata mwega",
-    "performanceLabel": "Wĩra wa Mbeeca",
-    "collectedLabel": "Mbeeca Ciacookanĩrie"
+    "title": "Gĩthondeke kĩa Mbeca cia Kaunti ya Embu",
+    "subtitle": "Tũheanĩte kũrũmia ũhoro na wega, kũrũmĩrĩra mawatho, na gũtungata wega",
+    "performanceLabel": "Wĩra wa Mbeca",
+    "collectedLabel": "Mbeca Ciothe Ciũnganĩtwo"
   },
   "sections": {
-    "strengths": "Hinya Ciitũ Cia Mũtwe",
+    "strengths": "Hinya Ciitũ Nene",
     "board": "Bodi ya Atongoria",
     "management": "Gĩkundi kĩa Atongoria",
-    "performance": "Wĩra wa Mbeeca"
+    "performance": "Wĩra wa Mbeca"
   },
   "highlights": {
     "collection": {
-      "title": "Gũcookanĩrĩria Mbeeca Wega",
-      "desc": "Mĩtugo mĩega na tekinolojii ya kĩ-ũmũthĩ nĩ guo gũcookanĩrĩria mbeeca wega kũrĩ tũciĩ twonthe"
+      "title": "Kũũngania Mbeca na Ũũgĩ",
+      "desc": "Njĩra nũngĩ na maundu ma kĩhiũha ma gũtungata wega kũũngania mbeca kũrĩa guothe"
     },
     "transparency": {
-      "title": "Ũhoro wa Ma na Kũruta Wĩra",
-      "desc": "Nĩtwĩhokete kũigĩra ũhoro wa ma mĩtugo-inĩ yothe na marĩpoti ma mbeeca"
+      "title": "Ũhoro na Wega ũrĩa Wonekaga",
+      "desc": "Tũheanĩte gũikara na mĩtũre mĩega ya ũhoro ũrĩa wonekaga wĩra-inĩ witũ wothe na mĩario ya mbeca"
     },
     "service": {
-      "title": "Ũtungata Mwega",
-      "desc": "Nĩtwĩhokete kũhe andũ othe na arĩa maiganĩte na ithuĩ ũtungata mwega"
+      "title": "Gũtungata na Wega",
+      "desc": "Tũheanĩte gũhe andũ othe na mũcemanio wĩra mwega"
     }
   },
   "positions": {
     "chair": "Mũtongoria Mũnene",
     "viceChair": "Mũteithia wa Mũtongoria",
-    "member": "Mũnyũmba wa Bodi",
-    "dg": "Mũtongoria Mũnene wa Anene",
-    "director": "Mũtongoria",
-    "deputy": "Mũteithia wa Mũtongoria",
-    "seniorOfficer": "Mũtongoria Mũnene wa Mbeeca",
-    "officer": "Mũtongoria wa Mbeeca"
+    "member": "Mũndũ wa Bodi",
+    "dg": "Mũrũgamĩrĩri Mũnene",
+    "director": "Mũrũgamĩrĩri",
+    "deputy": "Mũteithia Mũrũgamĩrĩri",
+    "seniorOfficer": "Mũnene wa Mbeca",
+    "officer": "Mũruti wa Mbeca"
   },
   "depts": {
-    "directorTitle": "Atongoria",
-    "deputyTitle": "Ateithia a Atongoria",
-    "officerTitle": "Atongoria a Mbeeca",
-    "admin": "Ũtongoria",
-    "collection": "Gũcookanĩrĩria Mbeeca",
-    "finance": "Mbeeca",
-    "ops": "Mĩtugo",
+    "directorTitle": "Arũgamĩrĩri",
+    "deputyTitle": "Ateithia Arũgamĩrĩri",
+    "officerTitle": "Aruti a Mbeca",
+    "admin": "Wathi",
+    "collection": "Kũũngania Mbeca",
+    "finance": "Mbeca",
+    "ops": "Wĩra",
     "ict": "ICT",
     "hr": "Wĩra wa Andũ"
   },
   "categories": {
-    "property": "Mbeeca cia Mĩgũnda",
-    "permits": "Ĩtambari cia Wonjoria",
-    "market": "Mbeeca cia Makĩĩti",
-    "parking": "Mbeeca cia Kũiga Magari",
-    "other": "Mbeeca Ingĩ"
+    "property": "Mbeca cia Indo",
+    "permits": "Irangĩro cia Wonjoria",
+    "market": "Thokora cia Ndũnyũ",
+    "parking": "Thokora cia Kũiga Magari",
+    "other": "Mbeca Ingĩ"
   },
   "performance": {
     "overallTitle": "Wĩra Wothe",
-    "target": "Gĩtoro",
-    "collected": "Nĩciacookanĩrie"
+    "target": "Wendo",
+    "collected": "Ciũnganĩtwo"
   }
 }
