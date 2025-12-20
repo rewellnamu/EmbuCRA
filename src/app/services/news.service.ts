@@ -144,30 +144,41 @@ export class NewsService {
   }
 
   // Private methods
-  private loadFromStorage(): NewsArticle[] {
-    try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('Loaded from storage:', parsed.length, 'articles');
-        return parsed;
-      }
-    } catch (e) {
-      console.error('Error loading news from storage:', e);
+private loadFromStorage(): NewsArticle[] {
+  try {
+    // Check if localStorage is available (not available in some test environments)
+    if (typeof localStorage === 'undefined') {
+      return [];
     }
-    return [];
+    
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log('Loaded from storage:', parsed.length, 'articles');
+      return parsed;
+    }
+  } catch (e) {
+    console.error('Error loading news from storage:', e);
   }
+  return [];
+}
 
-  private saveToStorage(news: NewsArticle[]): void {
-    try {
+private saveToStorage(news: NewsArticle[]): void {
+  try {
+    // Check if localStorage is available and newsSubject is initialized
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(news));
-      this.newsSubject.next(news);
       console.log('Saved to storage:', news.length, 'articles');
-    } catch (e) {
-      console.error('Error saving news to storage:', e);
     }
+    
+    // Update the subject only if it's initialized
+    if (this.newsSubject) {
+      this.newsSubject.next(news);
+    }
+  } catch (e) {
+    console.error('Error saving news to storage:', e);
   }
-
+}
   // Get default news articles - these are always loaded
   private getDefaultNews(): NewsArticle[] {
     const defaultNews: NewsArticle[] = [

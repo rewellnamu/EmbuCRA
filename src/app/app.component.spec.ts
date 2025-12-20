@@ -2,12 +2,24 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { TranslocoTestingModule } from '@jsverse/transloco';
+import { provideRouter } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        AppComponent,
+        TranslocoTestingModule.forRoot({
+          langs: { en: {}, sw: {} },
+          translocoConfig: {
+            availableLangs: ['en', 'sw'],
+            defaultLang: 'en',
+          },
+        }),
+      ],
       providers: [
+        provideRouter([]),
         {
           provide: ActivatedRoute,
           useValue: {
@@ -32,9 +44,9 @@ describe('AppComponent', () => {
   });
 
   it('should render title', () => {
-  const fixture = TestBed.createComponent(AppComponent);
-  fixture.detectChanges();
-  const compiled = fixture.nativeElement as HTMLElement;
-  expect(compiled).toBeTruthy();
-});
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled).toBeTruthy();
+  });
 });

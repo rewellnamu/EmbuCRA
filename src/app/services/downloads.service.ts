@@ -160,30 +160,42 @@ export class DownloadsService {
   }
 
   // Private methods
-  private loadFromStorage(): Download[] {
-    try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('Loaded from storage:', parsed.length, 'downloads');
-        return parsed;
-      }
-    } catch (e) {
-      console.error('Error loading downloads from storage:', e);
+  // Private methods
+private loadFromStorage(): Download[] {
+  try {
+    // Check if localStorage is available (not available in some test environments)
+    if (typeof localStorage === 'undefined') {
+      return [];
     }
-    return [];
+    
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log('Loaded from storage:', parsed.length, 'downloads');
+      return parsed;
+    }
+  } catch (e) {
+    console.error('Error loading downloads from storage:', e);
   }
+  return [];
+}
 
-  private saveToStorage(downloads: Download[]): void {
-    try {
+private saveToStorage(downloads: Download[]): void {
+  try {
+    // Check if localStorage is available and downloadsSubject is initialized
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(downloads));
-      this.downloadsSubject.next(downloads);
       console.log('Saved to storage:', downloads.length, 'downloads');
-    } catch (e) {
-      console.error('Error saving downloads to storage:', e);
     }
+    
+    // Update the subject only if it's initialized
+    if (this.downloadsSubject) {
+      this.downloadsSubject.next(downloads);
+    }
+  } catch (e) {
+    console.error('Error saving downloads to storage:', e);
   }
-
+}
   // Get default downloads - these are always loaded
   private getDefaultDownloads(): Download[] {
     const defaultDownloads: Download[] = [

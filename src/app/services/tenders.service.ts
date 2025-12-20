@@ -137,6 +137,11 @@ export class TendersService {
   // Private methods
   private loadFromStorage(): Tender[] {
     try {
+      // Check if localStorage is available (not available in some test environments)
+      if (typeof localStorage === 'undefined') {
+        return [];
+      }
+      
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
@@ -151,9 +156,16 @@ export class TendersService {
 
   private saveToStorage(tenders: Tender[]): void {
     try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(tenders));
-      this.tendersSubject.next(tenders);
-      console.log('Saved to storage:', tenders.length, 'tenders');
+      // Check if localStorage is available and tendersSubject is initialized
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(tenders));
+        console.log('Saved to storage:', tenders.length, 'tenders');
+      }
+      
+      // Update the subject only if it's initialized
+      if (this.tendersSubject) {
+        this.tendersSubject.next(tenders);
+      }
     } catch (e) {
       console.error('Error saving tenders to storage:', e);
     }

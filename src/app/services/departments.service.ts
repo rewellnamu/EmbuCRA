@@ -133,30 +133,41 @@ export class DepartmentsService {
   }
 
   // Private methods
-  private loadFromStorage(): Department[] {
-    try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('Loaded from storage:', parsed.length, 'departments');
-        return parsed;
-      }
-    } catch (e) {
-      console.error('Error loading departments from storage:', e);
+private loadFromStorage(): Department[] {
+  try {
+    // Check if localStorage is available (not available in some test environments)
+    if (typeof localStorage === 'undefined') {
+      return [];
     }
-    return [];
+    
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log('Loaded from storage:', parsed.length, 'departments');
+      return parsed;
+    }
+  } catch (e) {
+    console.error('Error loading departments from storage:', e);
   }
+  return [];
+}
 
-  private saveToStorage(departments: Department[]): void {
-    try {
+private saveToStorage(departments: Department[]): void {
+  try {
+    // Check if localStorage is available and departmentsSubject is initialized
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(departments));
-      this.departmentsSubject.next(departments);
       console.log('Saved to storage:', departments.length, 'departments');
-    } catch (e) {
-      console.error('Error saving departments to storage:', e);
     }
+    
+    // Update the subject only if it's initialized
+    if (this.departmentsSubject) {
+      this.departmentsSubject.next(departments);
+    }
+  } catch (e) {
+    console.error('Error saving departments to storage:', e);
   }
-
+}
   // Get default departments - these are always loaded
   private getDefaultDepartments(): Department[] {
     const defaultDepartments: Department[] = [

@@ -132,30 +132,42 @@ export class ServicesDataService {
   }
 
   // Private methods
-  private loadFromStorage(): CountyService[] {
-    try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('Loaded from storage:', parsed.length, 'services');
-        return parsed;
-      }
-    } catch (e) {
-      console.error('Error loading services from storage:', e);
+  // Private methods
+private loadFromStorage(): CountyService[] {
+  try {
+    // Check if localStorage is available (not available in some test environments)
+    if (typeof localStorage === 'undefined') {
+      return [];
     }
-    return [];
+    
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log('Loaded from storage:', parsed.length, 'services');
+      return parsed;
+    }
+  } catch (e) {
+    console.error('Error loading services from storage:', e);
   }
+  return [];
+}
 
-  private saveToStorage(services: CountyService[]): void {
-    try {
+private saveToStorage(services: CountyService[]): void {
+  try {
+    // Check if localStorage is available and servicesSubject is initialized
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(services));
-      this.servicesSubject.next(services);
       console.log('Saved to storage:', services.length, 'services');
-    } catch (e) {
-      console.error('Error saving services to storage:', e);
     }
+    
+    // Update the subject only if it's initialized
+    if (this.servicesSubject) {
+      this.servicesSubject.next(services);
+    }
+  } catch (e) {
+    console.error('Error saving services to storage:', e);
   }
-
+}
   // Get default services - these are always loaded
   private getDefaultServices(): CountyService[] {
     const defaultServices: CountyService[] = [
