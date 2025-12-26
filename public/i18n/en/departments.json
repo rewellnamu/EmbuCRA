@@ -1,0 +1,27 @@
+{
+  "header": {
+    "title": "County Departments & Revenue Streams",
+    "description": "Explore Embu County's departmental structure and their respective revenue collection streams that fund essential services and development projects.",
+    "totalRevenue": "Total County Revenue",
+    "acrossDepartments": "Across {{count}} departments"
+  },
+  "card": {
+    "ofTotal": "of total",
+    "revenueStreams": "Revenue Streams",
+    "viewDetails": "View Details",
+    "hideDetails": "Hide Details"
+  },
+  "details": {
+    "totalRevenue": "Total Revenue",
+    "percentageOfCounty": "Percentage of County Revenue",
+    "revenueStreams": "Revenue Streams",
+    "streamsTitle": "Revenue Streams"
+  },
+  "stats": {
+    "title": "Revenue Distribution Overview",
+    "totalDepartments": "Total Departments",
+    "revenueStreams": "Revenue Streams",
+    "averageRevenue": "Average Revenue",
+    "topDepartmentShare": "Top Department Share"
+  }
+}

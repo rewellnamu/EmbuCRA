@@ -1,21 +1,40 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule, TRANSLOCO_SCOPE, TranslocoService } from '@jsverse/transloco';
 import { DepartmentsService, Department, RevenueStream } from '../../services/departments.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-departments',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'departments'
+    },
+  ],
 })
 export class DepartmentsComponent implements OnInit, OnDestroy {
   selectedDepartment: Department | null = null;
   departments: Department[] = [];
   private subscription?: Subscription;
 
-  constructor(private departmentsService: DepartmentsService) {}
+  constructor(
+    private departmentsService: DepartmentsService,
+    private translocoService: TranslocoService
+  ) {
+    console.log('🌍 Active language:', this.translocoService.getActiveLang());
+    console.log('📚 Available languages:', this.translocoService.getAvailableLangs());
+    
+    // Check what's loaded
+    this.translocoService.selectTranslate('header.title', {}, 'departments').subscribe({
+      next: (translation) => console.log('✅ Translation works:', translation),
+      error: (error) => console.error('❌ Translation error:', error)
+    });
+  }
 
   ngOnInit(): void {
     // Subscribe to departments from service
@@ -99,5 +118,5 @@ export class DepartmentsComponent implements OnInit, OnDestroy {
       name: topDept.shortName || topDept.name,
       percentage: this.getPercentageOfTotal(topDept.totalRevenue || 0),
     };
-}
+  }
 }

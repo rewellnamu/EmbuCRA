@@ -1,19 +1,17 @@
-<div class="departments-container">
+<div class="departments-container" *transloco="let t; read: 'departments'">
   <!-- Header Section -->
   <section class="departments-header">
     <div class="container">
-      <h1>County Departments & Revenue Streams</h1>
+      <h1>{{ t('header.title') }}</h1>
       <p class="header-description">
-        Explore Embu County's departmental structure and their respective
-        revenue collection streams that fund essential services and development
-        projects.
+        {{ t('header.description') }}
       </p>
       <div class="total-revenue-card">
-        <h3>Total County Revenue</h3>
+        <h3>{{ t('header.totalRevenue') }}</h3>
         <div class="total-amount">
           {{ formatCurrency(getTotalCountyRevenue()) }}
         </div>
-        <p>Across {{ departments.length }} departments</p>
+        <p>{{ t('header.acrossDepartments', { count: departments.length }) }}</p>
       </div>
     </div>
   </section>
@@ -37,8 +35,7 @@
                   formatCurrency(department.totalRevenue!)
                 }}</span>
                 <span class="revenue-percentage"
-                  >{{ getPercentageOfTotal(department.totalRevenue!) }}% of
-                  total</span
+                  >{{ getPercentageOfTotal(department.totalRevenue!) }}% {{ t('card.ofTotal') }}</span
                 >
               </div>
             </div>
@@ -50,7 +47,7 @@
               <span class="streams-count">{{
                 department.revenueStreams.length
               }}</span>
-              <span class="streams-label">Revenue Streams</span>
+              <span class="streams-label">{{ t('card.revenueStreams') }}</span>
             </div>
           </div>
 
@@ -58,8 +55,8 @@
             <button class="view-details-btn">
               <span>{{
                 selectedDepartment?.id === department.id
-                  ? "Hide Details"
-                  : "View Details"
+                  ? t('card.hideDetails')
+                  : t('card.viewDetails')
               }}</span>
               <i
                 class="arrow"
@@ -94,13 +91,13 @@
       <div class="details-body">
         <div class="revenue-summary">
           <div class="summary-item">
-            <span class="summary-label">Total Revenue</span>
+            <span class="summary-label">{{ t('details.totalRevenue') }}</span>
             <span class="summary-value">{{
               formatCurrency(selectedDepartment.totalRevenue!)
             }}</span>
           </div>
           <div class="summary-item">
-            <span class="summary-label">Percentage of County Revenue</span>
+            <span class="summary-label">{{ t('details.percentageOfCounty') }}</span>
             <span class="summary-value"
               >{{
                 getPercentageOfTotal(selectedDepartment.totalRevenue!)
@@ -108,7 +105,7 @@
             >
           </div>
           <div class="summary-item">
-            <span class="summary-label">Revenue Streams</span>
+            <span class="summary-label">{{ t('details.revenueStreams') }}</span>
             <span class="summary-value">{{
               selectedDepartment.revenueStreams.length
             }}</span>
@@ -116,7 +113,7 @@
         </div>
 
         <div class="revenue-streams-section">
-          <h3>Revenue Streams</h3>
+          <h3>{{ t('details.streamsTitle') }}</h3>
           <div class="streams-grid">
             <div
               class="stream-card"
@@ -141,27 +138,27 @@
   <!-- Statistics Overview -->
   <section class="statistics-section" *ngIf="!selectedDepartment">
     <div class="container">
-      <h2 class="section-title">Revenue Distribution Overview</h2>
+      <h2 class="section-title">{{ t('stats.title') }}</h2>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-number">{{ departments.length }}</div>
-          <div class="stat-label">Total Departments</div>
+          <div class="stat-label">{{ t('stats.totalDepartments') }}</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">{{ getTotalRevenueStreams() }}</div>
-          <div class="stat-label">Revenue Streams</div>
+          <div class="stat-label">{{ t('stats.revenueStreams') }}</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">
             {{ formatCurrency(getAverageRevenue()) }}
           </div>
-          <div class="stat-label">Average Revenue</div>
+          <div class="stat-label">{{ t('stats.averageRevenue') }}</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">
             {{ getTopPerformingDepartment().percentage }}%
           </div>
-          <div class="stat-label">Top Department Share</div>
+          <div class="stat-label">{{ t('stats.topDepartmentShare') }}</div>
         </div>
       </div>
     </div>

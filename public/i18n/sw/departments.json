@@ -1,0 +1,27 @@
+{
+  "header": {
+    "title": "Idara za Kaunti na Vyanzo vya Mapato",
+    "description": "Gundua muundo wa idara za Kaunti ya Embu na vyanzo vyao vya ukusanyaji wa mapato vinavyowezesha huduma muhimu na miradi ya maendeleo.",
+    "totalRevenue": "Jumla ya Mapato ya Kaunti",
+    "acrossDepartments": "Katika idara {{count}}"
+  },
+  "card": {
+    "ofTotal": "ya jumla",
+    "revenueStreams": "Vyanzo vya Mapato",
+    "viewDetails": "Tazama Maelezo",
+    "hideDetails": "Ficha Maelezo"
+  },
+  "details": {
+    "totalRevenue": "Jumla ya Mapato",
+    "percentageOfCounty": "Asilimia ya Mapato ya Kaunti",
+    "revenueStreams": "Vyanzo vya Mapato",
+    "streamsTitle": "Vyanzo vya Mapato"
+  },
+  "stats": {
+    "title": "Muhtasari wa Usambazaji wa Mapato",
+    "totalDepartments": "Jumla ya Idara",
+    "revenueStreams": "Vyanzo vya Mapato",
+    "averageRevenue": "Wastani wa Mapato",
+    "topDepartmentShare": "Sehemu ya Idara Bora"
+  }
+}

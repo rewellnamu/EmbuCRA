@@ -1,0 +1,27 @@
+{
+  "header": {
+    "title": "Itara cia Kaunti na Njira cia Mbeca",
+    "description": "Menya mutuurire wa itara cia Kaunti ya Embu na njira ciao cia kukocania mbeca iria ciheaga iruti ria bata na mibango ya kugithondeka.",
+    "totalRevenue": "MbecaCionthe cia Kaunti",
+    "acrossDepartments": "Kuri itara {{count}}"
+  },
+  "card": {
+    "ofTotal": "cia cionthe",
+    "revenueStreams": "Njira cia Mbeca",
+    "viewDetails": "Ona Nkani Yonthe",
+    "hideDetails": "Hitha Nkani"
+  },
+  "details": {
+    "totalRevenue": "Mbeca Cionthe",
+    "percentageOfCounty": "Gicunji kia Mbeca cia Kaunti",
+    "revenueStreams": "Njira cia Mbeca",
+    "streamsTitle": "Njira cia Mbeca"
+  },
+  "stats": {
+    "title": "Mutugo wa Kugayania Mbeca",
+    "totalDepartments": "Itara Ionthe",
+    "revenueStreams": "Njira cia Mbeca",
+    "averageRevenue": "Mbeca cia Gatagatĩ",
+    "topDepartmentShare": "Gicunji kia Itara Iria Njega"
+  }
+}
