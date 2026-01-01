@@ -23,9 +23,8 @@ export class SearchComponent {
   results: SearchItem[] = [];
 
 scrollingTexts: string[] = [
-  '🎄 Happy Holidays from ECRA!',
   '✨ Kulipa Ushuru ni Kujitegemea',
-  '🎅 Merry Christmas Embu County',
+  '🎄 Happy New Year from ECRA!',
   '🎉 Tax Compliance = Development',
   '⭐ Festive Season Greetings',
   '🔔 Pay Taxes, Build Community',
