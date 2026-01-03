@@ -1,6 +1,6 @@
 .language-switcher {
   position: fixed;
-  top: 100px;
+  top: 90px;
   right: 24px;
   z-index: 9999;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -231,7 +231,7 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .language-switcher {
-    top: 16px;
+    top: 90px;
     right: 16px;
   }
 

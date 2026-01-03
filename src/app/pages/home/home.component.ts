@@ -18,6 +18,7 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 export class HomeComponent implements OnInit, OnDestroy {
   // ---------------- Hero Background Slideshow ----------------
   backgroundImages: string[] = [
+    'assets/GOV.jpg',
     'assets/EMBFLAG.png',
     'assets/embrewell.jpg',
     'assets/ecrabanner.png',
