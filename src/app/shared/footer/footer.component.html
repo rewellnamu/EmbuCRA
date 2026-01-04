@@ -1,18 +1,18 @@
-<footer class="footer">
+<footer class="footer" *transloco="let t; read: 'footer'">
   <div class="container">
-    <p>© {{ currentYear }} Embu County Revenue Authority</p>
+    <p>{{ t('copyright', { year: currentYear }) }}</p>
     <nav>
-      <a routerLink="/">Home</a> |
-      <a routerLink="/about">About Us</a> |
-      <a routerLink="/departments">Departments</a> |
-      <a routerLink="/services">Services</a> |
-      <a routerLink="/contact">Contact</a> |
-      <a href="https://embu.go.ke" target="_blank">Embu County Website</a> |
-      <a href="https://kra.go.ke" target="_blank">Kenya Revenue Authority</a> |
-      <a href="https://www.ict.go.ke" target="_blank">Ministry of ICT</a> |
-      <a href="https://www.treasury.go.ke" target="_blank">National Treasury</a> |
-      <a href="https://www.cog.go.ke" target="_blank">Council of Governors</a> |
-      <a href="https://www.crakenya.go.ke" target="_blank">Commission on Revenue Allocation</a>
+      <a routerLink="/">{{ t('nav.home') }}</a> |
+      <a routerLink="/about">{{ t('nav.about') }}</a> |
+      <a routerLink="/departments">{{ t('nav.departments') }}</a> |
+      <a routerLink="/services">{{ t('nav.services') }}</a> |
+      <a routerLink="/contact">{{ t('nav.contact') }}</a> |
+      <a href="https://embu.go.ke" target="_blank" rel="noopener noreferrer">{{ t('links.embuCounty') }}</a> |
+      <a href="https://kra.go.ke" target="_blank" rel="noopener noreferrer">{{ t('links.kra') }}</a> |
+      <a href="https://www.ict.go.ke" target="_blank" rel="noopener noreferrer">{{ t('links.ict') }}</a> |
+      <a href="https://www.treasury.go.ke" target="_blank" rel="noopener noreferrer">{{ t('links.treasury') }}</a> |
+      <a href="https://www.cog.go.ke" target="_blank" rel="noopener noreferrer">{{ t('links.cog') }}</a> |
+      <a href="https://www.crakenya.go.ke" target="_blank" rel="noopener noreferrer">{{ t('links.cra') }}</a>
     </nav>
   </div>
 </footer>

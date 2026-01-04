@@ -1,0 +1,18 @@
+{
+  "copyright": "© {{year}} Embu County Revenue Authority",
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "departments": "Departments",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "links": {
+    "embuCounty": "Embu County Website",
+    "kra": "Kenya Revenue Authority",
+    "ict": "Ministry of ICT",
+    "treasury": "National Treasury",
+    "cog": "Council of Governors",
+    "cra": "Commission on Revenue Allocation"
+  }
+}

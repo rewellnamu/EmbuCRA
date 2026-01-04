@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 import { ServicesDataService, CountyService } from '../../services/services-data.service';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +16,6 @@ interface ServiceFee {
   period?: string;
 }
 
-// Interface that matches your component structure
 interface Service {
   id: string;
   name: string;
@@ -34,9 +34,15 @@ interface Service {
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslocoModule],
   templateUrl: './services.component.html',
-  styleUrls: ['./services.component.scss']
+  styleUrls: ['./services.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'services'
+    },
+  ],
 })
 export class ServicesComponent implements OnInit, OnDestroy {
   selectedCategory = 'all';
@@ -58,10 +64,8 @@ export class ServicesComponent implements OnInit, OnDestroy {
   constructor(private servicesDataService: ServicesDataService) {}
 
   ngOnInit(): void {
-    // Subscribe to services from service
     this.subscription = this.servicesDataService.services$.subscribe(
       services => {
-        // Transform services to match component structure
         this.services = services.map(s => ({
           ...s,
           name: s.title,
@@ -82,25 +86,19 @@ export class ServicesComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Helper method to parse fees string into array
   private parseFees(feesString: string): ServiceFee[] {
     if (!feesString) return [];
-    
     try {
-      // If it's already JSON, parse it
       return JSON.parse(feesString);
     } catch {
-      // Otherwise return a default fee structure
       return [{ description: 'Service Fee', amount: 0, period: 'Variable' }];
     }
   }
 
-  // Helper method to parse requirements
   private parseRequirements(requirements: string[]): ServiceRequirement[] {
     if (!requirements || requirements.length === 0) {
       return [{ document: 'National ID', required: true }];
     }
-    
     return requirements.map(req => ({
       document: req,
       required: true

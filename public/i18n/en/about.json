@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "About Us",
+    "overview": "The Embu County Revenue Authority (ECRA) is mandated to collect and manage revenue to fund essential county services and infrastructure, fostering sustainable development in Embu County."
+  },
+  "sections": {
+    "overview": "ECRA Overview",
+    "vision": "Our Vision",
+    "mission": "Our Mission",
+    "mandate": "Our Mandate",
+    "values": "Core Values"
+  },
+  "overview": {
+    "text": "The Embu County Revenue Authority serves as the primary institution responsible for revenue collection and management within Embu County, ensuring compliance with both county and national laws while optimizing financial growth for the county."
+  },
+  "vision": {
+    "text": "Excel in revenue collection and management fostering compliance, optimizing collection, and enhancing County's financial growth."
+  },
+  "mission": {
+    "text": "Assess, collect, and manage county revenue with integrity and efficiency as per relevant laws and regulations."
+  },
+  "mandate": {
+    "item1": "Assessing, collecting and accounting for all revenue in accordance with the County and national laws related to revenue",
+    "item2": "Administering and enforcing County laws related to revenue",
+    "item3": "Advising the Executive Member on all matters related to administration and collection of revenue under County laws",
+    "item4": "Carry out such other roles necessary for the implementation of the objects and purpose of this Act"
+  },
+  "values": {
+    "intro": "To achieve its mission and vision, the authority is committed to the following:",
+    "value1": "Respect",
+    "value2": "Integrity",
+    "value3": "Transparency",
+    "value4": "Fairness",
+    "value5": "Accountability",
+    "value6": "Trustworthy",
+    "value7": "Ethical",
+    "value8": "Competency"
+  }
+}

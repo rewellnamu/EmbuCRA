@@ -1,47 +1,47 @@
-<section class="about">
+<section class="about" *transloco="let t; read: 'about'">
   <div class="header">
-    <h1>About Us</h1>
-    <p class="overview">The Embu County Revenue Authority (ECRA) is mandated to collect and manage revenue to fund essential county services and infrastructure, fostering sustainable development in Embu County.</p>
+    <h1>{{ t('header.title') }}</h1>
+    <p class="overview">{{ t('header.overview') }}</p>
   </div>
 
   <div class="content-grid">
     <!-- ECRA Overview -->
     <div class="overview-section">
-      <h2>ECRA Overview</h2>
-      <p>The Embu County Revenue Authority serves as the primary institution responsible for revenue collection and management within Embu County, ensuring compliance with both county and national laws while optimizing financial growth for the county.</p>
+      <h2>{{ t('sections.overview') }}</h2>
+      <p>{{ t('overview.text') }}</p>
     </div>
 
     <!-- Vision -->
     <div class="vision-section">
-      <h2>Our Vision</h2>
-      <p class="vision-text">{{ vision }}</p>
+      <h2>{{ t('sections.vision') }}</h2>
+      <p class="vision-text">{{ t('vision.text') }}</p>
     </div>
 
     <!-- Mission -->
     <div class="mission-section">
-      <h2>Our Mission</h2>
-      <p class="mission-text">{{ mission }}</p>
+      <h2>{{ t('sections.mission') }}</h2>
+      <p class="mission-text">{{ t('mission.text') }}</p>
     </div>
 
     <!-- Mandate -->
     <div class="mandate-section">
-      <h2>Our Mandate</h2>
+      <h2>{{ t('sections.mandate') }}</h2>
       <div class="mandate-list">
-        <div class="mandate-item" *ngFor="let item of mandate; let i = index">
+        <div class="mandate-item" *ngFor="let item of mandateItems; let i = index">
           <span class="mandate-number">{{ i + 1 }}.</span>
-          <p>{{ item }}</p>
+          <p>{{ t('mandate.item' + item) }}</p>
         </div>
       </div>
     </div>
 
     <!-- Core Values -->
     <div class="values-section">
-      <h2>Core Values</h2>
-      <p class="values-intro">To achieve its mission and vision, the authority is committed to the following:</p>
+      <h2>{{ t('sections.values') }}</h2>
+      <p class="values-intro">{{ t('values.intro') }}</p>
       <div class="values-grid">
-        <div class="value-item" *ngFor="let value of coreValues">
+        <div class="value-item" *ngFor="let item of coreValueItems">
           <div class="value-icon">✓</div>
-          <h3>{{ value }}</h3>
+          <h3>{{ t('values.value' + item) }}</h3>
         </div>
       </div>
     </div>

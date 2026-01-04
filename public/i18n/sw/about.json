@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "Kuhusu Sisi",
+    "overview": "Mamlaka ya Mapato ya Kaunti ya Embu (ECRA) imekabidhiwa jukumu la kukusanya na kusimamia mapato ili kufadhili huduma muhimu za kaunti na miundombinu, ikichochea maendeleo endelevu katika Kaunti ya Embu."
+  },
+  "sections": {
+    "overview": "Muhtasari wa ECRA",
+    "vision": "Dira Yetu",
+    "mission": "Dhamira Yetu",
+    "mandate": "Wajibu Wetu",
+    "values": "Maadili Ya Msingi"
+  },
+  "overview": {
+    "text": "Mamlaka ya Mapato ya Kaunti ya Embu inahudumu kama taasisi kuu inayohusika na ukusanyaji na usimamizi wa mapato ndani ya Kaunti ya Embu, ikihakikisha kuzingatia sheria za kaunti na taifa huku ikiboresha ukuaji wa kifedha wa kaunti."
+  },
+  "vision": {
+    "text": "Kustawi katika ukusanyaji na usimamizi wa mapato tukichochea uzingatiaji, kuboresha ukusanyaji, na kuongeza ukuaji wa kifedha wa Kaunti."
+  },
+  "mission": {
+    "text": "Kutathmini, kukusanya, na kusimamia mapato ya kaunti kwa uadilifu na ufanisi kulingana na sheria na kanuni husika."
+  },
+  "mandate": {
+    "item1": "Kutathmini, kukusanya na kuhesabu mapato yote kulingana na sheria za Kaunti na taifa zinazohusiana na mapato",
+    "item2": "Kusimamia na kutekeleza sheria za Kaunti zinazohusiana na mapato",
+    "item3": "Kushauri Mjumbe wa Utendaji kuhusu mambo yote yanayohusiana na utawala na ukusanyaji wa mapato chini ya sheria za Kaunti",
+    "item4": "Kutekeleza majukumu mengine muhimu kwa utekelezaji wa malengo na madhumuni ya Sheria hii"
+  },
+  "values": {
+    "intro": "Ili kufikia dhamira na dira yake, mamlaka imejitolea kufuata yafuatayo:",
+    "value1": "Heshima",
+    "value2": "Uadilifu",
+    "value3": "Uwazi",
+    "value4": "Haki",
+    "value5": "Uwajibikaji",
+    "value6": "Kuaminika",
+    "value7": "Maadili",
+    "value8": "Ustadi"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "Ũhoro Witũ",
+    "overview": "Mamlaka ya Mbeca ya Kaunti ya Embu (ECRA) ĩheetwo wĩra wa gũcookanĩrĩria na kũrũgamĩrĩra mbeca nĩguo kũhe mbeca ũtungata wa bata wa kaunti na mĩako, gũkĩrĩria maendeleo marĩa matũũraga Kaunti ya Embu."
+  },
+  "sections": {
+    "overview": "Mũtugo wa ECRA",
+    "vision": "Kĩonero Giitũ",
+    "mission": "Wĩra Witũ",
+    "mandate": "Wajibu Witũ",
+    "values": "Mĩtugo ya Mũtwe"
+  },
+  "overview": {
+    "text": "Mamlaka ya Mbeca ya Kaunti ya Embu nĩyo kĩama kĩa mbere kĩrĩa kĩrũgamĩrĩraga gũcookanĩrĩria na kũrũgamĩrĩra mbeca Kaunti ya Embu, ĩkĩrũmagia kũrũmĩrĩra mawatho ma kaunti na ma bũrũri hĩndĩ o ĩkĩongagĩrĩria ũkũrĩ wa mbeca wa kaunti."
+  },
+  "vision": {
+    "text": "Gũtuĩka arĩa marĩ igũrũ gũcookanĩrĩria na kũrũgamĩrĩra mbeca tũkĩongagĩrĩria kũrũmĩrĩra mawatho, gũcookanĩrĩria nĩ kwega, na gũtũma kaunti ĩkũre mbeca-inĩ."
+  },
+  "mission": {
+    "text": "Gũtuĩria, gũcookanĩrĩria, na kũrũgamĩrĩra mbeca cia kaunti na ũthingu na ũgereri o ta ũrĩa mawatho na mawatho ma kaunti motaraga."
+  },
+  "mandate": {
+    "item1": "Gũtuĩria, gũcookanĩrĩria na gũtara mbeca ciothe kũringana na mawatho ma Kaunti na ma bũrũri marĩa mohusĩkanĩtie na mbeca",
+    "item2": "Gũrũgamĩrĩra na gũhingĩria mawatho ma Kaunti marĩa mohusĩkanĩtie na mbeca",
+    "item3": "Gũtaara Mũnyũmba wa Utendaji maũndũ-inĩ mothe marĩa mohusĩkanĩtie na ũrũgamĩrĩri na ũcookanĩrĩrio wa mbeca kũringana na mawatho ma Kaunti",
+    "item4": "Gũtũma mĩtugo ĩngĩ ĩrĩa ĩbatarĩtio nĩguo kũhingĩria maũndũ marĩa Watho ũyũ ũrĩraga"
+  },
+  "values": {
+    "intro": "Nĩguo ũhingĩrie wĩra na kĩonero giakĩo, kĩama kĩĩhokete gũkuua ũhoro ũyũ:",
+    "value1": "Gũtĩĩa",
+    "value2": "Ũthingu",
+    "value3": "Ũhoro wa ma",
+    "value4": "Kĩhooto",
+    "value5": "Kũruta wĩra",
+    "value6": "Gwĩhokeka",
+    "value7": "Mĩtugo mĩega",
+    "value8": "Ũũgĩ"
+  }
+}

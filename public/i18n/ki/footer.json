@@ -1,0 +1,18 @@
+{
+  "copyright": "© {{year}} Mamlaka ya Mbeeca ya Kaunti ya Embu",
+  "nav": {
+    "home": "Mũciĩ",
+    "about": "Ũhoro Witũ",
+    "departments": "Tũnyũmba",
+    "services": "Ũtungata",
+    "contact": "Tũmenye"
+  },
+  "links": {
+    "embuCounty": "Rũbarũ rwa Kaunti ya Embu",
+    "kra": "Mamlaka ya Mbeeca ya Kenya",
+    "ict": "Mũnĩstĩri wa ICT",
+    "treasury": "Gitima kĩa Bũrũri",
+    "cog": "Kĩama kĩa Agavana",
+    "cra": "Kĩama kĩa Kũgaya Mbeeca"
+  }
+}

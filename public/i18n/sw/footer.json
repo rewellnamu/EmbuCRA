@@ -1,0 +1,18 @@
+{
+  "copyright": "© {{year}} Mamlaka ya Mapato ya Kaunti ya Embu",
+  "nav": {
+    "home": "Nyumbani",
+    "about": "Kuhusu Sisi",
+    "departments": "Idara",
+    "services": "Huduma",
+    "contact": "Wasiliana"
+  },
+  "links": {
+    "embuCounty": "Tovuti ya Kaunti ya Embu",
+    "kra": "Mamlaka ya Mapato ya Kenya",
+    "ict": "Wizara ya ICT",
+    "treasury": "Hazina ya Taifa",
+    "cog": "Baraza la Magavana",
+    "cra": "Tume ya Ugawaji wa Mapato"
+  }
+}

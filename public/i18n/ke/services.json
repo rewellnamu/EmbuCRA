@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "title": "Ũtungata wa Mbeca wa Kaunti ya Embu",
+    "description": "Ũtungata mũingĩ wa kidijitali na wa gũcemania andũ kũrĩ biashara, andũ a kũndũ, na ageni. Kũgĩa na ũtungata wa ũgereri, ũhoro wa ma, na ũrĩa wendete rĩrĩa.",
+    "stats": {
+      "totalServices": "Ũtungata Wothe",
+      "digitalServices": "Ũtungata wa Kidijitali",
+      "onlineAccess": "Gũkinyĩra Mtandaoni",
+      "avgProcessing": "Wastani wa Gũthondeka"
+    }
+  },
+  "featured": {
+    "title": "Ũtungata Mwega",
+    "popularBadge": "Maarufu"
+  },
+  "categories": {
+    "title": "Mĩthemba ya Ũtungata",
+    "all": "Ũtungata Wothe",
+    "business": "Wonjoria na Wonjorithia",
+    "property": "Mĩgũnda na Thĩ",
+    "transport": "Kũgerera na Kũiga Magari",
+    "health": "Ũtungata wa Ũgima",
+    "agriculture": "Ũrĩmi na Mahiũ",
+    "environment": "Gĩkũũ na Maaĩ",
+    "social": "Ũtungata wa Andũ"
+  },
+  "services": {
+    "allServices": "Ũtungata Wothe",
+    "servicesAvailable": "Ũtungata {{count}} ũrĩ ho"
+  },
+  "details": {
+    "fees": "Thogora wa Ũtungata",
+    "requirements": "Marũa Marĩa Mabatarĩtio",
+    "information": "Ũhoro wa Ũtungata",
+    "processingTime": "Ihinda rĩa Gũthondeka",
+    "digitalAvailable": "Ũrĩ Kidijitali",
+    "locations": "Kũndũ kwa Ũtungata",
+    "required": "Nĩkũbatarĩtio",
+    "optional": "Tĩ Gĩtĩ"
+  },
+  "actions": {
+    "applyOnline": "Hooya Mtandaoni",
+    "downloadForms": "Kũgũra Fomu",
+    "contactOffice": "Twamenyithie Ofisi"
+  },
+  "cta": {
+    "title": "Kũgĩa na Ũtungata wa Kidijitali wa ECRA",
+    "description": "Kinyĩra ũtungata 24/7, rũmĩrĩra mahooya maku, na rĩha mbeca mtandaoni kũgĩtĩra jukwaa riitũ rĩrĩa rĩgitĩre."
+  },
+  "help": {
+    "assistance": {
+      "title": "Ũrĩ na Bata wa Ũteithio?",
+      "description": "Twamenyithie gĩkundi giitũ kĩa ũtungata wa andũ nĩguo ũgĩe ũteithio na ũtungata o wothe.",
+      "action": "Hĩthia Ũteithio"
+    },
+    "offices": {
+      "title": "Ceerera Ofisi Ciitũ",
+      "description": "Rora ofisi ya ECRA ĩrĩa ĩrĩ hakuhĩ nĩguo ũgĩe ũtungata wa gũcemania.",
+      "action": "Rora Kũndũ"
+    }
+  },
+  "common": {
+    "digital": "Kidijitali",
+    "from": "Kũuma",
+    "yes": "Ĩĩ",
+    "no": "Aca"
+  }
+}

@@ -1,32 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'about'
+    },
+  ],
 })
 export class AboutComponent {
-  mission = "Assess, collect, and manage county revenue with integrity and efficiency as per relevant laws and regulations.";
-  vision = "Excel in revenue collection and management fostering compliance, optimizing collection, and enhancing County's financial growth.";
-  
-  mandate = [
-    "Assessing, collecting and accounting for all revenue in accordance with the County and national laws related to revenue",
-    "Administering and enforcing County laws related to revenue",
-    "Advising the Executive Member on all matters related to administration and collection of revenue under County laws",
-    "Carry out such other roles necessary for the implementation of the objects and purpose of this Act"
-  ];
-
-  coreValues = [
-    "Respect",
-    "Integrity", 
-    "Transparency",
-    "Fairness",
-    "Accountability",
-    "Trustworthy",
-    "Ethical",
-    "Competency"
-  ];
+  // These arrays define the number of items to display
+  // The actual text comes from translation files
+  mandateItems = [1, 2, 3, 4]; // 4 mandate items
+  coreValueItems = [1, 2, 3, 4, 5, 6, 7, 8]; // 8 core values
 }

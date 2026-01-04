@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "title": "Huduma za Mapato za Kaunti ya Embu",
+    "description": "Huduma kamili za kidijitali na za ana kwa ana kwa biashara, wakazi, na wageni. Pata huduma za ufanisi, uwazi, na zinazolenga raia.",
+    "stats": {
+      "totalServices": "Jumla ya Huduma",
+      "digitalServices": "Huduma za Kidijitali",
+      "onlineAccess": "Ufikiaji Mtandaoni",
+      "avgProcessing": "Wastani wa Uchakataji"
+    }
+  },
+  "featured": {
+    "title": "Huduma Maalum",
+    "popularBadge": "Maarufu"
+  },
+  "categories": {
+    "title": "Aina za Huduma",
+    "all": "Huduma Zote",
+    "business": "Biashara na Uchumi",
+    "property": "Mali na Ardhi",
+    "transport": "Usafiri na Maegesho",
+    "health": "Huduma za Afya",
+    "agriculture": "Kilimo na Mifugo",
+    "environment": "Mazingira na Maji",
+    "social": "Huduma za Kijamii"
+  },
+  "services": {
+    "allServices": "Huduma Zote",
+    "servicesAvailable": "Huduma {{count}} zinapatikana"
+  },
+  "details": {
+    "fees": "Ada za Huduma",
+    "requirements": "Nyaraka Zinazohitajika",
+    "information": "Maelezo ya Huduma",
+    "processingTime": "Muda wa Uchakataji",
+    "digitalAvailable": "Inapatikana Kidijitali",
+    "locations": "Maeneo ya Huduma",
+    "required": "Inahitajika",
+    "optional": "Si Lazima"
+  },
+  "actions": {
+    "applyOnline": "Omba Mtandaoni",
+    "downloadForms": "Pakua Fomu",
+    "contactOffice": "Wasiliana na Ofisi"
+  },
+  "cta": {
+    "title": "Pata Huduma za Kidijitali za ECRA",
+    "description": "Fikia huduma 24/7, fuatilia maombi yako, na fanya malipo mtandaoni kupitia jukwaa letu salama la kidijitali."
+  },
+  "help": {
+    "assistance": {
+      "title": "Unahitaji Msaada?",
+      "description": "Wasiliana na timu yetu ya huduma kwa wateja ili kupata msaada na huduma yoyote.",
+      "action": "Piga Msaada"
+    },
+    "offices": {
+      "title": "Tembelea Ofisi Zetu",
+      "description": "Tafuta ofisi ya ECRA iliyo karibu nawe kwa utoaji wa huduma ana kwa ana.",
+      "action": "Tafuta Eneo"
+    }
+  },
+  "common": {
+    "digital": "Kidijitali",
+    "from": "Kutoka",
+    "yes": "Ndiyo",
+    "no": "Hapana"
+  }
+}

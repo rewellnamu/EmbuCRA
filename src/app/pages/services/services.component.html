@@ -1,27 +1,27 @@
-<div class="services-container">
+<div class="services-container" *transloco="let t; read: 'services'">
   <!-- Hero Section -->
   <section class="services-hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Embu County Revenue Services</h1>
-        <p>Comprehensive digital and in-person services for businesses, residents, and visitors. Experience efficient, transparent, and citizen-centered service delivery.</p>
+        <h1>{{ t('hero.title') }}</h1>
+        <p>{{ t('hero.description') }}</p>
         
         <div class="hero-stats">
           <div class="stat-item">
             <span class="stat-number">{{ getTotalServices() }}</span>
-            <span class="stat-label">Total Services</span>
+            <span class="stat-label">{{ t('hero.stats.totalServices') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">{{ getDigitalServices() }}</span>
-            <span class="stat-label">Digital Services</span>
+            <span class="stat-label">{{ t('hero.stats.digitalServices') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">24/7</span>
-            <span class="stat-label">Online Access</span>
+            <span class="stat-label">{{ t('hero.stats.onlineAccess') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">{{ getAverageProcessingTime() }}</span>
-            <span class="stat-label">Avg. Processing</span>
+            <span class="stat-label">{{ t('hero.stats.avgProcessing') }}</span>
           </div>
         </div>
       </div>
@@ -31,22 +31,22 @@
   <!-- Featured Services -->
   <section class="featured-services" *ngIf="selectedCategory === 'all'">
     <div class="container">
-      <h2 class="section-title">Featured Services</h2>
+      <h2 class="section-title">{{ t('featured.title') }}</h2>
       <div class="featured-grid">
         <div 
           class="featured-card" 
           *ngFor="let service of getFeaturedServices()"
           (click)="selectService(service)">
-          <div class="card-badge">Popular</div>
+          <div class="card-badge">{{ t('featured.popularBadge') }}</div>
           <div class="service-icon">{{ service.icon }}</div>
           <h3>{{ service.name }}</h3>
           <p>{{ service.description }}</p>
           <div class="service-features">
-            <span class="feature digital" *ngIf="service.digitalAvailable">📱 Digital</span>
+            <span class="feature digital" *ngIf="service.digitalAvailable">📱 {{ t('common.digital') }}</span>
             <span class="feature processing-time">⏱️ {{ service.processingTime }}</span>
           </div>
           <div class="service-price">
-            <span *ngIf="service.fees.length > 0">From {{ formatCurrency(service.fees[0].amount) }}</span>
+            <span *ngIf="service.fees.length > 0">{{ t('common.from') }} {{ formatCurrency(service.fees[0].amount) }}</span>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
   <!-- Service Categories -->
   <section class="categories-section">
     <div class="container">
-      <h2 class="section-title">Service Categories</h2>
+      <h2 class="section-title">{{ t('categories.title') }}</h2>
       <div class="categories-grid">
         <button 
           class="category-btn"
@@ -64,7 +64,7 @@
           [class.active]="selectedCategory === category.id"
           (click)="selectCategory(category.id)">
           <span class="category-icon">{{ category.icon }}</span>
-          <span class="category-name">{{ category.name }}</span>
+          <span class="category-name">{{ t('categories.' + category.id) }}</span>
           <span class="service-count" *ngIf="category.id !== 'all'">
             {{ getServicesByCategory(category.id).length }}
           </span>
@@ -78,9 +78,9 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">
-          {{ selectedCategory === 'all' ? 'All Services' : getCategoryName(selectedCategory) }}
+          {{ selectedCategory === 'all' ? t('services.allServices') : getCategoryName(selectedCategory) }}
         </h2>
-        <p class="services-count">{{ getFilteredServices().length }} services available</p>
+        <p class="services-count">{{ t('services.servicesAvailable', { count: getFilteredServices().length }) }}</p>
       </div>
 
       <div class="services-grid">
@@ -97,7 +97,7 @@
               <p class="service-description">{{ service.description }}</p>
             </div>
             <div class="service-indicators">
-              <span class="digital-badge" *ngIf="service.digitalAvailable">Digital</span>
+              <span class="digital-badge" *ngIf="service.digitalAvailable">{{ t('common.digital') }}</span>
               <span class="expand-arrow" [class.rotated]="selectedService?.id === service.id">▼</span>
             </div>
           </div>
@@ -107,7 +107,7 @@
             <div class="details-grid">
               <!-- Fees Section -->
               <div class="detail-section">
-                <h4>Service Fees</h4>
+                <h4>{{ t('details.fees') }}</h4>
                 <div class="fees-list">
                   <div class="fee-item" *ngFor="let fee of service.fees">
                     <span class="fee-description">{{ fee.description }}</span>
@@ -121,7 +121,7 @@
 
               <!-- Requirements Section -->
               <div class="detail-section">
-                <h4>Required Documents</h4>
+                <h4>{{ t('details.requirements') }}</h4>
                 <div class="requirements-list">
                   <div 
                     class="requirement-item" 
@@ -130,23 +130,23 @@
                     [class.optional]="!req.required">
                     <span class="requirement-icon">{{ req.required ? '✓' : '○' }}</span>
                     <span class="requirement-text">{{ req.document }}</span>
-                    <span class="requirement-status">{{ req.required ? 'Required' : 'Optional' }}</span>
+                    <span class="requirement-status">{{ req.required ? t('details.required') : t('details.optional') }}</span>
                   </div>
                 </div>
               </div>
 
               <!-- Processing Info Section -->
               <div class="detail-section">
-                <h4>Service Information</h4>
+                <h4>{{ t('details.information') }}</h4>
                 <div class="info-grid">
                   <div class="info-item">
-                    <span class="info-label">Processing Time:</span>
+                    <span class="info-label">{{ t('details.processingTime') }}:</span>
                     <span class="info-value">{{ service.processingTime }}</span>
                   </div>
                   <div class="info-item">
-                    <span class="info-label">Digital Available:</span>
+                    <span class="info-label">{{ t('details.digitalAvailable') }}:</span>
                     <span class="info-value" [class.available]="service.digitalAvailable" [class.unavailable]="!service.digitalAvailable">
-                      {{ service.digitalAvailable ? 'Yes' : 'No' }}
+                      {{ service.digitalAvailable ? t('common.yes') : t('common.no') }}
                     </span>
                   </div>
                 </div>
@@ -154,7 +154,7 @@
 
               <!-- Locations Section -->
               <div class="detail-section">
-                <h4>Service Locations</h4>
+                <h4>{{ t('details.locations') }}</h4>
                 <div class="locations-list">
                   <div class="location-item" *ngFor="let location of service.location">
                     <span class="location-icon">📍</span>
@@ -167,13 +167,13 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
               <button class="btn btn-primary" *ngIf="service.digitalAvailable" routerLink="/contact">
-                Apply Online
+                {{ t('actions.applyOnline') }}
               </button>
               <button class="btn btn-secondary" routerLink="/contact">
-                Download Forms
+                {{ t('actions.downloadForms') }}
               </button>
               <button class="btn btn-info" routerLink="/contact">
-                Contact Office
+                {{ t('actions.contactOffice') }}
               </button>
             </div>
           </div>
@@ -187,13 +187,9 @@
     <div class="container">
       <div class="cta-content">
         <div class="cta-text">
-          <h3>Experience Digital ECRA Services</h3>
-          <p>Access services 24/7, track your applications, and make payments online through our secure digital platform.</p>
+          <h3>{{ t('cta.title') }}</h3>
+          <p>{{ t('cta.description') }}</p>
         </div>
-        <!-- <div class="cta-actions">
-          <button class="btn btn-primary btn-large">Access Digital Portal</button>
-          <button class="btn btn-outline btn-large">Download Mobile App</button>
-        </div> -->
       </div>
     </div>
   </section>
@@ -204,22 +200,16 @@
       <div class="help-grid">
         <div class="help-card">
           <div class="help-icon">📞</div>
-          <h4>Need Assistance?</h4>
-          <p>Contact our customer service team for help with any service.</p>
-          <button class="btn btn-outline" routerLink="/contact">Call Support</button>
+          <h4>{{ t('help.assistance.title') }}</h4>
+          <p>{{ t('help.assistance.description') }}</p>
+          <button class="btn btn-outline" routerLink="/contact">{{ t('help.assistance.action') }}</button>
         </div>
         <div class="help-card">
           <div class="help-icon">📍</div>
-          <h4>Visit Our Offices</h4>
-          <p>Find the nearest ECRA office for in-person service delivery.</p>
-          <button class="btn btn-outline" routerLink="/contact">Find Location</button>
+          <h4>{{ t('help.offices.title') }}</h4>
+          <p>{{ t('help.offices.description') }}</p>
+          <button class="btn btn-outline" routerLink="/contact">{{ t('help.offices.action') }}</button>
         </div>
-        <!-- <div class="help-card">
-          <div class="help-icon">💬</div>
-          <h4>Live Chat</h4>
-          <p>Get instant help through our online chat support system.</p>
-          <button class="btn btn-outline">Start Chat</button>
-        </div> -->
       </div>
     </div>
   </section>

@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "title": "Embu County Revenue Services",
+    "description": "Comprehensive digital and in-person services for businesses, residents, and visitors. Experience efficient, transparent, and citizen-centered service delivery.",
+    "stats": {
+      "totalServices": "Total Services",
+      "digitalServices": "Digital Services",
+      "onlineAccess": "Online Access",
+      "avgProcessing": "Avg. Processing"
+    }
+  },
+  "featured": {
+    "title": "Featured Services",
+    "popularBadge": "Popular"
+  },
+  "categories": {
+    "title": "Service Categories",
+    "all": "All Services",
+    "business": "Business & Trade",
+    "property": "Property & Land",
+    "transport": "Transport & Parking",
+    "health": "Health Services",
+    "agriculture": "Agriculture & Livestock",
+    "environment": "Environment & Water",
+    "social": "Social Services"
+  },
+  "services": {
+    "allServices": "All Services",
+    "servicesAvailable": "{{count}} services available"
+  },
+  "details": {
+    "fees": "Service Fees",
+    "requirements": "Required Documents",
+    "information": "Service Information",
+    "processingTime": "Processing Time",
+    "digitalAvailable": "Digital Available",
+    "locations": "Service Locations",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "actions": {
+    "applyOnline": "Apply Online",
+    "downloadForms": "Download Forms",
+    "contactOffice": "Contact Office"
+  },
+  "cta": {
+    "title": "Experience Digital ECRA Services",
+    "description": "Access services 24/7, track your applications, and make payments online through our secure digital platform."
+  },
+  "help": {
+    "assistance": {
+      "title": "Need Assistance?",
+      "description": "Contact our customer service team for help with any service.",
+      "action": "Call Support"
+    },
+    "offices": {
+      "title": "Visit Our Offices",
+      "description": "Find the nearest ECRA office for in-person service delivery.",
+      "action": "Find Location"
+    }
+  },
+  "common": {
+    "digital": "Digital",
+    "from": "From",
+    "yes": "Yes",
+    "no": "No"
+  }
+}
