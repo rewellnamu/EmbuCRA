@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
 import { FooterComponent } from './footer.component';
+import { TranslocoTestingModule } from '@jsverse/transloco';
+import { provideRouter } from '@angular/router';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -9,8 +12,18 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FooterComponent],
+      imports: [
+        FooterComponent,
+        TranslocoTestingModule.forRoot({
+          langs: { en: {}, sw: {} },
+          translocoConfig: {
+            availableLangs: ['en', 'sw'],
+            defaultLang: 'en',
+          },
+        }),
+      ],
       providers: [
+        provideRouter([]),
         {
           provide: ActivatedRoute,
           useValue: {
@@ -19,8 +32,7 @@ describe('FooterComponent', () => {
           }
         }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
