@@ -28,7 +28,7 @@ export class ContactComponent {
     // Simulate form submission
     console.log('Form submitted:', this.form);
     
-    this.successMessage = 'Thank you for contacting us! We will get back to you soon.';
+    this.successMessage = 'Thank you for contacting ECRA!';
     
     // Reset form
     this.form = { 

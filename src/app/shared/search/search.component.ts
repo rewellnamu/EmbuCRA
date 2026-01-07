@@ -25,8 +25,7 @@ export class SearchComponent {
 scrollingTexts: string[] = [
   '✨ Kulipa Ushuru ni Kujitegemea',
   '🎄 Happy New Year from ECRA!',
-  '🎉 Tax Compliance = Development',
-  '⭐ Festive Season Greetings',
+  '🎉⭐ Tax Compliance = Development',
   '🔔 Pay Taxes, Build Community',
   '🎄 Kulipa Ushuru Leo, Maendeleo Kesho',
   '🎊 Season of Giving, Season of Growth'

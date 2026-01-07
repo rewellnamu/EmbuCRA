@@ -7,7 +7,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  min-height: 100px;
+  min-height: 50px;
 
   // Modern Festive Scrolling Text - Behind everything
   .scrolling-text-container {
@@ -692,7 +692,7 @@
 @media (min-width: 1441px) {
   .search {
     padding: 1.5rem 2rem;
-    min-height: 110px;
+    min-height: 50px;
 
     .scrolling-text-container {
       &::before,
@@ -765,7 +765,7 @@
 @media (max-width: 1440px) and (min-width: 1025px) {
   .search {
     padding: 1.3rem 1.5rem;
-    min-height: 100px;
+    min-height: 50px;
   }
 }
 
@@ -970,6 +970,7 @@
       -webkit-animation-play-state: running;
       
       span {
+        font-family: cursive;
         font-size: 0.85rem;
         padding: 0 2rem;
         
