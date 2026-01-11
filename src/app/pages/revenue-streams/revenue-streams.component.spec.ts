@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { RevenueStreamsComponent } from './revenue-streams.component';
 
 describe('RevenueStreamsComponent', () => {
@@ -8,7 +8,17 @@ describe('RevenueStreamsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RevenueStreamsComponent]
+      imports: [
+        RevenueStreamsComponent,
+        TranslocoTestingModule.forRoot({
+          langs: { en: {} },
+          translocoConfig: {
+            availableLangs: ['en'],
+            defaultLang: 'en',
+          },
+          preloadLangs: true
+        })
+      ]
     })
     .compileComponents();
 

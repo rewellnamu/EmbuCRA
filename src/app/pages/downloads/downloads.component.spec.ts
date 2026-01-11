@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { DownloadsComponent } from './downloads.component';
 
 describe('DownloadsComponent', () => {
@@ -8,7 +8,17 @@ describe('DownloadsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DownloadsComponent]
+      imports: [
+        DownloadsComponent,
+        TranslocoTestingModule.forRoot({
+          langs: { en: {} },
+          translocoConfig: {
+            availableLangs: ['en'],
+            defaultLang: 'en',
+          },
+          preloadLangs: true
+        })
+      ]
     })
     .compileComponents();
 
