@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslocoModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'contact'
+    },
+  ],
 })
 export class ContactComponent {
   contacts = {
@@ -28,7 +35,7 @@ export class ContactComponent {
     // Simulate form submission
     console.log('Form submitted:', this.form);
     
-    this.successMessage = 'Thank you for contacting ECRA!';
+    this.successMessage = 'success'; // Changed to translation key
     
     // Reset form
     this.form = { 

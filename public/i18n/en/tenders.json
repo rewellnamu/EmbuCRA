@@ -1,0 +1,29 @@
+{
+  "header": {
+    "title": "Open Tenders",
+    "subtitle": "Browse current procurement opportunities from Embu County Revenue Authority."
+  },
+  "card": {
+    "closingLabel": "Closing",
+    "viewDetails": "View Details",
+    "downloadDocs": "Download Docs"
+  },
+  "modal": {
+    "category": "Category",
+    "description": "Description",
+    "openingDate": "Opening Date",
+    "closingDate": "Closing Date",
+    "status": "Status",
+    "estimatedValue": "Estimated Value",
+    "downloadDocs": "Download Docs"
+  },
+  "statuses": {
+    "open": "OPEN",
+    "closed": "CLOSED",
+    "awarded": "AWARDED"
+  },
+  "emptyState": "No tenders available at the moment. Please check back later.",
+  "alerts": {
+    "noDocument": "Document not available for this tender"
+  }
+}

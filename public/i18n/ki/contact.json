@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "Tumanĩrie",
+    "subtitle": "Twenda kwĩgua kuuma kũrĩ wee. Andũ aitũ marĩ haha gũkũteithia."
+  },
+  "cards": {
+    "phone": {
+      "title": "Thimu",
+      "hours": "Njumatatu-Njumaa 8 Rũciinĩ-5 Hwaĩ-inĩ"
+    },
+    "email": {
+      "title": "Marũa ma Thimu",
+      "response": "Tũkũcookeria ũhoro thĩinĩ wa mathaa 24"
+    },
+    "address": {
+      "title": "Handũ Tũrĩ",
+      "mapLink": "Rora merementi-inĩ"
+    }
+  },
+  "form": {
+    "title": "Tũtũmĩre Ũhoro",
+    "subtitle": "Iyũria fũmu ĩrĩa ĩrĩ rungu na tũkũcookeria o narua.",
+    "fields": {
+      "name": {
+        "label": "Rĩĩtwa Rĩaku Rĩothe",
+        "placeholder": "Rewell Munene",
+        "error": "Andĩka rĩĩtwa rĩaku"
+      },
+      "email": {
+        "label": "Marũa ma Thimu",
+        "placeholder": "Rewell@mfano.com",
+        "error": "Andĩka marũa ma thimu marĩa magĩrĩire"
+      },
+      "message": {
+        "label": "Ũhoro",
+        "placeholder": "Ũhoro waku...",
+        "error": "Andĩka ũhoro waku"
+      }
+    },
+    "submit": "Tũma Ũhoro",
+    "success": "Nĩtwakena mũno gũtũmanĩria ECRA!"
+  }
+}

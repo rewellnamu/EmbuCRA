@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "Wasiliana Nasi",
+    "subtitle": "Tungependa kusikia kutoka kwako. Timu yetu iko hapa kusaidia."
+  },
+  "cards": {
+    "phone": {
+      "title": "Simu",
+      "hours": "Jumatatu-Ijumaa 8 Asubuhi-5 Jioni"
+    },
+    "email": {
+      "title": "Barua Pepe",
+      "response": "Tutajibu ndani ya masaa 24"
+    },
+    "address": {
+      "title": "Anwani",
+      "mapLink": "Tazama kwenye ramani"
+    }
+  },
+  "form": {
+    "title": "Tutumie Ujumbe",
+    "subtitle": "Jaza fomu hapa chini na tutakujibu hivi karibuni.",
+    "fields": {
+      "name": {
+        "label": "Jina Kamili",
+        "placeholder": "Rewell Munene",
+        "error": "Tafadhali weka jina lako"
+      },
+      "email": {
+        "label": "Barua Pepe",
+        "placeholder": "Rewell@mfano.com",
+        "error": "Tafadhali weka barua pepe sahihi"
+      },
+      "message": {
+        "label": "Ujumbe",
+        "placeholder": "Ujumbe wako...",
+        "error": "Tafadhali weka ujumbe wako"
+      }
+    },
+    "submit": "Tuma Ujumbe",
+    "success": "Asante kwa kuwasiliana na ECRA!"
+  }
+}

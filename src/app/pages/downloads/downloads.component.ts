@@ -1,48 +1,60 @@
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule, TRANSLOCO_SCOPE, TranslocoService } from '@jsverse/transloco';
 
 @Pipe({ name: 'fileType', standalone: true })
 export class FileTypePipe implements PipeTransform {
+  constructor(private translocoService: TranslocoService) {}
+
   transform(link: string): string {
-    if (link.endsWith('.pdf')) return 'PDF Document';
-    if (link.endsWith('.doc') || link.endsWith('.docx')) return 'Word Document';
+    const scope = 'downloads';
+    if (link.endsWith('.pdf')) 
+      return this.translocoService.translate(`${scope}.fileTypes.pdf`);
+    if (link.endsWith('.doc') || link.endsWith('.docx')) 
+      return this.translocoService.translate(`${scope}.fileTypes.word`);
     if (link.endsWith('.xls') || link.endsWith('.xlsx'))
-      return 'Excel Spreadsheet';
-    return 'File';
+      return this.translocoService.translate(`${scope}.fileTypes.excel`);
+    return this.translocoService.translate(`${scope}.fileTypes.file`);
   }
 }
 
 @Component({
   selector: 'app-downloads',
   standalone: true,
-  imports: [CommonModule, FileTypePipe],
+  imports: [CommonModule, FileTypePipe, TranslocoModule],
   templateUrl: './downloads.component.html',
   styleUrls: ['./downloads.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'downloads'
+    },
+  ],
 })
 export class DownloadsComponent {
   files = [
     {
-      name: 'Revenue Payment Guidelines (PDF)',
+      nameKey: 'files.revenueGuidelines',
       link: '/assets/docs/guidelines.pdf',
     },
     {
-      name: 'Business Permit Application Form (PDF)',
+      nameKey: 'files.permitForm',
       link: '/assets/docs/permit-form.pdf',
     },
     {
-      name: 'Tax Compliance Requirements (DOCX)',
+      nameKey: 'files.taxCompliance',
       link: '/assets/docs/tax-compliance.docx',
     },
     {
-      name: 'Annual Financial Report Template (XLSX)',
+      nameKey: 'files.financialReport',
       link: '/assets/docs/financial-report.xlsx',
     },
     {
-      name: 'Procurement Procedures Manual (PDF)',
+      nameKey: 'files.procurementManual',
       link: '/assets/docs/procurement-manual.pdf',
     },
     {
-      name: 'Employee Code of Conduct (DOC)',
+      nameKey: 'files.codeOfConduct',
       link: '/assets/docs/code-of-conduct.doc',
     }
   ];

@@ -1,26 +1,26 @@
-<section class="tenders">
+<section class="tenders" *transloco="let t; read: 'tenders'">
   <div class="tenders-header">
-    <h1>Open Tenders</h1>
+    <h1>{{ t('header.title') }}</h1>
     <p class="subtitle">
-      Browse current procurement opportunities from Embu County Revenue Authority.
+      {{ t('header.subtitle') }}
     </p>
   </div>
 
   <div class="tenders-grid">
-    <div class="tender-card" *ngFor="let t of tenders">
+    <div class="tender-card" *ngFor="let tender of tenders">
       <div class="tender-info">
-        <h2>{{ t.title }}</h2>
+        <h2>{{ tender.title }}</h2>
         <div class="tender-meta">
-          <span class="closing-label">Closing:</span>
-          <span class="closing-date">{{ t.closingDate | date : "dd MMM yyyy" }}</span>
+          <span class="closing-label">{{ t('card.closingLabel') }}:</span>
+          <span class="closing-date">{{ tender.closingDate | date : "dd MMM yyyy" }}</span>
         </div>
       </div>
       <div class="tender-actions">
-        <button class="btn btn-primary" (click)="openTenderDetails(t)">
-          View Details
+        <button class="btn btn-primary" (click)="openTenderDetails(tender)">
+          {{ t('card.viewDetails') }}
         </button>
-        <button class="btn btn-outline" (click)="downloadTenderDocs(t)">
-          Download Docs
+        <button class="btn btn-outline" (click)="downloadTenderDocs(tender)">
+          {{ t('card.downloadDocs') }}
         </button>
       </div>
     </div>
@@ -28,7 +28,7 @@
 
   <!-- Empty State -->
   <div *ngIf="tenders.length === 0" class="empty-state">
-    <p>No tenders available at the moment. Please check back later.</p>
+    <p>{{ t('emptyState') }}</p>
   </div>
 
   <!-- Professional Tender Details Modal -->
@@ -41,20 +41,20 @@
         </button>
       </div>
       <div class="popup-body">
-        <p><strong>Category:</strong> {{ selectedTender.category }}</p>
-        <p><strong>Description:</strong> {{ selectedTender.description }}</p>
-        <p><strong>Opening Date:</strong> {{ selectedTender.openingDate | date : "fullDate" }}</p>
-        <p><strong>Closing Date:</strong> {{ selectedTender.closingDate | date : "fullDate" }}</p>
-        <p><strong>Status:</strong> 
+        <p><strong>{{ t('modal.category') }}:</strong> {{ selectedTender.category }}</p>
+        <p><strong>{{ t('modal.description') }}:</strong> {{ selectedTender.description }}</p>
+        <p><strong>{{ t('modal.openingDate') }}:</strong> {{ selectedTender.openingDate | date : "fullDate" }}</p>
+        <p><strong>{{ t('modal.closingDate') }}:</strong> {{ selectedTender.closingDate | date : "fullDate" }}</p>
+        <p><strong>{{ t('modal.status') }}:</strong> 
           <span [style.color]="getStatusColor(selectedTender.status)">
-            {{ selectedTender.status | uppercase }}
+            {{ t('statuses.' + selectedTender.status) }}
           </span>
         </p>
-        <p *ngIf="selectedTender.value"><strong>Estimated Value:</strong> {{ formatCurrency(selectedTender.value) }}</p>
+        <p *ngIf="selectedTender.value"><strong>{{ t('modal.estimatedValue') }}:</strong> {{ formatCurrency(selectedTender.value) }}</p>
         
         <div class="popup-actions">
           <button class="btn btn-outline" (click)="downloadTenderDocs(selectedTender)">
-            Download Docs
+            {{ t('modal.downloadDocs') }}
           </button>
         </div>
       </div>

@@ -1,0 +1,29 @@
+{
+  "header": {
+    "title": "Zabuni Iria Cĩgũre",
+    "subtitle": "Rora mahithi ma kũgũra maria marĩ kũu kuuma Mamlaka ya Mbeca cia Kaunti ya Embu."
+  },
+  "card": {
+    "closingLabel": "Gũkinyia",
+    "viewDetails": "Rora Ũhoro",
+    "downloadDocs": "Ikũria Mbuku"
+  },
+  "modal": {
+    "category": "Rũgongo",
+    "description": "Ũhoro",
+    "openingDate": "Mũthenya wa Kũgũra",
+    "closingDate": "Mũthenya wa Kũhinga",
+    "status": "Hali",
+    "estimatedValue": "Thamani Inayokadiriwa",
+    "downloadDocs": "Ikũria Mbuku"
+  },
+  "statuses": {
+    "open": "NĨCĨGŨRE",
+    "closed": "NĨCĨHINGĨTE",
+    "awarded": "NĨCIAHEIRWO"
+  },
+  "emptyState": "Hatirĩ zabuni irĩ kũu riu. Coka rĩngĩ rũciinĩ.",
+  "alerts": {
+    "noDocument": "Mbuku ndĩrĩ kũu kũrĩ zabuni ino"
+  }
+}

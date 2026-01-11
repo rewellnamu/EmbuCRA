@@ -1,0 +1,11 @@
+{
+  "title": "Revenue Streams",
+  "streams": {
+    "businessPermits": "Business Permits",
+    "landRates": "Land Rates",
+    "parkingFees": "Parking Fees",
+    "marketFees": "Market Fees",
+    "cessCollection": "Cess Collection",
+    "advertising": "Advertising & Billboards"
+  }
+}

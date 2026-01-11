@@ -1,9 +1,8 @@
-<section class="news">
+<section class="news" *transloco="let t; read: 'news'">
   <div class="news-header">
-    <h1>Latest News & Updates</h1>
+    <h1>{{ t('header.title') }}</h1>
     <p class="subtitle">
-      Stay informed with the latest developments and announcements from Embu
-      County Revenue Authority.
+      {{ t('header.subtitle') }}
     </p>
   </div>
   <div class="news-grid">
@@ -18,5 +17,10 @@
         <p class="desc">{{ n.desc }}</p>
       </div>
     </div>
+  </div>
+  
+  <!-- Empty State -->
+  <div *ngIf="news.length === 0" class="empty-state">
+    <p>{{ t('emptyState') }}</p>
   </div>
 </section>

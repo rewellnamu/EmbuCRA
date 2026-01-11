@@ -34,59 +34,63 @@ scrollingTexts: string[] = [
   // ✅ Expanded searchable data
   pages: SearchItem[] = [
     { 
-      name: 'Home', 
+      name: 'Within Home', 
       path: '/', 
       description: 'Overview of the Embu County Revenue Authority', 
-      keywords: ['main', 'dashboard', 'overview'], 
+      keywords: ['main', 'dashboard', 'overview','directors','management','performance'], 
       category: 'General' 
     },
     { 
-      name: 'About', 
+      name: 'Within About', 
       path: '/about', 
       description: 'Learn more about ECRA’s mission, vision, and leadership', 
-      keywords: ['info', 'organization', 'who we are'], 
+      keywords: ['info', 'organization', 'who we are','overview','vision',
+      'mission','mandate','values'], 
       category: 'General' 
     },
     { 
-      name: 'Departments', 
+      name: 'Within Departments', 
       path: '/departments', 
       description: 'Explore our functional departments handling revenue services', 
-      keywords: ['division', 'units', 'sections'], 
+      keywords: ['division', 'units', 'sections','finance','planning','trade',
+        'tourism','lands','housing','ict','roads','transport','youth','gender',
+        'sports','education','agriculture','livestock','water','health'], 
       category: 'Services' 
     },
     { 
-      name: 'Services', 
+      name: 'Within Services', 
       path: '/services', 
       description: 'List of public services, licensing, and revenue management tools', 
-      keywords: ['payments', 'permits', 'tax', 'licensing'], 
-      category: 'Services' 
+      keywords: ['payments', 'permits', 'tax', 'licensing','land rates','parking',
+        'construction','building','water','cess'], 
+      category: 'Services'
     },
     { 
-      name: 'News', 
+      name: 'Within News', 
       path: '/news', 
       description: 'Stay updated with the latest ECRA announcements and updates', 
       keywords: ['updates', 'press', 'events'], 
       category: 'Media' 
     },
     { 
-      name: 'Tenders', 
+      name: 'Within Tenders', 
       path: '/tenders', 
       description: 'Procurement opportunities and tender announcements', 
       keywords: ['procurement', 'bids', 'contracts'], 
       category: 'Procurement' 
     },
     { 
-      name: 'Downloads', 
+      name: 'Within Downloads', 
       path: '/downloads', 
       description: 'Download official forms, reports, and documents', 
       keywords: ['forms', 'pdf', 'documents'], 
       category: 'Resources' 
     },
     { 
-      name: 'Contact', 
+      name: 'Within Contact', 
       path: '/contact', 
       description: 'Reach out to us for inquiries or feedback', 
-      keywords: ['support', 'help', 'call', 'email'], 
+      keywords: ['support', 'help', 'call', 'email','phone','address'], 
       category: 'Support' 
     },
   ];

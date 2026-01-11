@@ -1,0 +1,11 @@
+{
+  "title": "Vyanzo vya Mapato",
+  "streams": {
+    "businessPermits": "Vibali vya Biashara",
+    "landRates": "Kodi ya Ardhi",
+    "parkingFees": "Ada za Maegesho ya Magari",
+    "marketFees": "Ada za Soko",
+    "cessCollection": "Ukusanyaji wa Cess",
+    "advertising": "Matangazo na Bango"
+  }
+}

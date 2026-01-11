@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "Get In Touch",
+    "subtitle": "We'd love to hear from you. Our team is here to help."
+  },
+  "cards": {
+    "phone": {
+      "title": "Phone",
+      "hours": "Mon-Fri 8AM-5PM"
+    },
+    "email": {
+      "title": "Email",
+      "response": "We'll respond within 24hrs"
+    },
+    "address": {
+      "title": "Address",
+      "mapLink": "View on map"
+    }
+  },
+  "form": {
+    "title": "Send Us a Message",
+    "subtitle": "Fill out the form below and we'll get back to you shortly.",
+    "fields": {
+      "name": {
+        "label": "Full Name",
+        "placeholder": "Rewell Munene",
+        "error": "Please enter your name"
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "Rewell@example.com",
+        "error": "Please enter a valid email"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Message | Ujumbe...",
+        "error": "Please enter your message"
+      }
+    },
+    "submit": "Send Message",
+    "success": "Thank you for contacting ECRA!"
+  }
+}

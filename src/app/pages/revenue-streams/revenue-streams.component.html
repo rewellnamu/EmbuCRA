@@ -1,6 +1,8 @@
-<section class="streams">
-  <h1>Revenue Streams</h1>
+<section class="streams" *transloco="let t; read: 'revenuestreams'">
+  <h1>{{ t('title') }}</h1>
   <ul>
-    <li *ngFor="let stream of streams">{{ stream }}</li>
+    <li *ngFor="let stream of streams">
+      {{ t('streams.' + stream) }}
+    </li>
   </ul>
 </section>

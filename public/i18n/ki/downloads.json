@@ -1,0 +1,18 @@
+{
+  "title": "Ikũria",
+  "downloadBtn": "Ikũria",
+  "fileTypes": {
+    "pdf": "Ibuku rĩa PDF",
+    "word": "Ibuku rĩa Word",
+    "excel": "Jedwali ya Excel",
+    "file": "Faili"
+  },
+  "files": {
+    "revenueGuidelines": "Miongozo ya Kũrĩha Mbeca cia Kaunti (PDF)",
+    "permitForm": "Fũmu ya Gũthaitha Kibali kĩa Wonjoria (PDF)",
+    "taxCompliance": "Mahitaji ma Kũrũmĩrĩra Kodi (DOCX)",
+    "financialReport": "Kiolezo kĩa Rũgani rwa Mbeca ya Mwaka (XLSX)",
+    "procurementManual": "Mwongozo wa Mĩtugo ya Kũgũra (PDF)",
+    "codeOfConduct": "Mawatho ma Mĩtugo ya Aruti a Wĩra (DOC)"
+  }
+}

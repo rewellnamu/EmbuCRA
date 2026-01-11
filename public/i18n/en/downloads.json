@@ -1,0 +1,18 @@
+{
+  "title": "Downloads",
+  "downloadBtn": "Download",
+  "fileTypes": {
+    "pdf": "PDF Document",
+    "word": "Word Document",
+    "excel": "Excel Spreadsheet",
+    "file": "File"
+  },
+  "files": {
+    "revenueGuidelines": "Revenue Payment Guidelines (PDF)",
+    "permitForm": "Business Permit Application Form (PDF)",
+    "taxCompliance": "Tax Compliance Requirements (DOCX)",
+    "financialReport": "Annual Financial Report Template (XLSX)",
+    "procurementManual": "Procurement Procedures Manual (PDF)",
+    "codeOfConduct": "Employee Code of Conduct (DOC)"
+  }
+}

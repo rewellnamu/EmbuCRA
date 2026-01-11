@@ -1,17 +1,17 @@
-<section class="downloads">
-  <h1>Downloads</h1>
+<section class="downloads" *transloco="let t; read: 'downloads'">
+  <h1>{{ t('title') }}</h1>
   <div class="downloads-list">
     <div class="download-card" *ngFor="let f of files">
       <div class="file-icon">
         <span class="material-icons">description</span>
       </div>
       <div class="file-info">
-        <div class="file-name">{{ f.name }}</div>
+        <div class="file-name">{{ t(f.nameKey) }}</div>
         <div class="file-meta">{{ f.link | fileType }}</div>
       </div>
       <a class="download-btn" [href]="f.link" download>
         <span class="material-icons">download</span>
-        Download
+        {{ t('downloadBtn') }}
       </a>
     </div>
   </div>

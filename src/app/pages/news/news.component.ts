@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 import { NewsService, NewsArticle } from '../../services/news.service';
 import { Subscription } from 'rxjs';
 
@@ -12,9 +13,15 @@ interface NewsItem {
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './news.component.html',
-  styleUrls: ['./news.component.scss']
+  styleUrls: ['./news.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'news'
+    },
+  ],
 })
 export class NewsComponent implements OnInit, OnDestroy {
   news: NewsItem[] = [];

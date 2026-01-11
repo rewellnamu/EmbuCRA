@@ -1,0 +1,18 @@
+{
+  "title": "Pakua",
+  "downloadBtn": "Pakua",
+  "fileTypes": {
+    "pdf": "Hati ya PDF",
+    "word": "Hati ya Word",
+    "excel": "Jedwali la Excel",
+    "file": "Faili"
+  },
+  "files": {
+    "revenueGuidelines": "Mwongozo wa Malipo ya Mapato (PDF)",
+    "permitForm": "Fomu ya Maombi ya Kibali cha Biashara (PDF)",
+    "taxCompliance": "Mahitaji ya Kufuata Kodi (DOCX)",
+    "financialReport": "Kiolezo cha Ripoti ya Fedha ya Mwaka (XLSX)",
+    "procurementManual": "Mwongozo wa Taratibu za Ununuzi (PDF)",
+    "codeOfConduct": "Kanuni za Maadili za Wafanyakazi (DOC)"
+  }
+}

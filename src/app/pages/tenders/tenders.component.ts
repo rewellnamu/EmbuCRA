@@ -1,14 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 import { TendersService, Tender } from '../../services/tenders.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tenders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './tenders.component.html',
   styleUrls: ['./tenders.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'tenders'
+    },
+  ],
 })
 export class TendersComponent implements OnInit, OnDestroy {
   tenders: Tender[] = [];
@@ -40,7 +47,8 @@ export class TendersComponent implements OnInit, OnDestroy {
     if (tender.documentUrl) {
       window.open(tender.documentUrl, '_blank');
     } else {
-      alert('Document not available for "' + tender.title + '"');
+      // Alert message will be translated in template
+      this.selectedTender = tender;
     }
   }
 

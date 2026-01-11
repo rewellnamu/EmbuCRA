@@ -1,0 +1,29 @@
+{
+  "header": {
+    "title": "Zabuni Zilizofunguliwa",
+    "subtitle": "Angalia fursa za ununuzi zinazoendelea kutoka Mamlaka ya Mapato ya Kaunti ya Embu."
+  },
+  "card": {
+    "closingLabel": "Tarehe ya Kufunga",
+    "viewDetails": "Angalia Maelezo",
+    "downloadDocs": "Pakua Hati"
+  },
+  "modal": {
+    "category": "Kategoria",
+    "description": "Maelezo",
+    "openingDate": "Tarehe ya Kufungua",
+    "closingDate": "Tarehe ya Kufunga",
+    "status": "Hali",
+    "estimatedValue": "Thamani Inayokadiriwa",
+    "downloadDocs": "Pakua Hati"
+  },
+  "statuses": {
+    "open": "WAZI",
+    "closed": "IMEFUNGWA",
+    "awarded": "IMETOLEWA"
+  },
+  "emptyState": "Hakuna zabuni zinazopatikana kwa sasa. Tafadhali rudi baadaye.",
+  "alerts": {
+    "noDocument": "Hati haipatikani kwa zabuni hii"
+  }
+}

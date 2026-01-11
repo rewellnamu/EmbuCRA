@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "Tumanirie",
+    "subtitle": "Twendete kwigua kuuma kuriwe. Andu aitu mari haha gukuteithia."
+  },
+  "cards": {
+    "phone": {
+      "title": "Thimu",
+      "hours": "Njumatatu-Njumaa 8 Rucini-5 Hwaini"
+    },
+    "email": {
+      "title": "Marũa ma Thimu",
+      "response": "Tukumwirithia thii ya mataa 24"
+    },
+    "address": {
+      "title": "Kuria Turi",
+      "mapLink": "Rora ramani-ini"
+    }
+  },
+  "form": {
+    "title": "Tutumire Njira",
+    "subtitle": "Ithia fomu iria iri rungu na tukumwirithia o narua.",
+    "fields": {
+      "name": {
+        "label": "Ritwa Riothe",
+        "placeholder": "Rewell Munene",
+        "error": "Andika ritwa riaku"
+      },
+      "email": {
+        "label": "Marũa ma Thimu",
+        "placeholder": "Rewell@mfano.com",
+        "error": "Andika barua pepe njega"
+      },
+      "message": {
+        "label": "Njira",
+        "placeholder": "Njira yaku...",
+        "error": "Andika njira yaku"
+      }
+    },
+    "submit": "Tuma Njira",
+    "success": "Niwega muno gutumaniria ECRA!"
+  }
+}

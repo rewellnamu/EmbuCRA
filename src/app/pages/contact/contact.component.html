@@ -1,10 +1,10 @@
-<section class="contact">
+<section class="contact" *transloco="let t; read: 'contact'">
   <div class="contact-container">
     <!-- Left side: contact info -->
     <div class="contact-info">
       <div class="info-header">
-        <h1>Get In Touch</h1>
-        <p class="subtitle">We'd love to hear from you. Our team is here to help.</p>
+        <h1>{{ t('header.title') }}</h1>
+        <p class="subtitle">{{ t('header.subtitle') }}</p>
       </div>
 
       <div class="info-cards">
@@ -13,9 +13,9 @@
             <span class="material-icons">phone</span>
           </div>
           <div class="card-content">
-            <h3>Phone</h3>
+            <h3>{{ t('cards.phone.title') }}</h3>
             <a href="tel:0718500767">{{ contacts.phone }}</a>
-            <p class="card-subtext">Mon-Fri 8AM-5PM</p>
+            <p class="card-subtext">{{ t('cards.phone.hours') }}</p>
           </div>
         </div>
 
@@ -24,9 +24,9 @@
             <span class="material-icons">email</span>
           </div>
           <div class="card-content">
-            <h3>Email</h3>
+            <h3>{{ t('cards.email.title') }}</h3>
             <a href="mailto:ecra@embu.go.ke">{{ contacts.email }}</a>
-            <p class="card-subtext">We'll respond within 24hrs</p>
+            <p class="card-subtext">{{ t('cards.email.response') }}</p>
           </div>
         </div>
 
@@ -35,9 +35,11 @@
             <span class="material-icons">location_on</span>
           </div>
           <div class="card-content">
-            <h3>Address</h3>
+            <h3>{{ t('cards.address.title') }}</h3>
             <p>{{ contacts.address }}</p>
-            <a href="https://www.google.com/maps/search/?api=1&query={{ contacts.address }}" class="map-link">View on map →</a>
+            <a href="https://www.google.com/maps/search/?api=1&query={{ contacts.address }}" class="map-link">
+              {{ t('cards.address.mapLink') }} →
+            </a>
           </div>
         </div>
       </div>
@@ -51,37 +53,41 @@
         #contactForm="ngForm"
         autocomplete="off"
       >
-        <h2>Send Us a Message</h2>
-        <p class="form-subtitle">Fill out the form below and we'll get back to you shortly.</p>
+        <h2>{{ t('form.title') }}</h2>
+        <p class="form-subtitle">{{ t('form.subtitle') }}</p>
 
         <div class="form-group">
-          <label for="name">Full Name <span class="required">*</span></label>
+          <label for="name">
+            {{ t('form.fields.name.label') }} <span class="required">*</span>
+          </label>
           <div class="input-wrapper">
             <span class="material-icons input-icon">person</span>
             <input
               id="name"
               type="text"
               name="name"
-              placeholder="Rewell Munene"
+              [placeholder]="t('form.fields.name.placeholder')"
               required
               [(ngModel)]="form.name"
               #nameInput="ngModel"
             />
           </div>
           <span class="error-message" *ngIf="nameInput.invalid && nameInput.touched">
-            Please enter your name
+            {{ t('form.fields.name.error') }}
           </span>
         </div>
 
         <div class="form-group">
-          <label for="email">Email Address <span class="required">*</span></label>
+          <label for="email">
+            {{ t('form.fields.email.label') }} <span class="required">*</span>
+          </label>
           <div class="input-wrapper">
             <span class="material-icons input-icon">email</span>
             <input
               id="email"
               type="email"
               name="email"
-              placeholder="Rewell@example.com"
+              [placeholder]="t('form.fields.email.placeholder')"
               required
               email
               [(ngModel)]="form.email"
@@ -89,18 +95,20 @@
             />
           </div>
           <span class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
-            Please enter a valid email
+            {{ t('form.fields.email.error') }}
           </span>
         </div>
 
         <div class="form-group">
-          <label for="message">Message <span class="required">*</span></label>
+          <label for="message">
+            {{ t('form.fields.message.label') }} <span class="required">*</span>
+          </label>
           <div class="input-wrapper">
             <span class="material-icons input-icon textarea-icon">message</span>
             <textarea
               id="message"
               name="message"
-              placeholder="Message | Ujumbe..."
+              [placeholder]="t('form.fields.message.placeholder')"
               rows="5"
               required
               [(ngModel)]="form.message"
@@ -108,18 +116,18 @@
             ></textarea>
           </div>
           <span class="error-message" *ngIf="messageInput.invalid && messageInput.touched">
-            Please enter your message
+            {{ t('form.fields.message.error') }}
           </span>
         </div>
 
         <button type="submit" [disabled]="contactForm.invalid" class="submit-btn">
-          <span class="btn-text">Send Message</span>
+          <span class="btn-text">{{ t('form.submit') }}</span>
           <span class="material-icons btn-icon">send</span>
         </button>
 
         <div class="form-success" *ngIf="successMessage">
           <span class="material-icons">check_circle</span>
-          <span>{{ successMessage }}</span>
+          <span>{{ t('form.' + successMessage) }}</span>
         </div>
       </form>
     </div>
