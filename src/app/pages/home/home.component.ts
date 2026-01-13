@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   backgroundImages: string[] = [
     'assets/GOV.jpg',
     'assets/EMBFLAG.png',
+    'assets/post.jpg',
     'assets/embrewell.jpg',
     'assets/ecrabanner.png',
     'assets/mount.png',
